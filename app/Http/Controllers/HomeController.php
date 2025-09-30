@@ -24,6 +24,11 @@ class HomeController extends Controller
                 'tanggal'    => '2025-10-25',
                 'tema'       => 'Penyuluhan Gizi Seimbang',
                 'keterangan' => 'Edukasi pentingnya gizi seimbang bagi ibu dan anak.'
+            ],
+            [
+                'tanggal'    => '2025-10-18',
+                'tema'       => 'Penyuluhan Gizi Seimbang',
+                'keterangan' => 'Edukasi pentingnya gizi seimbang bagi ibu dan anak.'
             ]
         ];
 
