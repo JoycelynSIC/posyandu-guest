@@ -15,7 +15,7 @@
 
     <h2>📅 Jadwal Kegiatan Posyandu</h2>
 
-    @if (count($jadwal_posyandu) > 0)
+    @wal_posyif (count($jadandu) > 0)
         <table border="1" cellpadding="10" cellspacing="0" style="width: 100%; background-color: white; border-collapse: collapse;">
             <tr style="background-color: #28a745; color: white;">
                 <th>Tanggal</th>
