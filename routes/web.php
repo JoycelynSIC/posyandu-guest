@@ -4,6 +4,8 @@ use App\Http\Controllers\IndexController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\WargaController;
+use App\Http\Controllers\PosyanduController; 
 
 Route::get('/', function () {
     return view('welcome');
@@ -16,3 +18,5 @@ Route::get('/auth/welcome', function () {
     return view('auth.welcome', ['username' => session('username')]);
 })->name('auth.welcome');
 Route::get('/dashboard', [IndexController::class,'index']);
+Route::resource('warga', WargaController::class);
+Route::resource('posyandu', PosyanduController::class);
