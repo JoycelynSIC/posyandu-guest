@@ -11,24 +11,43 @@
                             <i class="fas fa-map-marker-alt text-primary me-2"></i>Bina Desa
                         </a>
                     </div>
+
+                    {{-- ✅ Bagian Email yang Diperbaiki --}}
                     <div class="ps-3">
-                        <a href="mailto:example@gmail.com" class="text-muted small">
-                            <i class="fas fa-envelope text-primary me-2"></i>example@gmail.com
-                        </a>
+                        @if (Auth::check())
+                            <a href="{{ route('profile') }}" class="text-muted small">
+                                <i class="fas fa-envelope text-primary me-2"></i>
+                                {{ Auth::user()->email }}
+                            </a>
+                        @else
+                            <a href="mailto:example@gmail.com" class="text-muted small">
+                                <i class="fas fa-envelope text-primary me-2"></i>example@gmail.com
+                            </a>
+                        @endif
                     </div>
                 </div>
             </div>
+
             <div class="col-lg-4 text-center text-lg-end">
-                <div class="d-flex justify-content-end">
-                    <div class="d-flex border-end border-primary pe-3">
-                        <a class="btn p-0 text-primary me-3" href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a class="btn p-0 text-primary me-3" href="#"><i class="fab fa-twitter"></i></a>
-                        <a class="btn p-0 text-primary me-3" href="#"><i class="fab fa-instagram"></i></a>
-                        <a class="btn p-0 text-primary me-0" href="#"><i class="fab fa-linkedin-in"></i></a>
+                <div class="d-flex justify-content-end align-items-center">
+                    <div class="d-flex align-items-center border-end border-primary pe-3">
+                        @guest
+                            <small>
+                                <a href="{{ route('login') }}" class="btn btn-link nav-item nav-link p-0 m-0">Login</a>
+                            </small>
+                        @else
+                            <form action="{{ route('logout') }}" method="POST" class="d-inline m-0">
+                                @csrf
+                                <button type="submit" class="btn btn-link nav-item nav-link text-danger p-0 m-0">
+                                    Logout
+                                </button>
+                            </form>
+                        @endguest
                     </div>
-                    <div class="dropdown ms-3">
-                        <a href="#" class="dropdown-toggle text-dark" data-bs-toggle="dropdown">
-                            <small><i class="fas fa-globe-europe text-primary me-2"></i> Indonesia</small>
+
+                    <div class="dropdown ms-3 d-flex align-items-center">
+                        <a href="#" class="dropdown-toggle text-dark d-flex align-items-center" data-bs-toggle="dropdown">
+                            <i class="fas fa-globe-europe text-primary me-2"></i> Indonesia
                         </a>
                         <div class="dropdown-menu rounded">
                             <a href="#" class="dropdown-item">Indonesia</a>
@@ -46,7 +65,6 @@
 </div>
 <!-- Topbar End -->
 
-
 <!-- Navbar Start -->
 <div class="container-fluid nav-bar px-0 px-lg-4 py-lg-0">
     <div class="container">
@@ -60,9 +78,22 @@
 
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav mx-0 mx-lg-auto">
-                    <a href="{{ url('/dashboard') }}" class="nav-item nav-link {{ request()->is('dashboard') ? 'active' : '' }}">Home</a>
-                    <a href="{{ route('warga.index') }}" class="nav-item nav-link {{ request()->is('warga*') ? 'active' : '' }}">Data Warga</a>
-                    <a href="{{ route('posyandu.index') }}" class="nav-item nav-link {{ request()->is('posyandu*') ? 'active' : '' }}">Data Posyandu</a>
+                    <a href="{{ url('/dashboard') }}"
+                        class="nav-item nav-link {{ request()->is('dashboard') ? 'active' : '' }}">Home</a>
+
+                    <!-- 🔽 Menu Dropdown Data -->
+                    <div class="nav-item dropdown">
+                        <a href="#"
+                            class="nav-link dropdown-toggle {{ request()->is('warga*') || request()->is('posyandu*') ? 'active' : '' }}"
+                            data-bs-toggle="dropdown">
+                            Data
+                        </a>
+                        <div class="dropdown-menu">
+                            <a href="{{ route('warga.index') }}" class="dropdown-item">Data Warga</a>
+                            <a href="{{ route('posyandu.index') }}" class="dropdown-item">Data Posyandu</a>
+                        </div>
+                    </div>
+
                     <a href="/about" class="nav-item nav-link">Tentang Kami</a>
                     <a href="/service" class="nav-item nav-link">Layanan</a>
                     <a href="/blog" class="nav-item nav-link">Blog</a>
@@ -87,3 +118,20 @@
     </div>
 </div>
 <!-- Navbar End -->
+
+<!-- Notifikasi (Alert) Start -->
+@if (session('success') || session('error'))
+    <div class="container mt-2">
+        <div class="alert 
+                @if(session('success')) alert-success 
+                @elseif(session('error')) alert-danger 
+                @endif 
+                alert-dismissible fade show text-center shadow-sm" role="alert" style="border-radius: 8px;">
+
+            {{ session('success') ?? session('error') }}
+
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+@endif
+<!-- Notifikasi (Alert) End -->

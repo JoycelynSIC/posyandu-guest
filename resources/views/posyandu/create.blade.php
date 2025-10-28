@@ -1,22 +1,8 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="utf-8">
-    <title>Edit Data Posyandu</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-    <link href="{{ asset('assets/lib/animate/animate.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/lib/lightbox/css/lightbox.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
-</head>
-<body class="bg-light">
+@extends('layouts.main')
 
-    {{-- Header --}}
-    @include('komponen.header')
+@section('title', 'tambahposyandu')
 
+@section('content')
     <div class="container py-5">
         <h2 class="text-center text-primary fw-bold mb-4">Tambah Data Posyandu</h2>
 
@@ -84,9 +70,6 @@
                 </div>
             </form>
         </div>
+        
     </div>
-
-    <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
-</body>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-</html>
+@endsection

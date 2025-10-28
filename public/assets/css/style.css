@@ -209,6 +209,47 @@
     color: var(--bs-white);
 }
 
+.warga-card {
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            text-align: center;
+            padding: 25px 15px;
+            transition: all 0.3s ease;
+        }
+        .warga-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+        }
+        .warga-card img {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+        }
+        .warga-card h5 {
+            font-weight: 600;
+            color: #333;
+        }
+        .warga-card p {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        .tag {
+            display: inline-block;
+            background: #eef3ff;
+            color: #2563eb;
+            border-radius: 15px;
+            padding: 3px 10px;
+            font-size: 12px;
+            margin: 3px;
+        }
+        .action-btns a, .action-btns form {
+            display: inline-block;
+        }
+        
 @media (min-width: 992px) {
     .navbar {
         padding: 20px 0;

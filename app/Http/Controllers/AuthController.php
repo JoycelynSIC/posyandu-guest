@@ -3,90 +3,69 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 
 class AuthController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
+    {
+        return redirect()->route('dashboard');
+    }
+
+    public function showLogin()
     {
         return view('auth.login');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function showRegister()
     {
-        //
+        return view('auth.register');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function register(Request $request)
     {
-        //
-    }
+        $request->validate([
+            'name' => 'required|min:3',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:6|confirmed',
+        ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+        // Simpan user baru
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
+        // Setelah register langsung login
+        $user = User::where('email', $request->email)->first();
+        Auth::login($user);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return redirect()->route('dashboard')->with('success', 'Registrasi berhasil! Selamat datang,' . $user->name . '!');
     }
 
     public function login(Request $request)
     {
-        $username = $request->input('username');
-        $password = $request->input('password');
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
 
-        //Mengecek apakah username & password kosong
-        if (empty($username) || empty($password)) {
-            return redirect()->back()->with('error', 'Username & password wajib diisi.');
+        $user = User::where('email', $request->email)->first();
+
+        if (!$user || !Hash::check($request->password, $user->password)) {
+            return back()->withErrors(['email' => 'Email atau password salah'])->withInput();
         }
 
-        //Mengecek panjang password minimal 3 karakter
-        if (strlen($password) < 3) {
-            return redirect()->back()->with('error', 'Password minimal harus 3 karakter.');
-        }
+        Auth::login($user);
+        return redirect()->route('dashboard')->with('success', 'Selamat datang, ' . $user->name . '!');
+    }
 
-        //Mengecek apakah password mengandung huruf kapital
-        if (!preg_match('/[A-Z]/', $password)) {
-            return redirect()->back()->with('error', 'Password harus mengandung huruf kapital.');
-        }
-
-        //ika semua rule berhasil → simpan username ke session
-        session(['username' => $username]);
-
-        //Mengarahkan ke halaman baru 
-        return redirect()->route('auth.welcome');
+    public function logout()
+    {
+        Auth::logout();
+        return redirect()->route('login')->with('success', 'Anda telah logout.');
     }
 }
-
