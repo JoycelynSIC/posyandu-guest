@@ -45,26 +45,42 @@ class UserController extends Controller
         return view('users.edit', compact('user'));
     }
 
-    public function update(Request $request, User $user)
-    {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:users,email,' . $user->id,
-        ]);
+    public function update(Request $request, $id)
+{
+    $user = User::findOrFail($id);
 
-        $data = [
-            'name' => $request->name,
-            'email' => $request->email,
-        ];
+    // Validasi input
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|email|unique:users,email,' . $user->id,
+        'password' => 'nullable|min:6|confirmed',
+    ]);
 
-        if ($request->password) {
-            $data['password'] = Hash::make($request->password);
-        }
+    // Update data dasar
+    $user->name = $request->name;
+    $user->email = $request->email;
 
-        $user->update($data);
+    // Kalau user isi password baru
+    if ($request->filled('password')) {
+        $user->password = Hash::make($request->password);
+        $user->save();
 
-        return redirect()->route('users.index')->with('success', 'User berhasil diperbarui!');
+        // Logout user saat ini
+        Auth::logout();
+
+        // Invalidate session agar benar-benar keluar
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        // Arahkan ke halaman login
+        return redirect()->route('login')->with('status', 'Password berhasil diubah. Silakan login kembali.');
     }
+
+    // Kalau password tidak diubah, hanya update nama/email
+    $user->save();
+
+    return redirect()->route('profile')->with('success', 'Profil berhasil diperbarui.');
+}
 
     public function destroy(User $user)
     {

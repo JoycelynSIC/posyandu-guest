@@ -7,16 +7,22 @@
 </head>
 
 <body>
-    @include('komponen.header')
+    {{-- Header & Footer disembunyikan hanya di halaman login dan register --}}
+    @if (!Request::is('login') && !Request::is('register'))
+        @include('komponen.header')
+    @endif
 
     <main class="container-fluid p-0">
         @yield('content')
     </main>
 
-    @include('komponen.footer')
+    @if (!Request::is('login') && !Request::is('register'))
+        @include('komponen.footer')
+    @endif
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-whatever" crossorigin="anonymous"></script>
+
     <script>
         document.addEventListener("click", function (e) {
             if (e.target.classList.contains("btn-close")) {

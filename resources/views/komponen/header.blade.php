@@ -21,7 +21,7 @@
                             </a>
                         @else
                             <a href="mailto:example@gmail.com" class="text-muted small">
-                                <i class="fas fa-envelope text-primary me-2"></i>example@gmail.com
+                                <i class="fas fa-envelope text-primary me-2"></i>Silakan Login
                             </a>
                         @endif
                     </div>
