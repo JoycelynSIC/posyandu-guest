@@ -12,7 +12,6 @@
                         </a>
                     </div>
 
-                    {{-- ✅ Bagian Email yang Diperbaiki --}}
                     <div class="ps-3">
                         @if (Auth::check())
                             <a href="{{ route('profile') }}" class="text-muted small">
@@ -33,13 +32,15 @@
                     <div class="d-flex align-items-center border-end border-primary pe-3">
                         @guest
                             <small>
-                                <a href="{{ route('login') }}" class="btn btn-link nav-item nav-link p-0 m-0">Login</a>
+                                <a href="{{ route('login') }}" class="btn btn-link nav-item nav-link p-0 m-0">
+                                    <i class="fas fa-sign-in-alt text-primary me-1"></i> Login
+                                </a>
                             </small>
                         @else
                             <form action="{{ route('logout') }}" method="POST" class="d-inline m-0">
                                 @csrf
                                 <button type="submit" class="btn btn-link nav-item nav-link text-danger p-0 m-0">
-                                    Logout
+                                    <i class="fas fa-sign-out-alt text-primary me-1"></i> Logout
                                 </button>
                             </form>
                         @endguest
@@ -79,39 +80,35 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav mx-0 mx-lg-auto">
                     <a href="{{ url('/dashboard') }}"
-                        class="nav-item nav-link {{ request()->is('dashboard') ? 'active' : '' }}">Home</a>
+                       class="nav-item nav-link {{ request()->is('dashboard') ? 'active' : '' }}">
+                        <i class="fas fa-home text-primary me-1"></i> Home
+                    </a>
 
-                    <!-- 🔽 Menu Dropdown Data -->
                     <div class="nav-item dropdown">
                         <a href="#"
-                            class="nav-link dropdown-toggle {{ request()->is('warga*') || request()->is('posyandu*') ? 'active' : '' }}"
-                            data-bs-toggle="dropdown">
-                            Data
+                           class="nav-link dropdown-toggle {{ request()->is('warga*') || request()->is('posyandu*') ? 'active' : '' }}"
+                           data-bs-toggle="dropdown">
+                            <i class="fas fa-database text-primary me-1"></i> Data
                         </a>
                         <div class="dropdown-menu">
-                            <a href="{{ route('warga.index') }}" class="dropdown-item">Data Warga</a>
-                            <a href="{{ route('posyandu.index') }}" class="dropdown-item">Data Posyandu</a>
+                            <a href="{{ route('warga.index') }}" class="dropdown-item">
+                                <i class="fas fa-users text-primary me-2"></i> Data Warga
+                            </a>
+                            <a href="{{ route('posyandu.index') }}" class="dropdown-item">
+                                <i class="fas fa-clinic-medical text-primary me-2"></i> Data Posyandu
+                            </a>
                         </div>
                     </div>
 
-                    <a href="/about" class="nav-item nav-link">Tentang Kami</a>
-                    <a href="/service" class="nav-item nav-link">Layanan</a>
-                    <a href="/blog" class="nav-item nav-link">Blog</a>
-
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link" data-bs-toggle="dropdown">
-                            <span class="dropdown-toggle">Halaman</span>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('about') }}">
+                            <i class="fas fa-info-circle text-primary me-1"></i> Tentang
                         </a>
-                        <div class="dropdown-menu">
-                            <a href="feature.html" class="dropdown-item">Fitur</a>
-                            <a href="team.html" class="dropdown-item">Team Kami</a>
-                            <a href="testimonial.html" class="dropdown-item">Testimoni</a>
-                            <a href="FAQ.html" class="dropdown-item">Pertanyaan Lainnya</a>
-                            <a href="404.html" class="dropdown-item">404 Page</a>
-                        </div>
-                    </div>
+                    </li>
 
-                    <a href="/contact" class="nav-item nav-link">Kontak</a>
+                    <a href="{{ route('kontak') }}" class="nav-item nav-link">
+                        <i class="fas fa-phone-alt text-primary me-1"></i> Kontak
+                    </a>
                 </div>
             </div>
         </nav>
@@ -119,19 +116,3 @@
 </div>
 <!-- Navbar End -->
 
-<!-- Notifikasi (Alert) Start -->
-@if (session('success') || session('error'))
-    <div class="container mt-2">
-        <div class="alert 
-                @if(session('success')) alert-success 
-                @elseif(session('error')) alert-danger 
-                @endif 
-                alert-dismissible fade show text-center shadow-sm" role="alert" style="border-radius: 8px;">
-
-            {{ session('success') ?? session('error') }}
-
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    </div>
-@endif
-<!-- Notifikasi (Alert) End -->

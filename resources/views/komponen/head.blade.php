@@ -27,4 +27,21 @@
 
     <!-- Template Stylesheet -->
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
+
+    <!-- jQuery (harus sebelum Owl Carousel) -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<!-- Owl Carousel JS -->
+<script src="{{ asset('assets/lib/owlcarousel/owl.carousel.min.js') }}"></script>
+
+<!-- Script animasi dan lainnya -->
+<script src="{{ asset('assets/lib/wow/wow.min.js') }}"></script>
+<script src="{{ asset('assets/lib/easing/easing.min.js') }}"></script>
+<script src="{{ asset('assets/lib/waypoints/waypoints.min.js') }}"></script>
+<script src="{{ asset('assets/lib/counterup/counterup.min.js') }}"></script>
+<script src="{{ asset('assets/lib/lightbox/js/lightbox.min.js') }}"></script>
+
+<!-- Script utama -->
+<script src="{{ asset('assets/js/main.js') }}"></script>
+
 </head>

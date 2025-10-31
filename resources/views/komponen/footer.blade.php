@@ -15,7 +15,7 @@
             </div>
             <div class="col-lg-6 col-md-12 text-center text-lg-end">
                 <p class="mb-0 small text-light opacity-75">
-                    &copy; 2025 <a href="#" class="text-primary text-decoration-none fw-semibold">LifeSure</a>. All Rights Reserved.
+                    &copy; 2025 <a href="#" class="text-primary text-decoration-none fw-semibold">Bina Desa</a>. All Rights Reserved.
                 </p>
             </div>
         </div>

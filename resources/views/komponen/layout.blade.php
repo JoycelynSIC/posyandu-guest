@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <title>@yield('title', 'Bina Desa')</title>
@@ -16,15 +17,14 @@
     @include('komponen.header')
 
     {{-- Isi Halaman --}}
-    <main class="container py-5">
-        @yield('content')
-    </main>
+
 
     {{-- Footer sederhana dulu biar gak error --}}
     <footer class="bg-primary text-white text-center py-3 mt-auto">
         <small>&copy; 2025 Bina Desa. All rights reserved.</small>
     </footer>
 
-    <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
+    @include('komponen.js')
 </body>
+
 </html>

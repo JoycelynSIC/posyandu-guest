@@ -9,7 +9,7 @@ use App\Http\Controllers\PosyanduController;
 use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('dashboard');
 });
 
 Route::get('/jadwal_posyandu', [HomeController::class, 'index']);
@@ -37,3 +37,12 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('users', UserController::class);
 
 });
+
+Route::get('/about', function () {
+    return view('about');
+})->name('about');
+
+Route::get('/kontak', function () {
+    return view('kontak');
+})->name('kontak');
+
