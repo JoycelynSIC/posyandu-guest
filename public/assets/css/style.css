@@ -962,10 +962,9 @@
 
 body {
     background: linear-gradient(135deg, var(--bs-primary), var(--bs-dark));
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
     font-family: 'Poppins', sans-serif;
 }
 
@@ -1151,14 +1150,17 @@ body {
 .capaian-item:hover i {
     color: #084298;
 }
+
 .contact-card.transition-hover {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
 .contact-card.transition-hover:hover {
     transform: translateY(-10px);
-    box-shadow: 0 1rem 2rem rgba(0,0,0,0.2);
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
 }
+
 .btn.transition-hover:hover {
     transform: translateY(-3px);
-    box-shadow: 0 0.8rem 1.2rem rgba(0,0,0,0.2);
+    box-shadow: 0 0.8rem 1.2rem rgba(0, 0, 0, 0.2);
 }

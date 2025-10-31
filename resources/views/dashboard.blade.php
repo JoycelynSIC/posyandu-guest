@@ -1,9 +1,15 @@
 @extends('layouts.main')
 
 @section('content')
+    @if (session('success'))
+        <div class="alert alert-success alert-dismissible fade show text-center fw-bold shadow-sm" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
     <!-- Spinner Start -->
-    <div id="spinner"
-        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
         <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
             <span class="sr-only">Loading...</span>
         </div>
@@ -12,6 +18,7 @@
 
     <!-- Carousel Start -->
     <div class="header-carousel owl-carousel">
+
         <!-- Slide 1 -->
         <div class="header-carousel-item bg-primary">
             <div class="carousel-caption">
@@ -19,8 +26,12 @@
                     <div class="row g-5 align-items-center">
                         <div class="col-lg-7 animated fadeInLeft">
                             <div class="text-sm-center text-md-start">
-                                <h4 class="text-white text-uppercase fw-bold mb-3">Selamat Datang di Posyandu Bina Desa</h4>
-                                <h1 class="display-4 fw-bold text-white mb-4">Kesehatan Keluarga Adalah Kebahagiaan Kita Bersama</h1>
+                                <h4 class="text-white text-uppercase fw-bold mb-3">
+                                    Selamat Datang di Posyandu Bina Desa
+                                </h4>
+                                <h1 class="display-4 fw-bold text-white mb-4">
+                                    Kesehatan Keluarga Adalah Kebahagiaan Kita Bersama
+                                </h1>
                                 <p class="mb-5 fs-6 text-light">
                                     Posyandu merupakan pusat pelayanan kesehatan dasar masyarakat yang berfokus pada peningkatan
                                     kesehatan ibu, bayi, balita, dan lansia. Bersama kita wujudkan generasi sehat bebas stunting!
@@ -29,13 +40,14 @@
                                     <a class="btn btn-light rounded-pill py-3 px-4 px-md-5" href="#">
                                         <i class="fas fa-play-circle me-2"></i> Tonton Video
                                     </a>
-                                    <a class="btn btn-outline-light rounded-pill py-3 px-4 px-md-5" href="{{ route('kontak') }}">Hubungi Kami</a>
-
+                                    <a class="btn btn-outline-light rounded-pill py-3 px-4 px-md-5" href="{{ route('kontak') }}">
+                                        Hubungi Kami
+                                    </a>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-5 animated fadeInRight text-center">
-                            <img src="{{ asset('assets/img/about-1.png') }}" class="img-fluid rounded-4 shadow-lg" alt="">
+                            <img src="{{ asset('assets/img/about-1.png') }}" class="img-fluid rounded-4" alt="">
                         </div>
                     </div>
                 </div>
@@ -58,181 +70,202 @@
                                 <a class="btn btn-light rounded-pill py-3 px-4 px-md-5" href="#">
                                     <i class="fas fa-play-circle me-2"></i> Lihat Kegiatan
                                 </a>
-                                <a class="btn btn-outline-light rounded-pill py-3 px-4 px-md-5" href="{{ route('kontak') }}">Hubungi Kami</a>
+                                <a class="btn btn-outline-light rounded-pill py-3 px-4 px-md-5" href="{{ route('kontak') }}">
+                                    Hubungi Kami
+                                </a>
                             </div>
                         </div>
                         <div class="col-lg-5 animated fadeInLeft text-center">
-                            <img src="{{ asset('assets/img/about-1.png') }}" class="img-fluid rounded-4 shadow-lg" alt="">
+                            <img src="{{ asset('assets/img/about-1.png') }}" class="img-fluid rounded-4" alt="">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
     <!-- Carousel End -->
 
-<!-- Informasi Posyandu End -->
-<section class="py-5 bg-light">
-    <div class="container py-5">
-        <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
-            <h5 class="text-primary fw-bold text-uppercase mb-3">Informasi Posyandu</h5>
-            <h1 class="display-4 mb-4">Layanan dan Edukasi Posyandu</h1>
-            <p class="mb-0 text-muted">
-                Posyandu Bina Desa berkomitmen untuk meningkatkan kesehatan ibu dan anak melalui pelayanan rutin, edukasi gizi, dan kegiatan masyarakat yang berkelanjutan.
-            </p>
+    <!-- Informasi Posyandu -->
+    <section class="py-5 bg-light">
+        <div class="container py-5">
+            <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
+                <h5 class="text-primary fw-bold text-uppercase mb-3 opacity-0 translate-y-40" data-animate>Informasi Posyandu</h5>
+                <h2 class="fw-bold mb-4 opacity-0 translate-y-40" data-animate>Layanan dan Edukasi Posyandu</h2>
+                <p class="mb-0 text-muted">
+                    Posyandu Bina Desa berkomitmen untuk meningkatkan kesehatan ibu dan anak melalui pelayanan rutin, edukasi gizi, dan kegiatan masyarakat yang berkelanjutan.
+                </p>
+            </div>
+
+            <div class="row g-4 justify-content-center">
+                <!-- Card 1 -->
+                <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.2s">
+                    <div class="service-item bg-white rounded-4 shadow-sm text-center d-flex flex-column h-100">
+                        <div class="service-icon p-4 text-primary mx-auto" style="width: fit-content;">
+                            <i class="fas fa-baby fa-3x"></i>
+                        </div>
+                        <div class="service-content p-4 d-flex flex-column flex-grow-1">
+                            <a href="#" class="d-inline-block h4 mb-3 text-decoration-none text-dark">Pelayanan Balita</a>
+                            <p class="mb-4 text-muted flex-grow-1">Pemantauan tumbuh kembang, imunisasi, dan penyuluhan gizi untuk mendukung generasi sehat dan cerdas.</p>
+                            <div class="mt-auto">
+                                <a class="btn btn-primary rounded-pill py-2 px-4" href="#">Selengkapnya</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.4s">
+                    <div class="service-item bg-white rounded-4 shadow-sm text-center d-flex flex-column h-100">
+                        <div class="service-icon p-4 text-primary mx-auto" style="width: fit-content;">
+                            <i class="fas fa-female fa-3x"></i>
+                        </div>
+                        <div class="service-content p-4 d-flex flex-column flex-grow-1">
+                            <a href="#" class="d-inline-block h4 mb-3 text-decoration-none text-dark">Kesehatan Ibu</a>
+                            <p class="mb-4 text-muted flex-grow-1">Pemeriksaan kehamilan, konsultasi gizi, dan pendampingan bagi ibu hamil dan menyusui untuk menjaga kesehatan optimal.</p>
+                            <div class="mt-auto">
+                                <a class="btn btn-primary rounded-pill py-2 px-4" href="#">Selengkapnya</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.6s">
+                    <div class="service-item bg-white rounded-4 shadow-sm text-center d-flex flex-column h-100">
+                        <div class="service-icon p-4 text-primary mx-auto" style="width: fit-content;">
+                            <i class="fas fa-users fa-3x"></i>
+                        </div>
+                        <div class="service-content p-4 d-flex flex-column flex-grow-1">
+                            <a href="#" class="d-inline-block h4 mb-3 text-decoration-none text-dark">Edukasi Masyarakat</a>
+                            <p class="mb-4 text-muted flex-grow-1">Kegiatan penyuluhan tentang pola hidup bersih, gizi seimbang, dan pencegahan stunting di lingkungan masyarakat.</p>
+                            <div class="mt-auto">
+                                <a class="btn btn-primary rounded-pill py-2 px-4" href="#">Selengkapnya</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="row g-4 justify-content-center">
-            <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.2s">
-                <div class="service-item bg-white rounded-4 shadow-sm h-100 text-center">
-                    <div class="service-icon p-4 text-primary mx-auto" style="width: fit-content;">
-                        <i class="fas fa-baby fa-3x"></i>
-                    </div>
-                    <div class="service-content p-4">
-                        <a href="#" class="d-inline-block h4 mb-3 text-decoration-none text-dark">Pelayanan Balita</a>
-                        <p class="mb-4 text-muted">Pemantauan tumbuh kembang, imunisasi, dan penyuluhan gizi untuk mendukung generasi sehat dan cerdas.</p>
-                        <a class="btn btn-primary rounded-pill py-2 px-4" href="#">Selengkapnya</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.4s">
-                <div class="service-item bg-white rounded-4 shadow-sm h-100 text-center">
-                    <div class="service-icon p-4 text-primary mx-auto" style="width: fit-content;">
-                        <i class="fas fa-female fa-3x"></i>
-                    </div>
-                    <div class="service-content p-4">
-                        <a href="#" class="d-inline-block h4 mb-3 text-decoration-none text-dark">Kesehatan Ibu</a>
-                        <p class="mb-4 text-muted">Pemeriksaan kehamilan, konsultasi gizi, dan pendampingan bagi ibu hamil dan menyusui untuk menjaga kesehatan optimal.</p>
-                        <a class="btn btn-primary rounded-pill py-2 px-4" href="#">Selengkapnya</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.6s">
-                <div class="service-item bg-white rounded-4 shadow-sm h-100 text-center">
-                    <div class="service-icon p-4 text-primary mx-auto" style="width: fit-content;">
-                        <i class="fas fa-users fa-3x"></i>
-                    </div>
-                    <div class="service-content p-4">
-                        <a href="#" class="d-inline-block h4 mb-3 text-decoration-none text-dark">Edukasi Masyarakat</a>
-                        <p class="mb-4 text-muted">Kegiatan penyuluhan tentang pola hidup bersih, gizi seimbang, dan pencegahan stunting di lingkungan masyarakat.</p>
-                        <a class="btn btn-primary rounded-pill py-2 px-4" href="#">Selengkapnya</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
+    </section>
     <!-- Info Posyandu Section End -->
 
     <!-- Capaian Kami -->
-<section class="py-5 bg-light feature">
-    <div class="container text-center">
-        <h5 class="text-primary fw-bold text-uppercase mb-3">Capaian Kami</h5>
-        <h2 class="fw-bold mb-4">Prestasi Posyandu Bina Desa</h2>
-        <p class="text-muted mb-5 w-75 mx-auto">
-            Memantau kesehatan ibu dan anak melalui layanan rutin, edukasi, dan kegiatan masyarakat yang berdampak positif.
-        </p>
-
-        <div class="row g-4 justify-content-center">
-            <!-- Item 1 -->
-            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                <div class="feature-item text-center p-4 shadow-sm">
-                    <div class="feature-icon mb-4 mx-auto">
-                        <i class="fas fa-baby fa-2x"></i>
-                    </div>
-                    <h4 class="fw-bold mb-3">120</h4>
-                    <p class="mb-0">Balita Terdaftar</p>
-                </div>
-            </div>
-
-            <!-- Item 2 -->
-            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                <div class="feature-item text-center p-4 shadow-sm">
-                    <div class="feature-icon mb-4 mx-auto">
-                        <i class="fas fa-female fa-2x"></i>
-                    </div>
-                    <h4 class="fw-bold mb-3">45</h4>
-                    <p class="mb-0">Ibu Hamil Terpantau</p>
-                </div>
-            </div>
-
-            <!-- Item 3 -->
-            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                <div class="feature-item text-center p-4 shadow-sm">
-                    <div class="feature-icon mb-4 mx-auto">
-                        <i class="fas fa-user-nurse fa-2x"></i>
-                    </div>
-                    <h4 class="fw-bold mb-3">8</h4>
-                    <p class="mb-0">Kader Aktif</p>
-                </div>
-            </div>
-
-            <!-- Item 4 -->
-            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
-                <div class="feature-item text-center p-4 shadow-sm">
-                    <div class="feature-icon mb-4 mx-auto">
-                        <i class="fas fa-heartbeat fa-2x"></i>
-                    </div>
-                    <h4 class="fw-bold mb-3">3</h4>
-                    <p class="mb-0">Program Layanan</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-
-    <!-- Jadwal Pelayanan -->
-    <section class="py-5 bg-light">
+    <section class="py-5 bg-light feature">
         <div class="container text-center">
-            <h5 class="text-primary fw-bold text-uppercase mb-3">Jadwal Pelayanan</h5>
-            <h2 class="fw-bold mb-5">Datang dan Ikuti Kegiatan Posyandu</h2>
+            <h5 class="text-primary fw-bold text-uppercase mb-3 wow fadeInDown" data-wow-delay="0.2s">Capaian Kami</h5>
+            <h2 class="fw-bold mb-4 wow fadeInUp" data-wow-delay="0.4s">Prestasi Posyandu Bina Desa</h2>
 
-            <div class="row justify-content-center g-4">
-                @foreach ([
-                    ['hari' => 'Senin', 'kegiatan' => 'Pelayanan Balita & Imunisasi', 'jam' => '08.00 - 11.00 WIB', 'icon' => 'fa-baby'],
-                    ['hari' => 'Rabu', 'kegiatan' => 'Pemeriksaan Ibu Hamil', 'jam' => '09.00 - 12.00 WIB', 'icon' => 'fa-female'],
-                    ['hari' => 'Jumat', 'kegiatan' => 'Kesehatan Lansia & Penyuluhan', 'jam' => '08.00 - 10.30 WIB', 'icon' => 'fa-user-md']
-                ] as $jadwal)
-                    <div class="col-md-4 wow fadeInUp">
-                        <div class="p-4 bg-white shadow-sm rounded-4 h-100 jadwal-item">
-                            <div class="mb-3 text-primary">
-                                <i class="fas {{ $jadwal['icon'] }} fa-2x"></i>
-                            </div>
-                            <h5 class="fw-semibold mb-2">{{ $jadwal['hari'] }}</h5>
-                            <p class="mb-1 text-muted">{{ $jadwal['kegiatan'] }}</p>
-                            <p class="fw-bold text-primary"><i class="far fa-clock me-1"></i> {{ $jadwal['jam'] }}</p>
+            <p class="text-muted mb-5 w-75 mx-auto">
+                Memantau kesehatan ibu dan anak melalui layanan rutin, edukasi, dan kegiatan masyarakat yang berdampak positif.
+            </p>
+
+            <div class="row g-4 justify-content-center">
+                <!-- Item 1 -->
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="feature-item text-center p-4 shadow-sm">
+                        <div class="feature-icon mb-4 mx-auto">
+                            <i class="fas fa-baby fa-2x"></i>
                         </div>
+                        <h4 class="fw-bold mb-3">120</h4>
+                        <p class="mb-0">Balita Terdaftar</p>
                     </div>
-                @endforeach
+                </div>
+
+                <!-- Item 2 -->
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="feature-item text-center p-4 shadow-sm">
+                        <div class="feature-icon mb-4 mx-auto">
+                            <i class="fas fa-female fa-2x"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">45</h4>
+                        <p class="mb-0">Ibu Hamil Terpantau</p>
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                    <div class="feature-item text-center p-4 shadow-sm">
+                        <div class="feature-icon mb-4 mx-auto">
+                            <i class="fas fa-user-nurse fa-2x"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">8</h4>
+                        <p class="mb-0">Kader Aktif</p>
+                    </div>
+                </div>
+
+                <!-- Item 4 -->
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
+                    <div class="feature-item text-center p-4 shadow-sm">
+                        <div class="feature-icon mb-4 mx-auto">
+                            <i class="fas fa-heartbeat fa-2x"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">3</h4>
+                        <p class="mb-0">Program Layanan</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
+    <!-- Jadwal Pelayanan -->
+    <section class="py-5 bg-light">
+    <div class="container text-center">
+        <h5 class="text-primary fw-bold text-uppercase mb-3 wow fadeInDown" data-wow-delay="0.2s">Jadwal Pelayanan</h5>
+        <h2 class="fw-bold mb-5 wow fadeInUp" data-wow-delay="0.4s">Datang dan Ikuti Kegiatan Posyandu</h2>
+
+        <div class="row justify-content-center g-4">
+            <!-- Senin -->
+            <div class="col-md-4 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="p-4 bg-white shadow-sm rounded-4 h-100 jadwal-item">
+                    <div class="mb-3 text-primary">
+                        <i class="fas fa-baby fa-2x"></i>
+                    </div>
+                    <h5 class="fw-semibold mb-2">Senin</h5>
+                    <p class="mb-1 text-muted">Pelayanan Balita & Imunisasi</p>
+                    <p class="fw-bold text-primary"><i class="far fa-clock me-1"></i> 08.00 - 11.00 WIB</p>
+                </div>
+            </div>
+
+            <!-- Rabu -->
+            <div class="col-md-4 wow fadeInUp" data-wow-delay="0.3s">
+                <div class="p-4 bg-white shadow-sm rounded-4 h-100 jadwal-item">
+                    <div class="mb-3 text-primary">
+                        <i class="fas fa-female fa-2x"></i>
+                    </div>
+                    <h5 class="fw-semibold mb-2">Rabu</h5>
+                    <p class="mb-1 text-muted">Pemeriksaan Ibu Hamil</p>
+                    <p class="fw-bold text-primary"><i class="far fa-clock me-1"></i> 09.00 - 12.00 WIB</p>
+                </div>
+            </div>
+
+            <!-- Jumat -->
+            <div class="col-md-4 wow fadeInUp" data-wow-delay="0.5s">
+                <div class="p-4 bg-white shadow-sm rounded-4 h-100 jadwal-item">
+                    <div class="mb-3 text-primary">
+                        <i class="fas fa-user-md fa-2x"></i>
+                    </div>
+                    <h5 class="fw-semibold mb-2">Jumat</h5>
+                    <p class="mb-1 text-muted">Kesehatan Lansia & Penyuluhan</p>
+                    <p class="fw-bold text-primary"><i class="far fa-clock me-1"></i> 08.00 - 10.30 WIB</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
     <!-- CTA WhatsApp -->
     <section class="py-5 bg-light">
         <div class="container text-center">
-            <h2 class="fw-bold mb-3">Ada Pertanyaan Seputar Posyandu?</h2>
-            <p class="mb-4">Kami siap membantu! Hubungi kami melalui WhatsApp untuk informasi lebih lanjut.</p>
-            <a href="https://wa.me/62895386587183" target="_blank"
-                class="btn btn-light rounded-pill px-4 py-2 shadow fw-semibold fs-5">
+            <h2 class="fw-bold mb-3 wow fadeInDown" data-wow-delay="0.2s">Ada Pertanyaan Seputar Posyandu?</h2>
+            <p class="mb-4 wow fadeInUp" data-wow-delay="0.4s">
+                Kami siap membantu! Hubungi kami melalui WhatsApp untuk informasi lebih lanjut.
+            </p>
+            <a href="https://wa.me/62895386587183" target="_blank" class="btn btn-light rounded-pill px-4 py-2 shadow fw-semibold fs-5 wow zoomIn" data-wow-delay="0.6s">
                 <i class="fab fa-whatsapp me-2"></i> Chat Sekarang
             </a>
         </div>
     </section>
 
-    <!-- Scripts -->
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-    <script src="{{ asset('assets/lib/wow/wow.min.js') }}"></script>
-    <script src="{{ asset('assets/lib/easing/easing.min.js') }}"></script>
-    <script src="{{ asset('assets/lib/waypoints/waypoints.min.js') }}"></script>
-    <script src="{{ asset('assets/lib/counterup/counterup.min.js') }}"></script>
-    <script src="{{ asset('assets/lib/lightbox/js/lightbox.min.js') }}"></script>
-    <script src="{{ asset('assets/lib/owlcarousel/owl.carousel.min.js') }}"></script>
-
-    <script src="{{ asset('assets/js/main.js') }}"></script>
 @endsection
