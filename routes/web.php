@@ -38,3 +38,6 @@ Route::middleware(['auth'])->group(function () {
 
 });
 
+Route::get('/about', function () {
+    return view('pages.about');
+})->name('about');
