@@ -104,7 +104,7 @@
                             </a>
                         </li>
 
-                        <a href="#" class="nav-item nav-link">
+                        <a class="nav-item nav-link" href="{{ route('kontak') }}">
                             <i class="fas fa-phone-alt text-primary me-1"></i> Kontak
                         </a>
                 </div>

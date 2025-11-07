@@ -40,7 +40,7 @@
                                     <a class="btn btn-light rounded-pill py-3 px-4 px-md-5" a href="{{ route('about') }}">
                                         Tentang Kami
                                     </a>
-                                    <a class="btn btn-outline-light rounded-pill py-3 px-4 px-md-5">
+                                    <a class="btn btn-outline-light rounded-pill py-3 px-4 px-md-5" a href="{{ route('kontak') }}">
                                         Hubungi Kami
                                     </a>
                                 </div>
@@ -71,7 +71,7 @@
                                     <a class="btn btn-light rounded-pill py-3 px-4 px-md-5" a href="{{ route('about') }}">
                                         Tentang Kami
                                     </a>
-                                    <a class="btn btn-outline-light rounded-pill py-3 px-4 px-md-5">
+                                    <a class="btn btn-outline-light rounded-pill py-3 px-4 px-md-5" a href="{{ route('kontak') }}">
                                         Hubungi Kami
                                     </a>
                                 </div>
