@@ -44,7 +44,8 @@
                     </div>
 
                     <div class="dropdown ms-3 d-flex align-items-center">
-                        <a href="#" class="dropdown-toggle text-dark d-flex align-items-center" data-bs-toggle="dropdown">
+                        <a href="#" class="dropdown-toggle text-dark d-flex align-items-center"
+                            data-bs-toggle="dropdown">
                             Indonesia
                         </a>
                         <div class="dropdown-menu rounded">
@@ -77,14 +78,14 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav mx-0 mx-lg-auto">
                     <a href="{{ url('/dashboard') }}"
-                       class="nav-item nav-link {{ request()->is('dashboard') ? 'active' : '' }}">
+                        class="nav-item nav-link {{ request()->is('dashboard') ? 'active' : '' }}">
                         Home
                     </a>
 
                     <div class="nav-item dropdown">
                         <a href="#"
-                           class="nav-link dropdown-toggle {{ request()->is('warga*') || request()->is('posyandu*') ? 'active' : '' }}"
-                           data-bs-toggle="dropdown">
+                            class="nav-link dropdown-toggle {{ request()->is('warga*') || request()->is('posyandu*') ? 'active' : '' }}"
+                            data-bs-toggle="dropdown">
                             Data
                         </a>
                         <div class="dropdown-menu">
@@ -96,6 +97,16 @@
                             </a>
                         </div>
                     </div>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="text-primary me-1"></i> Tentang
+                        </a>
+                    </li>
+
+                    <a href="#" class="nav-item nav-link">
+                            <i class="text-primary me-1"></i> Kontak
+                        </a>
                 </div>
             </div>
         </nav>

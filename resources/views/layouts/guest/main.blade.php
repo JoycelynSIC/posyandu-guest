@@ -1,11 +1,11 @@
 <head>
-    @include('layouts.head')
+    @include('layouts.guest.head')
 </head>
 
 <body>
     {{-- Header & Footer disembunyikan hanya di halaman login dan register --}}
     @if (!Request::is('login') && !Request::is('register'))
-        @include('layouts.header')
+        @include('layouts.guest.header')
     @endif
 
     <main class="container-fluid p-0">
@@ -14,7 +14,7 @@
 
     {{-- Footer --}}
     @if (!Request::is('login') && !Request::is('register'))
-        @include('layouts.footer')
+        @include('layouts.guest.footer')
     @endif
 
     <script>
@@ -25,5 +25,5 @@
             }
         });
     </script>
-    @include('layouts.js')
+    @include('layouts.guest.js')
 </body>
