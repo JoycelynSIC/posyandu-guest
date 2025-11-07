@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.guest.main')
 
 @section('title', 'Profil Saya')
 
@@ -13,7 +13,7 @@
         <div class="d-flex justify-content-center">
             <div class="card border-0 rounded-4 shadow-sm p-4 wow fadeInUp" 
                  data-wow-delay="0.2s"
-                 style="max-width: 480px; background-color: #ffffff;"> {{-- background putih --}}
+                 style="max-width: 480px; background-color: #ffffff;">
                  
                 <!-- Foto Profil -->
                 <div class="text-center mb-3">
@@ -57,29 +57,26 @@
                 <hr class="my-3">
 
                 <!-- Tombol Aksi -->
-               <!-- Tombol Aksi -->
-<div class="d-flex justify-content-center flex-wrap gap-2 mt-2 wow fadeInUp" data-wow-delay="0.3s">
-    
-    <a href="{{ route('users.edit', $user->id) }}" 
-       class="btn btn-warning btn-sm rounded-pill px-3 shadow-sm d-flex align-items-center">
-        <i class="fa fa-pen me-1"></i> Edit Profil
-    </a>
+                <div class="d-flex justify-content-center align-items-center gap-3 mt-2 wow fadeInUp" data-wow-delay="0.3s">
+                    <a href="{{ route('users.edit', $user->id) }}" 
+                       class="btn btn-warning btn-sm rounded-pill px-3 shadow-sm d-flex align-items-center">
+                        <i class="fa fa-pen me-1"></i> Edit Profil
+                    </a>
 
-    <form action="{{ route('users.destroy', $user->id) }}" method="POST"
-          onsubmit="return confirm('Yakin ingin menghapus akun ini? Akunmu akan dihapus permanen.')"
-          class="d-flex">
-        @csrf
-        @method('DELETE')
-        <button type="submit" class="btn btn-danger btn-sm rounded-pill px-3 shadow-sm d-flex align-items-center">
-            <i class="fa fa-trash me-1"></i> Hapus
-        </button>
-    </form>
+                    <form action="{{ route('users.destroy', $user->id) }}" method="POST"
+                          onsubmit="return confirm('Yakin ingin menghapus akun ini? Akunmu akan dihapus permanen.')"
+                          class="m-0 p-0">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger btn-sm rounded-pill px-3 shadow-sm d-flex align-items-center">
+                            <i class="fa fa-trash me-1"></i> Hapus
+                        </button>
+                    </form>
 
-    <a href="{{ url()->previous() }}" 
-       class="btn btn-primary btn-sm rounded-pill px-3 shadow-sm d-flex align-items-center">
-        <i class="fa fa-arrow-left me-1"></i> Kembali
-    </a>
-</div>
+                    <a a href="{{ route('dashboard')}}" class="btn btn-primary btn-xs rounded-pill px-2 py-1 shadow-sm d-flex align-items-center">
+                        <i class="fa fa-arrow-left me-1"></i> Kembali
+                    </a>
+                </div>
             </div>
         </div>
     </div>

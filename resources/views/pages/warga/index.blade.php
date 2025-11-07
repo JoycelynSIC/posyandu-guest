@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.guest.main')
 
 @section('title', 'indexwarga')
 
@@ -39,71 +39,80 @@
                 </div>
             @endif
 
-            {{-- Tabel Data Warga --}}
-            <div class="table-responsive wow fadeInUp" data-wow-delay="0.5s">
-                <table class="table table-bordered table-striped align-middle shadow-sm">
-                    <thead class="table-primary text-center">
-                        <tr>
-                            <th>No</th>
-                            <th>Nama</th>
-                            <th>NIK</th>
-                            <th>Jenis Kelamin</th>
-                            <th>Agama</th>
-                            <th>Pekerjaan</th>
-                            <th>No. Telp</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse ($warga as $key => $data)
-                            <tr>
-                                <td class="text-center">{{ $key + 1 }}</td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <img src="https://ui-avatars.com/api/?name={{ urlencode($data->nama) }}&background=0D6EFD&color=fff&rounded=true"
-                                            alt="{{ $data->nama }}"
-                                            class="rounded-circle me-2 border border-2 border-primary shadow-sm"
-                                            width="40" height="40">
-                                        <span class="fw-semibold">{{ $data->nama }}</span>
-                                    </div>
-                                </td>
-                                <td>{{ $data->no_ktp ?? '-' }}</td>
-                                <td class="text-center">
+            {{-- Kartu Data Warga --}}
+            <div class="row g-4">
+                @forelse ($warga as $key => $data)
+                    <div class="col-md-4 col-lg-3 wow fadeInUp" data-wow-delay="{{ 0.4 + $key * 0.1 }}s">
+                        <div class="card warga-card-clean border-0 shadow-sm rounded-4 h-100 overflow-hidden">
+
+                            {{-- Header --}}
+                            <div class="text-center bg-primary text-white p-4 rounded-top">
+                                <img src="https://ui-avatars.com/api/?name={{ urlencode($data->nama) }}&background=0D6EFD&color=fff&rounded=true"
+                                    alt="{{ $data->nama }}"
+                                    class="rounded-circle mb-3 border border-3 border-light shadow-sm" width="100"
+                                    height="100">
+
+                                <h5 class="fw-bold mb-1 text-white">{{ $data->nama }}</h5>
+                                <small class="text-white">NIK: {{ $data->no_ktp ?? '-' }}</small>
+                            </div>
+
+                            {{-- Body --}}
+                            <div class="card-body text-start px-4 py-3">
+                                {{-- Gender dinamis --}}
+                                <p class="mb-2 fs-6 text-dark">
                                     @if ($data->jenis_kelamin === 'Laki-laki')
-                                        <i class="fa-solid fa-mars text-primary"></i> Laki-laki
+                                        <i class="fa-solid fa-mars text-primary me-2"></i>
                                     @elseif ($data->jenis_kelamin === 'Perempuan')
-                                        <i class="fa-solid fa-venus text-danger"></i> Perempuan
+                                        <i class="fa-solid fa-venus text-danger me-2"></i>
                                     @else
-                                        <i class="fa-solid fa-genderless text-secondary"></i> -
+                                        <i class="fa-solid fa-genderless text-secondary me-2"></i>
                                     @endif
-                                </td>
-                                <td>{{ $data->agama ?? '-' }}</td>
-                                <td>{{ $data->pekerjaan ?? '-' }}</td>
-                                <td>{{ $data->telp ?? '-' }}</td>
-                                <td class="text-center">
-                                    <div class="d-flex justify-content-center gap-2">
-                                        <a href="{{ route('warga.edit', $data->warga_id) }}"
-                                            class="btn btn-sm btn-primary shadow-sm px-3">
-                                            <i class="fa fa-pen"></i> Edit
-                                        </a>
-                                        <form action="{{ route('warga.destroy', $data->warga_id) }}" method="POST"
-                                            onsubmit="return confirm('Yakin hapus data ini?')" class="d-inline">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-outline-primary shadow-sm px-3">
-                                                <i class="fa fa-trash"></i> Hapus
-                                            </button>
-                                        </form>
-                                    </div>
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="8" class="text-center text-muted">Belum ada data warga.</td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
+                                    <strong>Gender :</strong> {{ $data->jenis_kelamin ?? '-' }}
+                                </p>
+
+                                <p class="mb-2 fs-6 text-dark">
+                                    <i class="fa-solid fa-praying-hands text-primary me-2"></i>
+                                    <strong>Agama :</strong> {{ $data->agama ?? '-' }}
+                                </p>
+
+                                <p class="mb-2 fs-6 text-dark">
+                                    <i class="fa-solid fa-briefcase text-primary me-2"></i>
+                                    <strong>Pekerjaan :</strong> {{ $data->pekerjaan ?? '-' }}
+                                </p>
+
+                                <p class="mb-0 fs-6 text-dark">
+                                    <i class="fa-solid fa-phone text-primary me-2"></i>
+                                    <strong>No.Telp :</strong> {{ $data->telp ?? '-' }}
+                                </p>
+                            </div>
+
+                            {{-- Tombol Edit & Hapus --}}
+                            <div class="card-footer bg-transparent border-0 text-center pb-4">
+                                <div class="d-flex justify-content-center align-items-center gap-3">
+                                    <a href="{{ route('warga.edit', $data->warga_id) }}"
+                                        class="btn btn-primary btn-sm d-flex align-items-center justify-content-center gap-2 shadow-sm"
+                                        style="min-width: 90px; height: 38px;">
+                                        <i class="fa fa-pen"></i> <span>Edit</span>
+                                    </a>
+
+                                    <form action="{{ route('warga.destroy', $data->warga_id) }}" method="POST"
+                                        class="d-flex align-items-center m-0 p-0">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" onclick="return confirm('Yakin hapus data ini?')"
+                                            class="btn btn-outline-primary btn-sm d-flex align-items-center justify-content-center gap-2 shadow-sm"
+                                            style="min-width: 90px; height: 38px;">
+                                            <i class="fa fa-trash"></i> <span>Hapus</span>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                @empty
+                    <div class="text-center text-muted wow fadeInUp" data-wow-delay="0.5s">Belum ada data warga.</div>
+                @endforelse
             </div>
 
         </div>
