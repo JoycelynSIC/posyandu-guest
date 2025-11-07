@@ -27,64 +27,54 @@
                 </div>
             @endif
 
-            {{-- Kartu Data Posyandu --}}
-            <div class="row g-4">
-                @forelse ($posyandu as $key => $data)
-                    <div class="col-md-4 col-lg-3 wow fadeInUp" data-wow-delay="{{ 0.4 + $key * 0.1 }}s">
-                        <div class="card border-0 shadow-sm rounded-4 h-100 overflow-hidden">
-
-                            {{-- Header --}}
-                            <div class="text-center bg-primary text-white p-4 rounded-top">
-                                <div class="d-flex justify-content-center align-items-center mb-3">
-                                    <i class="fas fa-clinic-medical fa-3x text-white"></i>
-                                </div>
-                                <h5 class="fw-bold mb-1 text-white">{{ $data->nama }}</h5>
-                            </div>
-
-                            {{-- Body --}}
-                            <div class="card-body text-start px-4 py-3">
-                                <p class="mb-2 fs-6 text-dark">
-                                    <i class="fa-solid fa-location-dot text-primary me-2"></i>
-                                    <strong>Alamat:</strong> {{ $data->alamat ?? '-' }}
-                                </p>
-                                <p class="mb-2 fs-6 text-dark">
-                                    <i class="fa-solid fa-map text-primary me-2"></i>
-                                    <strong>RT/RW:</strong> RT {{ $data->rt ?? '-' }} / RW {{ $data->rw ?? '-' }}
-                                </p>
-                                <p class="mb-0 fs-6 text-dark">
-                                    <i class="fa-solid fa-phone text-primary me-2"></i>
-                                    <strong>Kontak:</strong> {{ $data->kontak ?? '-' }}
-                                </p>
-                            </div>
-
-                            {{-- Tombol Edit & Hapus --}}
-                            <div class="card-footer bg-transparent border-0 text-center pb-4">
-                                <div class="d-flex justify-content-center align-items-center gap-3">
-                                    <a href="{{ route('posyandu.edit', $data->posyandu_id) }}"
-                                        class="btn btn-primary btn-sm d-flex align-items-center justify-content-center gap-2 shadow-sm"
-                                        style="min-width: 90px; height: 38px;">
-                                        <i class="fa fa-pen"></i> <span>Edit</span>
-                                    </a>
-
-                                    <form action="{{ route('posyandu.destroy', $data->posyandu_id) }}" method="POST"
-                                        class="d-flex align-items-center m-0 p-0">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" onclick="return confirm('Yakin hapus data ini?')"
-                                            class="btn btn-outline-primary btn-sm d-flex align-items-center justify-content-center gap-2 shadow-sm"
-                                            style="min-width: 90px; height: 38px;">
-                                            <i class="fa fa-trash"></i> <span>Hapus</span>
-                                        </button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @empty
-                    <div class="text-center text-muted wow fadeInUp" data-wow-delay="0.5s">
-                        Belum ada data posyandu.
-                    </div>
-                @endforelse
+            {{-- Tabel Data Posyandu --}}
+            <div class="table-responsive wow fadeInUp" data-wow-delay="0.5s">
+                <table class="table table-bordered table-striped align-middle shadow-sm">
+                    <thead class="table-primary text-center">
+                        <tr>
+                            <th>No</th>
+                            <th>Nama Posyandu</th>
+                            <th>Alamat</th>
+                            <th>RT/RW</th>
+                            <th>Kontak</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse ($posyandu as $key => $data)
+                            <tr>
+                                <td class="text-center">{{ $key + 1 }}</td>
+                                <td class="fw-semibold">
+                                    <i class="fas fa-clinic-medical text-primary me-2"></i>
+                                    {{ $data->nama }}
+                                </td>
+                                <td>{{ $data->alamat ?? '-' }}</td>
+                                <td class="text-center">RT {{ $data->rt ?? '-' }} / RW {{ $data->rw ?? '-' }}</td>
+                                <td>{{ $data->kontak ?? '-' }}</td>
+                                <td class="text-center">
+                                    <div class="d-flex justify-content-center gap-2">
+                                        <a href="{{ route('posyandu.edit', $data->posyandu_id) }}"
+                                            class="btn btn-sm btn-primary shadow-sm px-3">
+                                            <i class="fa fa-pen"></i> Edit
+                                        </a>
+                                        <form action="{{ route('posyandu.destroy', $data->posyandu_id) }}" method="POST"
+                                            onsubmit="return confirm('Yakin hapus data ini?')" class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-outline-primary shadow-sm px-3">
+                                                <i class="fa fa-trash"></i> Hapus
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="6" class="text-center text-muted">Belum ada data posyandu.</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
             </div>
 
         </div>

@@ -17,16 +17,6 @@
         @include('layouts.footer')
     @endif
 
-    {{-- Floating WhatsApp Button --}}
-    @if (!Request::is('login') && !Request::is('register'))
-        <div class="wa-container">
-            <a href="https://wa.me/62895386587183" target="_blank" class="wa-float">
-                <i class="fab fa-whatsapp"></i>
-                <span class="wa-text">Chat Sekarang</span>
-            </a>
-        </div>
-    @endif
-
     <script>
         document.addEventListener("click", function (e) {
             if (e.target.classList.contains("btn-close")) {

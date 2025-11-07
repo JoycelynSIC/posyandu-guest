@@ -37,10 +37,10 @@
                                     kesehatan ibu, bayi, balita, dan lansia. Bersama kita wujudkan generasi sehat bebas stunting!
                                 </p>
                                 <div class="d-flex justify-content-center justify-content-md-start gap-3 flex-shrink-0">
-                                    <a class="btn btn-light rounded-pill py-3 px-4 px-md-5" href="{{ route('about') }}">
+                                    <a class="btn btn-light rounded-pill py-3 px-4 px-md-5">
                                         Tentang Kami
                                     </a>
-                                    <a class="btn btn-outline-light rounded-pill py-3 px-4 px-md-5" href="{{ route('kontak') }}">
+                                    <a class="btn btn-outline-light rounded-pill py-3 px-4 px-md-5">
                                         Hubungi Kami
                                     </a>
                                 </div>
@@ -68,10 +68,10 @@
                             </p>
                             <div class="d-flex justify-content-center justify-content-md-end gap-3 flex-shrink-0">
                                 <div class="d-flex justify-content-center justify-content-md-start gap-3 flex-shrink-0">
-                                    <a class="btn btn-light rounded-pill py-3 px-4 px-md-5" href="{{ route('about') }}">
+                                    <a class="btn btn-light rounded-pill py-3 px-4 px-md-5">
                                         Tentang Kami
                                     </a>
-                                    <a class="btn btn-outline-light rounded-pill py-3 px-4 px-md-5" href="{{ route('kontak') }}">
+                                    <a class="btn btn-outline-light rounded-pill py-3 px-4 px-md-5">
                                         Hubungi Kami
                                     </a>
                                 </div>

@@ -38,10 +38,3 @@ Route::middleware(['auth'])->group(function () {
 
 });
 
-Route::get('/about', function () {
-    return view('pages.about');
-})->name('about');
-
-Route::get('/kontak', function () {
-    return view('pages.kontak');
-})->name('kontak');
