@@ -9,7 +9,7 @@ use App\Http\Controllers\PosyanduController;
 use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
-    return view('dashboard');
+    return view('pages.dashboard');
 });
 
 Route::get('/jadwal_posyandu', [HomeController::class, 'index']);
@@ -25,7 +25,7 @@ Route::get('/profile', [UserController::class, 'showProfile'])->name('users.prof
 // 🔹 DASHBOARD ROUTE
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', function () {
-        return view('dashboard');
+        return view('pages.dashboard');
     })->name('dashboard');
     Route::resource('warga', WargaController::class);
     Route::resource('posyandu', PosyanduController::class);
@@ -39,10 +39,9 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::get('/about', function () {
-    return view('about');
+    return view('pages.about');
 })->name('about');
 
 Route::get('/kontak', function () {
-    return view('kontak');
+    return view('pages.kontak');
 })->name('kontak');
-

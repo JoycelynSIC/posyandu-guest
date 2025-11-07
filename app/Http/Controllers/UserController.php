@@ -11,7 +11,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
-        return view('auth.login', compact('users'));
+        return view('pages.auth.login', compact('users'));
     }
 
     public function profile()
@@ -20,7 +20,7 @@ class UserController extends Controller
         $user = auth()->user();
 
         // Kirim ke view users.profile
-        return view('users.profile', compact('user'));
+        return view('pages.users.profile', compact('user'));
     }
 
     public function store(Request $request)
@@ -37,12 +37,12 @@ class UserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        return redirect()->route('users.index')->with('success', 'User berhasil ditambahkan!');
+        return redirect()->route('pages.users.index')->with('success', 'User berhasil ditambahkan!');
     }
 
     public function edit(User $user)
     {
-        return view('users.edit', compact('user'));
+        return view('pages.users.edit', compact('user'));
     }
 
     public function update(Request $request, $id)

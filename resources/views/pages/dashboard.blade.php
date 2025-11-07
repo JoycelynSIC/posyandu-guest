@@ -37,8 +37,8 @@
                                     kesehatan ibu, bayi, balita, dan lansia. Bersama kita wujudkan generasi sehat bebas stunting!
                                 </p>
                                 <div class="d-flex justify-content-center justify-content-md-start gap-3 flex-shrink-0">
-                                    <a class="btn btn-light rounded-pill py-3 px-4 px-md-5" href="#">
-                                        <i class="fas fa-play-circle me-2"></i> Tonton Video
+                                    <a class="btn btn-light rounded-pill py-3 px-4 px-md-5" href="{{ route('about') }}">
+                                        Tentang Kami
                                     </a>
                                     <a class="btn btn-outline-light rounded-pill py-3 px-4 px-md-5" href="{{ route('kontak') }}">
                                         Hubungi Kami
@@ -67,12 +67,14 @@
                                 Bergabunglah dalam kegiatan Posyandu untuk kehidupan yang lebih sehat!
                             </p>
                             <div class="d-flex justify-content-center justify-content-md-end gap-3 flex-shrink-0">
-                                <a class="btn btn-light rounded-pill py-3 px-4 px-md-5" href="#">
-                                    <i class="fas fa-play-circle me-2"></i> Lihat Kegiatan
-                                </a>
-                                <a class="btn btn-outline-light rounded-pill py-3 px-4 px-md-5" href="{{ route('kontak') }}">
-                                    Hubungi Kami
-                                </a>
+                                <div class="d-flex justify-content-center justify-content-md-start gap-3 flex-shrink-0">
+                                    <a class="btn btn-light rounded-pill py-3 px-4 px-md-5" href="{{ route('about') }}">
+                                        Tentang Kami
+                                    </a>
+                                    <a class="btn btn-outline-light rounded-pill py-3 px-4 px-md-5" href="{{ route('kontak') }}">
+                                        Hubungi Kami
+                                    </a>
+                                </div>
                             </div>
                         </div>
                         <div class="col-lg-5 animated fadeInLeft text-center">
@@ -100,7 +102,8 @@
             <div class="row g-4 justify-content-center">
                 <!-- Card 1 -->
                 <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.2s">
-                    <div class="service-item bg-white rounded-4 shadow-sm text-center d-flex flex-column h-100">
+                    <div class="service-item bg-white rounded-4 shadow-sm text-center d-flex flex-column h-100"
+                        style="border-radius: 20px; overflow: hidden;">
                         <div class="service-icon p-4 text-primary mx-auto" style="width: fit-content;">
                             <i class="fas fa-baby fa-3x"></i>
                         </div>
@@ -116,7 +119,8 @@
 
                 <!-- Card 2 -->
                 <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.4s">
-                    <div class="service-item bg-white rounded-4 shadow-sm text-center d-flex flex-column h-100">
+                    <div class="service-item bg-white rounded-4 shadow-sm text-center d-flex flex-column h-100"
+                        style="border-radius: 20px; overflow: hidden;">
                         <div class="service-icon p-4 text-primary mx-auto" style="width: fit-content;">
                             <i class="fas fa-female fa-3x"></i>
                         </div>
@@ -132,7 +136,8 @@
 
                 <!-- Card 3 -->
                 <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.6s">
-                    <div class="service-item bg-white rounded-4 shadow-sm text-center d-flex flex-column h-100">
+                    <div class="service-item bg-white rounded-4 shadow-sm text-center d-flex flex-column h-100"
+                        style="border-radius: 20px; overflow: hidden;">
                         <div class="service-icon p-4 text-primary mx-auto" style="width: fit-content;">
                             <i class="fas fa-users fa-3x"></i>
                         </div>
@@ -154,9 +159,9 @@
     <section class="py-5 bg-light feature">
         <div class="container text-center">
             <h5 class="text-primary fw-bold text-uppercase mb-3 wow fadeInDown" data-wow-delay="0.2s">Capaian Kami</h5>
-            <h2 class="fw-bold mb-4 wow fadeInUp" data-wow-delay="0.4s">Prestasi Posyandu Bina Desa</h2>
+            <h2 class="fw-bold mb-4 wow fadeInDown" data-wow-delay="0.4s">Prestasi Posyandu Bina Desa</h2>
 
-            <p class="text-muted mb-5 w-75 mx-auto">
+            <p class="mb-4 wow fadeInUp" data-wow-delay="0.4s">
                 Memantau kesehatan ibu dan anak melalui layanan rutin, edukasi, dan kegiatan masyarakat yang berdampak positif.
             </p>
 
@@ -217,7 +222,8 @@
         <div class="row justify-content-center g-4">
             <!-- Senin -->
             <div class="col-md-4 wow fadeInUp" data-wow-delay="0.1s">
-                <div class="p-4 bg-white shadow-sm rounded-4 h-100 jadwal-item">
+                <div class="p-4 bg-white shadow-sm rounded-4 h-100 jadwal-item"
+                    style="border-radius: 20px; overflow: hidden;">
                     <div class="mb-3 text-primary">
                         <i class="fas fa-baby fa-2x"></i>
                     </div>
@@ -229,7 +235,8 @@
 
             <!-- Rabu -->
             <div class="col-md-4 wow fadeInUp" data-wow-delay="0.3s">
-                <div class="p-4 bg-white shadow-sm rounded-4 h-100 jadwal-item">
+                <div class="p-4 bg-white shadow-sm rounded-4 h-100 jadwal-item"
+                  style="border-radius: 20px; overflow: hidden;">
                     <div class="mb-3 text-primary">
                         <i class="fas fa-female fa-2x"></i>
                     </div>
@@ -241,7 +248,8 @@
 
             <!-- Jumat -->
             <div class="col-md-4 wow fadeInUp" data-wow-delay="0.5s">
-                <div class="p-4 bg-white shadow-sm rounded-4 h-100 jadwal-item">
+                <div class="p-4 bg-white shadow-sm rounded-4 h-100 jadwal-item"
+                    style="border-radius: 20px; overflow: hidden;">
                     <div class="mb-3 text-primary">
                         <i class="fas fa-user-md fa-2x"></i>
                     </div>
@@ -253,19 +261,5 @@
         </div>
     </div>
 </section>
-
-
-    <!-- CTA WhatsApp -->
-    <section class="py-5 bg-light">
-        <div class="container text-center">
-            <h2 class="fw-bold mb-3 wow fadeInDown" data-wow-delay="0.2s">Ada Pertanyaan Seputar Posyandu?</h2>
-            <p class="mb-4 wow fadeInUp" data-wow-delay="0.4s">
-                Kami siap membantu! Hubungi kami melalui WhatsApp untuk informasi lebih lanjut.
-            </p>
-            <a href="https://wa.me/62895386587183" target="_blank" class="btn btn-light rounded-pill px-4 py-2 shadow fw-semibold fs-5 wow zoomIn" data-wow-delay="0.6s">
-                <i class="fab fa-whatsapp me-2"></i> Chat Sekarang
-            </a>
-        </div>
-    </section>
 
 @endsection

@@ -10,12 +10,12 @@ class PosyanduController extends Controller
     public function index()
     {
         $posyandu = Posyandu::all();
-        return view('posyandu.index', compact('posyandu'));
+        return view('pages.posyandu.index', compact('posyandu'));
     }
 
     public function create()
     {
-        return view('posyandu.create');
+        return view('pages.posyandu.create');
     }
 
     public function store(Request $request)
@@ -38,12 +38,12 @@ class PosyanduController extends Controller
 
         Posyandu::create($validated);
 
-        return redirect()->route('posyandu.index')->with('success', 'Data posyandu berhasil ditambahkan!');
+        return redirect()->route('pages.posyandu.index')->with('success', 'Data posyandu berhasil ditambahkan!');
     }
 
     public function edit(Posyandu $posyandu)
     {
-        return view('posyandu.edit', compact('posyandu'));
+        return view('pages.posyandu.edit', compact('posyandu'));
     }
 
     public function update(Request $request, Posyandu $posyandu)
@@ -66,12 +66,12 @@ class PosyanduController extends Controller
 
         $posyandu->update($validated);
 
-        return redirect()->route('posyandu.index')->with('success', 'Data posyandu berhasil diperbarui!');
+        return redirect()->route('pages.posyandu.index')->with('success', 'Data posyandu berhasil diperbarui!');
     }
 
     public function destroy(Posyandu $posyandu)
     {
         $posyandu->delete();
-        return redirect()->route('posyandu.index')->with('success', 'Data posyandu berhasil dihapus!');
+        return redirect()->route('pages.posyandu.index')->with('success', 'Data posyandu berhasil dihapus!');
     }
 }

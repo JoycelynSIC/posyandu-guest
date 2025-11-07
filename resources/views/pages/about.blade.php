@@ -7,7 +7,7 @@
             <!-- Gambar -->
             <div class="image-about text-center p-3 wow fadeInLeft" data-wow-delay="0.2s">
                 <img src="{{ asset('assets/img/about.png') }}" alt="Tentang Kami"
-                    class="img-fluid shadow rounded" style="max-width: 350px; height: auto;">
+                     style="max-width: 350px; height: auto;">
             </div>
 
             <!-- Teks -->

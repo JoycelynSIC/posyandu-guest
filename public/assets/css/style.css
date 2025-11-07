@@ -2,12 +2,12 @@
 #spinner {
     opacity: 0;
     visibility: hidden;
-    transition: opacity .5s ease-out, visibility 0s linear .5s;
+    transition: opacity 0.5s ease-out, visibility 0s linear 0.5s;
     z-index: 99999;
 }
 
 #spinner.show {
-    transition: opacity .5s ease-out, visibility 0s linear 0s;
+    transition: opacity 0.5s ease-out, visibility 0s linear 0s;
     visibility: visible;
     opacity: 1;
 }
@@ -22,11 +22,10 @@
     z-index: 99;
 }
 
-
 /*** Button Start ***/
 .btn {
     font-weight: 600;
-    transition: .5s;
+    transition: 0.5s;
 }
 
 .btn-square {
@@ -96,7 +95,6 @@
     background: var(--bs-light);
 }
 
-
 /*** Topbar Start ***/
 .topbar .dropdown-toggle::after {
     border: none;
@@ -119,38 +117,40 @@
     background: var(--bs-light);
     padding-top: 10px;
     border: 0;
-    transition: .5s;
+    transition: 0.5s;
     opacity: 1;
 }
 
 /*** Topbar End ***/
 
-
 /*** Navbar Start ***/
+/* Navbar utama */
 .nav-bar {
     background: var(--bs-white);
-    transition: 1s;
 }
 
+/* Brand / logo */
 .navbar-light .navbar-brand img {
     max-height: 60px;
-    transition: .5s;
 }
 
 .nav-bar .navbar-light .navbar-brand img {
     max-height: 50px;
 }
 
+/* Nav link */
 .navbar .navbar-nav .nav-item .nav-link {
     padding: 0;
 }
 
+/* Nav item */
 .navbar .navbar-nav .nav-item {
     display: flex;
     align-items: center;
     padding: 15px;
 }
 
+/* Hover & active nav item */
 .navbar-light .navbar-nav .nav-item:hover,
 .navbar-light .navbar-nav .nav-item.active,
 .navbar-light .navbar-nav .nav-item:hover .nav-link,
@@ -158,6 +158,54 @@
     color: var(--bs-primary);
 }
 
+/* Dropdown arrow FontAwesome */
+.navbar .dropdown-toggle::after {
+    border: none;
+    content: "\f107";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 600;
+    vertical-align: middle;
+    margin-left: 8px;
+}
+
+.navbar .dropdown-menu {
+    background-color: var(--bs-light); /* warna menu */
+    border: none;
+    padding: 0.5rem 0;
+}
+
+/* Dropdown items putih agar kontras */
+.navbar .dropdown-menu .dropdown-item {
+    background-color: #ffffff; /* putih */
+    color: grey;
+    padding: 0.5rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 8px; /* jarak icon & teks */
+}
+
+/* Icon di dropdown item */
+.navbar .dropdown-menu .dropdown-item i {
+    color: #0d6efd; /* icon biru */
+}
+
+/* Hover dropdown item */
+.navbar .dropdown-menu .dropdown-item:hover {
+    background-color: #e0f0ff; /* biru muda agar kontras */
+    color: #0d6efd; /* teks tetap biru */
+}
+
+/* Icon tetap sama saat hover */
+.navbar .dropdown-menu .dropdown-item:hover i {
+    color: #0d6efd;
+}
+
+/* Optional: border antar item */
+.navbar .dropdown-menu .dropdown-item + .dropdown-item {
+    border-top: 1px solid rgba(0,0,0,0.05);
+}
+
+/* Responsive mobile */
 @media (max-width: 991px) {
     .navbar {
         padding: 20px 0;
@@ -191,56 +239,44 @@
 
     .navbar.navbar-expand-lg .navbar-toggler {
         padding: 8px 15px;
-        border: 1px solid var(--bs-primary);
-        color: var(--bs-primary);
+        border: 1px solid var(--bs-light);
+        color: var(--bs-light);
     }
 }
 
-.navbar .dropdown-toggle::after {
-    border: none;
-    content: "\f107";
-    font-family: "Font Awesome 5 Free";
-    font-weight: 600;
-    vertical-align: middle;
-    margin-left: 8px;
+/* === Tombol Aksi di Kartu Warga (Edit & Hapus) === */
+.warga-card .action-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px; /* jarak antar tombol */
+    border-top: 1px solid #eee;
+    padding-top: 10px;
+    margin-top: auto; /* biar tombol tetap di bawah card */
 }
 
-.dropdown .dropdown-menu .dropdown-item:hover {
-    background: var(--bs-primary);
-    color: var(--bs-white);
-}
-
-.warga-card {
-    background: #fff;
-    border-radius: 20px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    padding: 25px 15px;
+.warga-card .action-buttons .btn {
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
     transition: all 0.3s ease;
 }
 
-.warga-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+.warga-card .action-buttons .btn:hover {
+    transform: translateY(-2px);
 }
 
-.warga-card img {
-    width: 90px;
-    height: 90px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 15px;
+.warga-card .action-buttons .btn-warning {
+    background-color: #ffc107;
+    border: none;
 }
 
-.warga-card h5 {
-    font-weight: 600;
-    color: #333;
-}
-
-.warga-card p {
-    color: #666;
-    font-size: 14px;
-    margin-bottom: 10px;
+.warga-card .action-buttons .btn-danger {
+    background-color: #dc3545;
+    border: none;
 }
 
 .tag {
@@ -292,7 +328,7 @@
         transform-origin: 0% 0%;
         border: 0;
         border-radius: 10px;
-        transition: .5s;
+        transition: 0.5s;
         opacity: 0;
     }
 
@@ -301,13 +337,12 @@
         visibility: visible;
         margin-top: 20px;
         background: var(--bs-light);
-        transition: .5s;
+        transition: 0.5s;
         opacity: 1;
     }
 }
 
 /*** Navbar End ***/
-
 
 /*** Carousel Hero Header Start ***/
 .header-carousel .header-carousel-item {
@@ -355,7 +390,7 @@
     height: 100%;
     left: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, .2);
+    background: rgba(0, 0, 0, 0.2);
     display: flex;
     align-items: center;
 }
@@ -392,12 +427,12 @@
 
 /*** Carousel Hero Header End ***/
 
-
 /*** Single Page Hero Header Start ***/
 .bg-breadcrumb {
     position: relative;
     overflow: hidden;
-    background: linear-gradient(rgba(1, 95, 201, 0.9), rgba(0, 0, 0, 0.2)), url(../img/bg-breadcrumb.jpg);
+    background: linear-gradient(rgba(1, 95, 201, 0.9), rgba(0, 0, 0, 0.2)),
+        url(../img/bg-breadcrumb.jpg);
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -414,7 +449,6 @@
 }
 
 /*** Single Page Hero Header End ***/
-
 
 /*** Feature Start ***/
 .feature .feature-item {
@@ -491,7 +525,6 @@
 
 /*** Feature End ***/
 
-
 /*** Service Start ***/
 .service .service-item {
     border-radius: 10px;
@@ -521,7 +554,7 @@
     left: 0;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-    background: rgba(1, 95, 201, .2);
+    background: rgba(1, 95, 201, 0.2);
     transition: 0.5s;
     z-index: 1;
 }
@@ -583,12 +616,20 @@
     color: var(--bs-white);
 }
 
-.service .service-item:hover .service-content .service-content-inner .btn.btn-primary {
+.service
+    .service-item:hover
+    .service-content
+    .service-content-inner
+    .btn.btn-primary {
     color: var(--bs-primary);
     background: var(--bs-white);
 }
 
-.service .service-item:hover .service-content .service-content-inner .btn.btn-primary:hover {
+.service
+    .service-item:hover
+    .service-content
+    .service-content-inner
+    .btn.btn-primary:hover {
     color: var(--bs-white);
     background: var(--bs-dark);
 }
@@ -617,21 +658,23 @@
 
 /*** Service End ***/
 
-
 /*** FAQs Start ***/
 .faq-section .accordion .accordion-item .accordion-header .accordion-button {
     color: var(--bs-white);
-    background: rgba(1, 95, 201, .8);
+    background: rgba(1, 95, 201, 0.8);
     font-size: 18px;
 }
 
-.faq-section .accordion .accordion-item .accordion-header .accordion-button.collapsed {
+.faq-section
+    .accordion
+    .accordion-item
+    .accordion-header
+    .accordion-button.collapsed {
     color: var(--bs-primary);
     background: var(--bs-light);
 }
 
 /*** FAQs End ***/
-
 
 /*** Blog Start ***/
 .blog .blog-item {
@@ -640,7 +683,7 @@
 }
 
 .blog .blog-item:hover {
-    box-shadow: 0 0 45px rgba(0, 0, 0, .1);
+    box-shadow: 0 0 45px rgba(0, 0, 0, 0.1);
 }
 
 .blog .blog-item:hover .blog-content {
@@ -671,7 +714,7 @@
     left: 0;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-    background: rgba(1, 95, 201, .2);
+    background: rgba(1, 95, 201, 0.2);
     transition: 0.5s;
     z-index: 1;
 }
@@ -706,7 +749,6 @@
 }
 
 /*** Blog End ***/
-
 
 /*** Team Start ***/
 .team .team-item .team-img {
@@ -772,7 +814,6 @@
 
 /*** Team End ***/
 
-
 /*** Testimonial Start ***/
 .testimonial-carousel .owl-stage-outer {
     margin-top: 58px;
@@ -813,7 +854,6 @@
 
 /*** Testimonial End ***/
 
-
 /*** Contact Start ***/
 .contact .contact-img {
     position: relative;
@@ -834,7 +874,7 @@
     animation-delay: 1s;
     animation-iteration-count: infinite;
     animation-direction: alternate;
-    transition: 0.5s
+    transition: 0.5s;
 }
 
 @keyframes image-efects {
@@ -865,7 +905,6 @@
 }
 
 /*** Contact End ***/
-
 
 /*** Footer Start ***/
 .footer {
@@ -904,7 +943,6 @@
     color: var(--bs-primary);
 }
 
-
 .footer .footer-item .footer-instagram {
     position: relative;
     overflow: hidden;
@@ -933,7 +971,7 @@
 
 .footer .footer-item .footer-instagram:hover .footer-search-icon {
     opacity: 1;
-    background: rgba(0, 0, 0, .6);
+    background: rgba(0, 0, 0, 0.6);
 }
 
 .footer .footer-item .footer-btn a {
@@ -951,21 +989,23 @@
 
 /*** Footer End ***/
 
-
 /*** copyright Start ***/
 .copyright {
     background: var(--bs-dark);
-    border-top: 1px solid rgba(255, 255, 255, .08);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 /*** copyright end ***/
 
 body {
-    background: linear-gradient(135deg, var(--bs-primary), var(--bs-dark));
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
+}
+main {
+    flex-grow: 1; /* Membuat konten utama mengisi ruang yang tersisa */
+    background-color: var(--bs-light);
 }
 
 .login-container {
@@ -979,7 +1019,7 @@ body {
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
     text-align: center;
     color: #fff;
-    transition: transform .3s ease;
+    transition: transform 0.3s ease;
 }
 
 .login-container:hover {
@@ -1001,7 +1041,7 @@ body {
     padding: 12px 18px;
     border: none;
     background: rgba(255, 255, 255, 0.9);
-    transition: box-shadow .3s ease, background .3s ease;
+    transition: box-shadow 0.3s ease, background 0.3s ease;
 }
 
 .form-control:focus {
@@ -1033,7 +1073,7 @@ body {
     color: #fff;
     font-weight: 600;
     text-decoration: none;
-    transition: color .3s;
+    transition: color 0.3s;
 }
 
 .login-footer a:hover {
@@ -1163,4 +1203,69 @@ body {
 .btn.transition-hover:hover {
     transform: translateY(-3px);
     box-shadow: 0 0.8rem 1.2rem rgba(0, 0, 0, 0.2);
+}
+
+.wa-container {
+    position: fixed; /* tetap di layar saat scroll */
+    bottom: 20px; /* jarak dari bawah */
+    right: 20px; /* jarak dari kanan */
+    z-index: 9999; /* selalu di atas elemen lain */
+}
+
+/* Tombol */
+.wa-float {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #ffffff; /* putih */
+    color: #0d6efd; /* teks & icon biru */
+    border-radius: 50px; /* rounded-pill */
+    padding: 8px 14px;
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+    animation: pulse 2s infinite;
+}
+
+/* Icon */
+.wa-float i {
+    color: #0d6efd;
+    font-size: 24px;
+}
+
+/* Teks */
+.wa-text {
+    color: #0d6efd;
+    font-weight: 700; /* bold */
+    font-size: 14px;
+    opacity: 0;
+    width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+}
+
+/* Hover efek */
+.wa-float:hover {
+    transform: scale(1.05);
+    padding-right: 18px;
+    box-shadow: 0 6px 16px rgba(13, 110, 253, 0.2);
+}
+
+.wa-float:hover .wa-text {
+    opacity: 1;
+    width: 120px;
+}
+
+/* Pulse animation biru */
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(13, 110, 253, 0.3);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(13, 110, 253, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(13, 110, 253, 0);
+    }
 }

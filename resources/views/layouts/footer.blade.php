@@ -1,5 +1,5 @@
 <!-- Footer Start -->
-<footer class="footer text-white mt-5 pt-5" style="background-color: #0b132b;">
+<footer class="footer text-white pt-5" style="background-color: #0b132b;">
     <div class="container py-4">
         <div class="row align-items-center">
             <div class="col-lg-6 col-md-12 mb-3 mb-lg-0">
