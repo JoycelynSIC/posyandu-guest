@@ -11,11 +11,7 @@
     <main class="container-fluid p-0">
         @yield('content')
     </main>
-
-    {{-- Footer --}}
-    @if (!Request::is('login') && !Request::is('register'))
-        @include('layouts.guest.footer')
-    @endif
+    
     {{-- Floating WhatsApp Button --}}
     @if (!Request::is('login') && !Request::is('register'))
         <div class="wa-container">
@@ -25,6 +21,11 @@
             </a>
         </div>
     @endif
+    {{-- Footer --}}
+    @if (!Request::is('login') && !Request::is('register'))
+        @include('layouts.guest.footer')
+    @endif
+
     <script>
         document.addEventListener("click", function (e) {
             if (e.target.classList.contains("btn-close")) {
