@@ -11,7 +11,7 @@ class CreateKaderDummy extends Seeder
     public function run()
     {
         // Kosongkan tabel dulu supaya aman
-        DB::table('kader_posyandu')->truncate();
+        DB::table('posyandu')->truncate();
 
         $faker = Faker::create('id_ID');
         $kaderData = [];
