@@ -46,3 +46,6 @@ Route::get('/kontak', function () {
     return view('pages.kontak');
 })->name('kontak');
 
+use App\Http\Controllers\KaderController;
+
+Route::resource('kader', KaderController::class);
