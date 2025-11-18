@@ -49,3 +49,7 @@ Route::get('/kontak', function () {
 use App\Http\Controllers\KaderController;
 
 Route::resource('kader', KaderController::class);
+
+Route::get('/cek-db', function () {
+    return DB::connection()->getDatabaseName();
+});
