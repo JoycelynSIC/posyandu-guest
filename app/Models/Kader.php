@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class Kader extends Model
 {
@@ -32,5 +33,28 @@ class Kader extends Model
     public function warga()
     {
         return $this->belongsTo(Warga::class, 'warga_id', 'warga_id');
+    }
+
+    /**
+     * Scope untuk filter dan search
+     */
+    public function scopeFilter(Builder $query, $request)
+    {
+        // Search global berdasarkan nama warga, peran, atau nama posyandu
+        if ($request->filled('search')) {
+            $keyword = $request->search;
+            $query->where(function ($q) use ($keyword) {
+                $q->whereHas('warga', fn($q2) => $q2->where('nama', 'like', "%{$keyword}%"))
+                  ->orWhere('peran', 'like', "%{$keyword}%")
+                  ->orWhereHas('posyandu', fn($q3) => $q3->where('nama', 'like', "%{$keyword}%"));
+            });
+        }
+
+        // Filter berdasarkan posyandu_id
+        if ($request->filled('posyandu_id')) {
+            $query->where('posyandu_id', $request->posyandu_id);
+        }
+
+        return $query;
     }
 }

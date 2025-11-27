@@ -20,12 +20,12 @@ class CreateKaderDummy extends Seeder
         // Ambil semua warga
         $allWarga = DB::table('warga')->get();
 
-        // Pilih sebagian warga jadi kader (40%)
-        $jumlahKader = intval($allWarga->count() * 0.4);
-        $kaderWarga = $allWarga->random($jumlahKader);
+        // Ambil semua posyandu
+        $allPosyandu = DB::table('posyandu')->pluck('posyandu_id')->toArray();
 
-        foreach ($kaderWarga as $warga) {
-            $posyanduId = $faker->numberBetween(1, 5); // pilih posyandu random
+        foreach ($allWarga as $warga) {
+            // Pilih posyandu secara random dari data posyandu
+            $posyanduId = $faker->randomElement($allPosyandu);
 
             $mulaiTugas = $faker->dateTimeBetween('-5 years', 'now');
             $akhirTugas = $faker->optional()->dateTimeBetween('now', '+2 years');

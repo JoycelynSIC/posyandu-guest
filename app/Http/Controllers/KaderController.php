@@ -9,14 +9,38 @@ use Illuminate\Http\Request;
 
 class KaderController extends Controller
 {
-    // Halaman Index (tampilkan semua kader)
-    public function index()
+    /**
+     * Halaman Index (tampilkan semua kader dengan filter & pagination)
+     */
+    public function index(Request $request)
     {
-        $kader = Kader::with(['posyandu', 'warga'])->get();
-        return view('pages.kader.index', compact('kader'));
+        // Ambil semua Posyandu untuk dropdown filter
+        $posyandu = Posyandu::orderBy('nama')->get();
+
+        // Query Kader dengan relasi Warga dan Posyandu + filter
+        $kader = Kader::with(['warga', 'posyandu'])
+            ->when($request->search, function ($query, $search) {
+                $query->whereHas('warga', function ($q) use ($search) {
+                    $q->where('nama', 'like', "%{$search}%");
+                });
+            })
+            ->when($request->posyandu_id, function ($query, $posyandu_id) {
+                $query->where('posyandu_id', $posyandu_id);
+            })
+            ->orderBy('kader_id', 'ASC')
+            ->paginate(12)
+            ->withQueryString(); // penting agar filter tetap aktif saat pagination
+
+        // Ambil total jumlah kader
+        $kaderAktif = Kader::count();
+
+        // Kirim data ke view
+        return view('pages.kader.index', compact('kader', 'posyandu', 'kaderAktif'));
     }
 
-    // Halaman Tambah
+    /**
+     * Halaman Tambah
+     */
     public function create()
     {
         $posyandu = Posyandu::all();
@@ -25,7 +49,9 @@ class KaderController extends Controller
         return view('pages.kader.create', compact('posyandu', 'warga'));
     }
 
-    // Simpan Data Baru
+    /**
+     * Simpan Data Baru
+     */
     public function store(Request $request)
     {
         $request->validate([
@@ -42,7 +68,9 @@ class KaderController extends Controller
             ->with('success', 'Data kader berhasil ditambahkan.');
     }
 
-    // Halaman Edit
+    /**
+     * Halaman Edit
+     */
     public function edit($id)
     {
         $kader = Kader::findOrFail($id);
@@ -52,7 +80,9 @@ class KaderController extends Controller
         return view('pages.kader.edit', compact('kader', 'posyandu', 'warga'));
     }
 
-    // Update Data
+    /**
+     * Update Data
+     */
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -70,7 +100,9 @@ class KaderController extends Controller
             ->with('success', 'Data kader berhasil diperbarui.');
     }
 
-    // Hapus Data
+    /**
+     * Hapus Data
+     */
     public function destroy($id)
     {
         $kader = Kader::findOrFail($id);

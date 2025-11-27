@@ -15,7 +15,7 @@ class CreateWargaDummy extends Seeder
         $faker = Faker::create('id_ID');
         $wargaData = [];
 
-        foreach (range(1, 50) as $i) {
+        foreach (range(1, 100) as $i) {
             $wargaData[] = [
                 'warga_id' => $i,
                 'no_ktp' => $faker->unique()->numerify('3276############'),

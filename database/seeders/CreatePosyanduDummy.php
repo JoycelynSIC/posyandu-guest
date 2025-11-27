@@ -15,7 +15,7 @@ class CreatePosyanduDummy extends Seeder
         $faker = Faker::create('id_ID');
         $posyanduData = [];
 
-        foreach (range(1, 5) as $i) {
+        foreach (range(1, 100) as $i) {
             $posyanduData[] = [
                 'posyandu_id' => $i,
                 'nama' => 'Posyandu ' . $faker->firstName,

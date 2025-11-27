@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\Builder;
 class Posyandu extends Model
 {
     protected $table = 'posyandu';
@@ -15,4 +15,29 @@ class Posyandu extends Model
         'rw',
         'kontak',
     ];
+
+    /**
+     * Scope untuk filter dinamis berdasarkan request
+     */
+    public function scopeFilter(Builder $query, $request, $columns = [])
+    {
+        foreach ($columns as $col) {
+            if ($request->filled($col)) {
+                $query->where($col, 'like', '%' . $request->$col . '%');
+            }
+        }
+        return $query;
+    }
+
+     public function scopeSearch(Builder $query, $keyword, $columns = [])
+    {
+        if (!empty($keyword)) {
+            $query->where(function ($q) use ($keyword, $columns) {
+                foreach ($columns as $col) {
+                    $q->orWhere($col, 'like', '%' . $keyword . '%');
+                }
+            });
+        }
+        return $query;
+    }
 }

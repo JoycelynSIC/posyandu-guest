@@ -7,17 +7,38 @@ use Illuminate\Http\Request;
 
 class PosyanduController extends Controller
 {
-    public function index()
+    /**
+     * Tampilkan daftar Posyandu dengan search (nama, alamat) dan filter (rt, rw)
+     */
+    public function index(Request $request)
     {
-        $posyandu = Posyandu::all();
-        return view('pages.posyandu.index', compact('posyandu'));
+    $posyandu = Posyandu::query()
+        // Search global untuk nama & alamat
+        ->when($request->search, function ($q, $search) {
+            $q->where('nama', 'like', "%{$search}%")
+              ->orWhere('alamat', 'like', "%{$search}%");
+        })
+        // Filter dinamis untuk RT & RW
+        ->filter($request, ['rt', 'rw'])
+        ->orderBy('nama', 'ASC')
+        ->paginate(10)
+        ->onEachSide(2);
+
+    return view('pages.posyandu.index', compact('posyandu'));
     }
 
+
+    /**
+     * Form tambah Posyandu
+     */
     public function create()
     {
         return view('pages.posyandu.create');
     }
 
+    /**
+     * Simpan Posyandu baru
+     */
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -25,7 +46,7 @@ class PosyanduController extends Controller
             'alamat' => 'required|string|max:255',
             'rt' => 'required|string|max:10',
             'rw' => 'required|string|max:10',
-            'kontak' => 'required|numeric|digits_between:10,15', // wajib angka dan isi
+            'kontak' => 'required|numeric|digits_between:10,15',
         ], [
             'nama.required' => 'Nama posyandu wajib diisi.',
             'alamat.required' => 'Alamat wajib diisi.',
@@ -38,14 +59,21 @@ class PosyanduController extends Controller
 
         Posyandu::create($validated);
 
-        return redirect()->route('pages.posyandu.index')->with('success', 'Data posyandu berhasil ditambahkan!');
+        return redirect()->route('posyandu.index')
+            ->with('success', 'Data posyandu berhasil ditambahkan!');
     }
 
+    /**
+     * Form edit Posyandu
+     */
     public function edit(Posyandu $posyandu)
     {
         return view('pages.posyandu.edit', compact('posyandu'));
     }
 
+    /**
+     * Update Posyandu
+     */
     public function update(Request $request, Posyandu $posyandu)
     {
         $validated = $request->validate([
@@ -66,12 +94,18 @@ class PosyanduController extends Controller
 
         $posyandu->update($validated);
 
-        return redirect()->route('pages.posyandu.index')->with('success', 'Data posyandu berhasil diperbarui!');
+        return redirect()->route('posyandu.index')
+            ->with('success', 'Data posyandu berhasil diperbarui!');
     }
 
+    /**
+     * Hapus Posyandu
+     */
     public function destroy(Posyandu $posyandu)
     {
         $posyandu->delete();
-        return redirect()->route('pages.posyandu.index')->with('success', 'Data posyandu berhasil dihapus!');
+
+        return redirect()->route('posyandu.index')
+            ->with('success', 'Data posyandu berhasil dihapus!');
     }
 }
