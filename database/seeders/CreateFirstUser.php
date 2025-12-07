@@ -15,13 +15,15 @@ class CreateFirstUser extends Seeder
         DB::table('users')->truncate();
 
         DB::table('users')->insert([
-            'name' => 'Joy',
+            'name' => 'JoyAdmin',
             'email' => 'joy@gmail.com',
             'email_verified_at' => now(),
-            'password' => Hash::make('joy111111'), // password default
+            'password' => Hash::make('joy111111'), 
+            'role' => 'admin',
             'remember_token' => Str::random(10),
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+
     }
 }

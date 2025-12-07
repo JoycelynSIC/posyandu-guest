@@ -3,26 +3,44 @@
 @section('title', 'Edit Profil')
 
 @section('content')
-<div class=" py-5 bg-light d-flex justify-content-center">
+<div class="py-5 bg-light d-flex justify-content-center">
     <div class="card shadow-sm border-0 rounded-4 wow fadeInUp" data-wow-delay="0.1s"
          style="max-width: 500px; width: 100%; background-color: #f9fafb;">
         <div class="card-body p-4">
 
-            <!-- Header -->
+            <!-- Header Profil Picture -->
             <div class="text-center mb-4 wow fadeInDown" data-wow-delay="0.1s">
-                <div class="rounded-circle d-flex align-items-center justify-content-center mx-auto shadow-sm border border-2 border-primary"
-                    style="width: 100px; height: 100px; background-color: #e3f2fd; font-size: 36px; font-weight: 600; color: #333;">
-                    {{ strtoupper(substr($user->name, 0, 2)) }}
-                </div>
-                <h4 class="fw-bold mt-3 mb-1 text-primary">Edit Profil</h4>
+                @if ($user->profile_image)
+                    <img src="{{ asset('storage/' . $user->profile_image) }}" 
+                         class="rounded-circle mb-2 shadow-sm" 
+                         style="width:100px; height:100px; object-fit:cover;">
+                @else
+                    <div class="rounded-circle d-flex align-items-center justify-content-center mx-auto shadow-sm border border-2 border-primary mb-2"
+                         style="width:100px; height:100px; font-size:36px; font-weight:600; background-color: #e3f2fd; color: #333;">
+                        {{ strtoupper(substr($user->name, 0, 2)) }}
+                    </div>
+                @endif
+                <h4 class="fw-bold mt-2 mb-1 text-primary">Edit Profil</h4>
                 <p class="text-muted mb-0">Perbarui informasi akun kamu di sini</p>
             </div>
 
-            <!-- Form -->
-            <form action="{{ route('users.update', $user->id) }}" method="POST" class="wow fadeInUp" data-wow-delay="0.2s">
+            <!-- Form Edit -->
+            <form action="{{ route('users.update', $user->id) }}" method="POST" 
+                  enctype="multipart/form-data" class="wow fadeInUp" data-wow-delay="0.2s">
                 @csrf
                 @method('PUT')
 
+                <!-- Upload Foto Profil -->
+                <div class="mb-3">
+                    <label for="profile_image" class="form-label fw-semibold">Upload Foto Profil</label>
+                    <input type="file" name="profile_image" id="profile_image" class="form-control"
+                           accept="image/*">
+                    @error('profile_image')
+                        <div class="text-danger small">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <!-- Nama Lengkap -->
                 <div class="mb-3">
                     <label for="name" class="form-label fw-semibold">Nama Lengkap</label>
                     <input type="text" name="name" id="name" 
@@ -33,6 +51,7 @@
                     @enderror
                 </div>
 
+                <!-- Email -->
                 <div class="mb-3">
                     <label for="email" class="form-label fw-semibold">Email</label>
                     <input type="email" name="email" id="email"
@@ -43,6 +62,7 @@
                     @enderror
                 </div>
 
+                <!-- Password Baru -->
                 <div class="mb-3">
                     <label for="password" class="form-label fw-semibold">
                         Password Baru <span class="text-muted small">(opsional)</span>
@@ -55,6 +75,7 @@
                     @enderror
                 </div>
 
+                <!-- Konfirmasi Password -->
                 <div class="mb-4">
                     <label for="password_confirmation" class="form-label fw-semibold">Konfirmasi Password Baru</label>
                     <input type="password" name="password_confirmation" id="password_confirmation"

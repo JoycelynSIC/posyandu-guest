@@ -4,41 +4,31 @@ namespace App\Http\Controllers;
 
 use App\Models\Posyandu;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class PosyanduController extends Controller
 {
-    /**
-     * Tampilkan daftar Posyandu dengan search (nama, alamat) dan filter (rt, rw)
-     */
     public function index(Request $request)
     {
-    $posyandu = Posyandu::query()
-        // Search global untuk nama & alamat
-        ->when($request->search, function ($q, $search) {
-            $q->where('nama', 'like', "%{$search}%")
-              ->orWhere('alamat', 'like', "%{$search}%");
-        })
-        // Filter dinamis untuk RT & RW
-        ->filter($request, ['rt', 'rw'])
-        ->orderBy('nama', 'ASC')
-        ->paginate(10)
-        ->onEachSide(2);
+        $posyandu = Posyandu::query()
+            ->when($request->search, function ($q, $search) {
+                $q->where('nama', 'like', "%{$search}%")
+                    ->orWhere('alamat', 'like', "%{$search}%");
+            })
+            ->filter($request, ['rt', 'rw'])
+            ->orderBy('nama', 'ASC')
+            ->paginate(10)
+            ->onEachSide(2);
 
-    return view('pages.posyandu.index', compact('posyandu'));
+        return view('pages.posyandu.index', compact('posyandu'));
     }
 
-
-    /**
-     * Form tambah Posyandu
-     */
     public function create()
     {
         return view('pages.posyandu.create');
     }
 
-    /**
-     * Simpan Posyandu baru
-     */
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -47,33 +37,44 @@ class PosyanduController extends Controller
             'rt' => 'required|string|max:10',
             'rw' => 'required|string|max:10',
             'kontak' => 'required|numeric|digits_between:10,15',
-        ], [
-            'nama.required' => 'Nama posyandu wajib diisi.',
-            'alamat.required' => 'Alamat wajib diisi.',
-            'rt.required' => 'RT wajib diisi.',
-            'rw.required' => 'RW wajib diisi.',
-            'kontak.required' => 'Nomor kontak wajib diisi.',
-            'kontak.numeric' => 'Nomor kontak harus berupa angka.',
-            'kontak.digits_between' => 'Nomor kontak harus antara 10 sampai 15 digit.',
+            'fotos.*' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:5120',
         ]);
 
-        Posyandu::create($validated);
+        $posyandu = Posyandu::create($validated);
+
+        if ($request->hasFile('fotos')) {
+            foreach ($request->file('fotos') as $file) {
+                $originalName = $file->getClientOriginalName(); // nama asli
+                $filename = $file->storeAs('posyandu', $originalName, 'public');
+
+                DB::table('media')->insert([
+                    'ref_table' => 'posyandu',
+                    'ref_id' => $posyandu->posyandu_id,
+                    'file_url' => $filename,
+                    'caption' => null,
+                    'mime_type' => $file->getClientMimeType(),
+                    'sort_order' => 0,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+            }
+        }
 
         return redirect()->route('posyandu.index')
             ->with('success', 'Data posyandu berhasil ditambahkan!');
     }
 
-    /**
-     * Form edit Posyandu
-     */
     public function edit(Posyandu $posyandu)
     {
-        return view('pages.posyandu.edit', compact('posyandu'));
+        $fotos = DB::table('media')
+            ->where('ref_table', 'posyandu')
+            ->where('ref_id', $posyandu->posyandu_id)
+            ->orderBy('sort_order')
+            ->get();
+
+        return view('pages.posyandu.edit', compact('posyandu', 'fotos'));
     }
 
-    /**
-     * Update Posyandu
-     */
     public function update(Request $request, Posyandu $posyandu)
     {
         $validated = $request->validate([
@@ -82,30 +83,75 @@ class PosyanduController extends Controller
             'rt' => 'required|string|max:10',
             'rw' => 'required|string|max:10',
             'kontak' => 'required|numeric|digits_between:10,15',
-        ], [
-            'nama.required' => 'Nama posyandu wajib diisi.',
-            'alamat.required' => 'Alamat wajib diisi.',
-            'rt.required' => 'RT wajib diisi.',
-            'rw.required' => 'RW wajib diisi.',
-            'kontak.required' => 'Nomor kontak wajib diisi.',
-            'kontak.numeric' => 'Nomor kontak harus berupa angka.',
-            'kontak.digits_between' => 'Nomor kontak harus antara 10 sampai 15 digit.',
+            'fotos.*' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:5120',
         ]);
 
         $posyandu->update($validated);
+
+        if ($request->hasFile('fotos')) {
+            foreach ($request->file('fotos') as $file) {
+                $originalName = $file->getClientOriginalName(); // nama asli
+                $filename = $file->storeAs('posyandu', $originalName, 'public');
+
+                DB::table('media')->insert([
+                    'ref_table' => 'posyandu',
+                    'ref_id' => $posyandu->posyandu_id,
+                    'file_url' => $filename,
+                    'caption' => null,
+                    'mime_type' => $file->getClientMimeType(),
+                    'sort_order' => 0,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+            }
+        }
 
         return redirect()->route('posyandu.index')
             ->with('success', 'Data posyandu berhasil diperbarui!');
     }
 
-    /**
-     * Hapus Posyandu
-     */
     public function destroy(Posyandu $posyandu)
     {
         $posyandu->delete();
 
         return redirect()->route('posyandu.index')
             ->with('success', 'Data posyandu berhasil dihapus!');
+    }
+
+    public function show($id)
+    {
+        $posyandu = Posyandu::findOrFail($id);
+
+        $fotos = DB::table('media')
+            ->where('ref_table', 'posyandu')
+            ->where('ref_id', $posyandu->posyandu_id)
+            ->orderBy('sort_order')
+            ->get();
+
+        return view('pages.posyandu.detail', compact('posyandu', 'fotos'));
+    }
+
+    public function deleteFile($id, $index)
+    {
+        $file = DB::table('media')
+            ->where('ref_table', 'posyandu')
+            ->where('ref_id', $id)
+            ->orderBy('sort_order', 'asc')
+            ->get()
+            ->toArray();
+
+        if (!isset($file[$index])) {
+            return redirect()->back()->with('error', 'File tidak ditemukan.');
+        }
+
+        $fileToDelete = $file[$index];
+
+        if (Storage::disk('public')->exists($fileToDelete->file_url)) {
+            Storage::disk('public')->delete($fileToDelete->file_url);
+        }
+
+        DB::table('media')->where('media_id', $fileToDelete->media_id)->delete();
+
+        return redirect()->back()->with('success', 'File berhasil dihapus.');
     }
 }

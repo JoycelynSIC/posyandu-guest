@@ -80,7 +80,10 @@
             <div class="row g-4">
                 @forelse ($posyandu as $key => $data)
                     <div class="col-md-4 col-lg-3 wow fadeInUp" data-wow-delay="{{ 0.4 + $key * 0.1 }}s">
-                        <div class="card border-0 shadow-sm rounded-4 h-100 overflow-hidden">
+
+                        {{-- Card lebih besar sedikit --}}
+                        <div class="card border-0 shadow-sm rounded-4 h-100 overflow-hidden" style="min-height: 380px;">
+
                             {{-- Header --}}
                             <div class="text-center bg-primary text-white p-4 rounded-top">
                                 <div class="d-flex justify-content-center align-items-center mb-3">
@@ -105,12 +108,19 @@
                                 </p>
                             </div>
 
-                            {{-- Tombol Edit & Hapus --}}
+                            {{-- Tombol Detail, Edit, Hapus --}}
                             <div class="card-footer bg-transparent border-0 text-center pb-4">
-                                <div class="d-flex justify-content-center align-items-center gap-3">
+                                <div class="d-flex justify-content-center align-items-center gap-2">
+
+                                    <a href="{{ route('posyandu.show', $data->posyandu_id) }}"
+                                        class="btn btn-outline-dark btn-sm d-flex align-items-center justify-content-center gap-2 shadow-sm"
+                                        style="min-width: 85px; height: 38px;">
+                                        <i class="fa fa-eye"></i> Detail
+                                    </a>
+
                                     <a href="{{ route('posyandu.edit', $data->posyandu_id) }}"
-                                        class="btn btn-primary btn-sm d-flex align-items-center justify-content-center gap-2 shadow-sm"
-                                        style="min-width: 90px; height: 38px;">
+                                        class="btn btn-outline-primary btn-sm d-flex align-items-center justify-content-center gap-2 shadow-sm"
+                                        style="min-width: 85px; height: 38px;">
                                         <i class="fa fa-pen"></i> Edit
                                     </a>
 
@@ -119,13 +129,15 @@
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" onclick="return confirm('Yakin hapus data ini?')"
-                                            class="btn btn-outline-primary btn-sm d-flex align-items-center justify-content-center gap-2 shadow-sm"
-                                            style="min-width: 90px; height: 38px;">
+                                            class="btn btn-outline-danger btn-sm d-flex align-items-center justify-content-center gap-2 shadow-sm"
+                                            style="min-width: 85px; height: 38px;">
                                             <i class="fa fa-trash"></i> Hapus
                                         </button>
                                     </form>
+
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 @empty
@@ -134,6 +146,7 @@
                     </div>
                 @endforelse
             </div>
+
 
             {{-- Pagination --}}
             <div class="d-flex justify-content-center mt-5">
