@@ -23,12 +23,12 @@
             @if ($fotos->count() > 0)
                 <div class="row g-3">
                     @foreach ($fotos as $foto)
-                        <div class="col-md-4">
-                            <div
-                                class="border rounded p-2 text-center d-flex flex-column align-items-center justify-content-between h-100">
+                        <div class="col-md-4 col-6 foto-col">
+                            <div class="border rounded p-2 text-center d-flex flex-column align-items-center 
+                            justify-content-between h-100 foto-card">
 
-                                <div class="mb-2"
-                                    style="min-height:150px; display:flex; align-items:center; justify-content:center;">
+                                <div class="mb-2 foto-preview d-flex align-items-center justify-content-center"
+                                    style="min-height:150px;">
                                     @if (Str::endsWith($foto->file_url, ['.jpg', '.jpeg', '.png']))
                                         <img src="{{ asset('storage/' . $foto->file_url) }}" class="img-fluid rounded"
                                             style="max-height:150px; object-fit:cover;">
