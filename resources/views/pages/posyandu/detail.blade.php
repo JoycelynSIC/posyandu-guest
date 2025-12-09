@@ -19,29 +19,35 @@
             <p><strong>Kontak:</strong> {{ $posyandu->kontak }}</p>
             <hr>
 
-            <h5>Dokumen / Foto Posyandu</h5>
+            {{-- FOTO POSYANDU --}}
+            <h5 class="mb-3">Dokumen / Foto Posyandu</h5>
+
             @if ($fotos->count() > 0)
                 <div class="row g-3">
                     @foreach ($fotos as $foto)
-                        <div class="col-md-4 col-6 foto-col">
-                            <div class="border rounded p-2 text-center d-flex flex-column align-items-center 
-                            justify-content-between h-100 foto-card">
+                        <div class="col-6 col-md-4">
+                            <div class="border rounded p-2 text-center d-flex flex-column align-items-center justify-content-between"
+                                style="height: 220px;">
 
-                                <div class="mb-2 foto-preview d-flex align-items-center justify-content-center"
-                                    style="min-height:150px;">
+                                {{-- Preview Gambar --}}
+                                <div class="d-flex align-items-center justify-content-center mb-2"
+                                    style="height:130px; width:100%; overflow:hidden;">
                                     @if (Str::endsWith($foto->file_url, ['.jpg', '.jpeg', '.png']))
-                                        <img src="{{ asset('storage/' . $foto->file_url) }}" class="img-fluid rounded"
-                                            style="max-height:150px; object-fit:cover;">
+                                        <img src="{{ asset('storage/' . $foto->file_url) }}"
+                                            class="img-fluid rounded"
+                                            style="height:100%; object-fit:cover;">
                                     @else
                                         <i class="fa fa-file fa-3x text-danger"></i>
                                     @endif
                                 </div>
 
+                                {{-- Nama File --}}
                                 <p class="small text-truncate mb-2">{{ basename($foto->file_url) }}</p>
 
+                                {{-- Tombol Lihat --}}
                                 <a href="{{ asset('storage/' . $foto->file_url) }}" target="_blank"
-                                    class="btn btn-sm btn-primary w-100">
-                                    Lihat File
+                                    class="btn btn-outline-primary btn-sm w-100">
+                                    <i class="fa fa-eye me-1"></i> Lihat File
                                 </a>
                             </div>
                         </div>
@@ -50,7 +56,6 @@
             @else
                 <p class="text-muted">Tidak ada file.</p>
             @endif
-
 
             <div class="mt-4 d-flex justify-content-between">
                 <a href="{{ route('posyandu.index') }}" class="btn btn-primary rounded-pill px-4">
