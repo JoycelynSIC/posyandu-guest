@@ -6,98 +6,95 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+
 class UserController extends Controller
 {
+    // Halaman login (optional)
     public function index()
     {
         $users = User::all();
         return view('pages.auth.login', compact('users'));
     }
 
+    // Halaman profil user
     public function profile()
     {
-        // Ambil data user yang sedang login
-        $user = auth()->user();
-
-        // Kirim ke view users.profile
+        $user = auth()->user(); // user yang sedang login
         return view('pages.users.profile', compact('user'));
     }
 
-    public function store(Request $request)
-    {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:6',
-        ]);
-
-        User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
-
-        return redirect()->route('pages.users.index')->with('success', 'User berhasil ditambahkan!');
-    }
-
+    // Halaman edit user
     public function edit(User $user)
     {
         return view('pages.users.edit', compact('user'));
     }
 
+    // Update user
     public function update(Request $request, $id)
-{
-    $user = User::findOrFail($id);
+    {
+        $user = User::findOrFail($id);
 
-    // Validasi input
-    $request->validate([
-        'name' => 'required|string|max:255',
-        'email' => 'required|email|unique:users,email,' . $user->id,
-        'password' => 'nullable|min:6|confirmed',
-    ]);
+        // Validasi input
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            'password' => 'nullable|min:6|confirmed',
+            'profile_image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        ]);
 
-    // Update data dasar
-    $user->name = $request->name;
-    $user->email = $request->email;
+        // Update nama & email
+        $user->name = $request->name;
+        $user->email = $request->email;
 
-    // Kalau user isi password baru
-    if ($request->filled('password')) {
-        $user->password = Hash::make($request->password);
+        // Upload foto profil
+        if ($request->hasFile('profile_image')) {
+            $file = $request->file('profile_image');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $path = $file->storeAs('profile_images', $filename, 'public');
+
+            // Hapus foto lama kalau ada
+            if ($user->profile_image && Storage::disk('public')->exists($user->profile_image)) {
+                Storage::disk('public')->delete($user->profile_image);
+            }
+
+            $user->profile_image = $path;
+        }
+
+        // Update password jika diisi
+        if ($request->filled('password')) {
+            $user->password = Hash::make($request->password);
+        }
+
         $user->save();
 
-        // Logout user saat ini
-        Auth::logout();
+        // Logout user kalau password diubah
+        if ($request->filled('password')) {
+            Auth::logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
 
-        // Invalidate session agar benar-benar keluar
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
+            return redirect()->route('login')->with('status', 'Password berhasil diubah. Silakan login kembali.');
+        }
 
-        // Arahkan ke halaman login
-        return redirect()->route('login')->with('status', 'Password berhasil diubah. Silakan login kembali.');
+        return redirect()->route('profile')->with('success', 'Profil berhasil diperbarui.');
     }
 
-    // Kalau password tidak diubah, hanya update nama/email
-    $user->save();
-
-    return redirect()->route('profile')->with('success', 'Profil berhasil diperbarui.');
-}
-
+    // Hapus user
     public function destroy(User $user)
     {
-        // logout dulu kalau yang dihapus adalah user yang sedang login
+        // logout jika user yang dihapus adalah yang login
         if (Auth::id() === $user->id) {
             Auth::logout();
+        }
+
+        // Hapus foto lama
+        if ($user->profile_image && Storage::disk('public')->exists($user->profile_image)) {
+            Storage::disk('public')->delete($user->profile_image);
         }
 
         $user->delete();
 
         return redirect()->route('login')->with('success', 'Akun berhasil dihapus.');
     }
-
-    public function showProfile()
-    {
-        $user = auth()->user(); // ambil user yang sedang login
-        return view('users.profile', compact('user'));
-    }
-
 }

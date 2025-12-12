@@ -194,7 +194,7 @@
                         <div class="feature-icon mb-4 mx-auto">
                             <i class="fas fa-user-nurse fa-2x"></i>
                         </div>
-                        <h4 class="fw-bold mb-3">8</h4>
+                        <h4 class="fw-bold mb-3">100</h4>
                         <p class="mb-0">Kader Aktif</p>
                     </div>
                 </div>
