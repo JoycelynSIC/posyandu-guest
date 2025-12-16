@@ -164,10 +164,10 @@
 
                     <!-- Tombol -->
                     <div class="d-flex justify-content-between mt-3 wow fadeInUp" data-wow-delay="0.4s">
-                        <a href="{{ route('posyandu.index') }}" class="btn btn-primary rounded-pill px-3 py-1">
+                        <a href="{{ route('posyandu.index') }}" class="btn btn-outline-dark px-3 py-1">
                             <i class="fa fa-arrow-left me-1"></i> Kembali
                         </a>
-                        <button type="submit" class="btn btn-primary rounded-pill px-3 py-1">
+                        <button type="submit" class="btn btn-outline-primary px-3 py-1">
                             <i class="fa fa-save me-1"></i> Perbarui
                         </button>
                     </div>

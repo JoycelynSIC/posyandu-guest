@@ -82,12 +82,11 @@
 
                         {{-- Header --}}
                         <div class="text-center bg-primary text-white p-3 rounded-top">
-                            <img src="{{ $data->foto && $data->foto != 'assets/img/placeholder.png' 
-                                        ? asset('storage/' . $data->foto) 
-                                        : asset('assets/img/placeholder.png') }}"
-                                 alt="{{ $data->nama }}"
-                                 class="rounded-circle mb-2 border border-2 border-light shadow-sm"
-                                 style="width:80px; height:80px; object-fit:cover;">
+                            <img src="{{ $data->foto_url }}"
+     alt="{{ $data->nama }}"
+     class="rounded-circle mb-2 border border-2 border-light shadow-sm"
+     style="width:80px; height:80px; object-fit:cover;">
+
                             <h6 class="fw-bold mb-0 text-white">{{ $data->nama }}</h6>
                             <small class="text-white">NIK: {{ $data->no_ktp ?? '-' }}</small>
                         </div>

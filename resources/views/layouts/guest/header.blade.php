@@ -5,12 +5,10 @@
         <nav class="navbar navbar-expand-lg navbar-light">
 
             <a href="dashboard" class="navbar-brand p-0">
-                <img src="https://1.bp.blogspot.com/-vNcUzj8YRPo/YNaCWN7kmLI/AAAAAAAAFaE/Q0YIFTjsM-kDUxl8VXWNHN86WZtELt8MwCLcBGAsYHQ/s1600/Logo%2BPosyandu.png"
-                     alt="Logo Posyandu" class="navbar-logo"/>
+                <img src="{{ asset('assets/img/logohori.png') }}" alt="Logo" class="navbar-logo" />
             </a>
 
-            <button class="navbar-toggler" type="button"
-                data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                 <span class="fa fa-bars"></span>
             </button>
 
@@ -25,33 +23,38 @@
 
                     <!-- MENU PROFIL -->
                     @auth
-                    <a href="{{ route('profile') }}"
-                       class="nav-item nav-link {{ request()->is('profile') ? 'active' : '' }}">
-                        <i class="fas fa-user-circle text-primary me-1"></i> Profil
-                    </a>
+                        <a href="{{ route('profile') }}"
+                            class="nav-item nav-link {{ request()->is('profile') ? 'active' : '' }}">
+                            <i class="fas fa-user-circle text-primary me-1"></i> Profil
+                        </a>
                     @endauth
 
                     <!-- Dropdown Data -->
                     @auth
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle
-                            {{ request()->is('warga*') || request()->is('posyandu*') || request()->is('kader*') ? 'active' : '' }}"
-                            data-bs-toggle="dropdown">
-                            <i class="fas fa-database text-primary me-1"></i> Data
-                        </a>
+                        <div class="nav-item dropdown">
+                            <a href="#"
+                                class="nav-link dropdown-toggle
+                                {{ request()->is('warga*') || request()->is('posyandu*') || request()->is('kader*') ? 'active' : '' }}"
+                                data-bs-toggle="dropdown">
+                                <i class="fas fa-database text-primary me-1"></i> Data
+                            </a>
 
-                        <div class="dropdown-menu">
-                            <a href="{{ route('warga.index') }}" class="dropdown-item">
-                                <i class="fas fa-users text-primary me-2"></i> Data Warga
-                            </a>
-                            <a href="{{ route('posyandu.index') }}" class="dropdown-item">
-                                <i class="fas fa-clinic-medical text-primary me-2"></i> Data Posyandu
-                            </a>
-                            <a href="{{ route('kader.index') }}" class="dropdown-item">
-                                <i class="fas fa-user-nurse text-primary me-2"></i> Data Kader
-                            </a>
+                            <div class="dropdown-menu">
+                                <a href="{{ route('warga.index') }}" class="dropdown-item">
+                                    <i class="fas fa-users text-primary me-2"></i> Data Warga
+                                </a>
+                                <a href="{{ route('posyandu.index') }}" class="dropdown-item">
+                                    <i class="fas fa-clinic-medical text-primary me-2"></i> Data Posyandu
+                                </a>
+                                <a href="{{ route('kader.index') }}" class="dropdown-item">
+                                    <i class="fas fa-user-nurse text-primary me-2"></i> Data Kader
+                                </a>
+                                <a href="{{ route('jadwal.index') }}" class="dropdown-item">
+                                    <i class="fas fa-calendar-alt text-primary me-2"></i> Jadwal Posyandu
+                                </a>
+
+                            </div>
                         </div>
-                    </div>
                     @endauth
 
                     <a href="{{ route('about') }}"
@@ -66,17 +69,15 @@
 
                     <!-- 🔵 TOMBOL MASUK (JIKA BELUM LOGIN) -->
                     @guest
-                        <a href="{{ route('login') }}"
-                           class="nav-item nav-link fw-semibold text-primary">
+                        <a href="{{ route('login') }}" class="nav-item nav-link fw-semibold text-primary">
                             <i class="fas fa-sign-in-alt me-1"></i> Masuk
                         </a>
                     @endguest
 
                     <!-- 🔴 LOGOUT (JIKA SUDAH LOGIN) -->
                     @auth
-                        <a href="#"
-                           class="nav-item nav-link text-danger"
-                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        <a href="#" class="nav-item nav-link text-danger"
+                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             <i class="fas fa-sign-out-alt text-danger me-1"></i> Logout
                         </a>
 

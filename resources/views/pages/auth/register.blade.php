@@ -24,10 +24,10 @@
 
             {{-- LEFT : WELCOME --}}
             <div class="col-md-6 d-flex flex-column justify-content-center align-items-center text-center p-5 wow fadeInLeft"
-                style="background:linear-gradient(160deg,#08072c,#0a58ca);color:#fff;">
+                style="background:linear-gradient(-90deg,#08072c,#0a58ca);color:#fff;">
 
                 <div class="mb-3 wow fadeInDown"
-                    style="background:rgba(0, 47, 255, 0.21);padding:14px 18px;border-radius:20px;">
+                  style="background:rgba(134, 182, 253, 0.46);padding:14px 18px;border-radius:20px;">
                     <img src="{{ asset('assets/img/logoverti.png') }}"
                         alt="Logo Posyandu"
                         style="height:120px;object-fit:contain;">

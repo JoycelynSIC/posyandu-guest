@@ -10,22 +10,22 @@ use App\Http\Controllers\PosyanduController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\KaderController;
+use App\Http\Controllers\JadwalController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
 | PUBLIC ROUTES
 |--------------------------------------------------------------------------
 */
-Route::get('/', function () {
-    return view('pages.dashboard');
-});
 
-Route::get('/dashboard', function () {
-    return view('pages.dashboard');
-})->name('dashboard');
+// Halaman utama -> panggil DashboardController supaya $jadwal ada
+Route::get('/', [DashboardController::class, 'index'])->name('home');
 
-Route::get('/jadwal_posyandu', [HomeController::class, 'index']);
+// Dashboard
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
+// Tentang & kontak
 Route::get('/about', function () {
     return view('pages.about');
 })->name('about');
@@ -34,6 +34,7 @@ Route::get('/kontak', function () {
     return view('pages.kontak');
 })->name('kontak');
 
+// Cek database
 Route::get('/cek-db', function () {
     return DB::connection()->getDatabaseName();
 });
@@ -57,32 +58,24 @@ Route::post('/register', [AuthController::class, 'register'])->name('register.po
 */
 Route::middleware(['auth'])->group(function () {
 
-    // ================= PROFILE =================
+    // PROFILE
     Route::get('/profile', [UserController::class, 'profile'])->name('profile');
+    Route::delete('/users/{id}/photo', [UserController::class, 'deletePhoto'])->name('users.photo.delete');
 
-    // hapus foto profil
-    Route::delete('/users/{id}/photo', [UserController::class, 'deletePhoto'])
-        ->name('users.photo.delete');
-
-    // ================= USERS =================
+    // USERS
     Route::resource('users', UserController::class);
 
-    // ================= WARGA =================
-    // Route khusus hapus foto warga (HARUS DI ATAS)
-    Route::delete('/warga/{id}/foto', [WargaController::class, 'deletePhoto'])
-        ->name('warga.photo.delete');
-
-    // Baru resource warga
+    // WARGA
+    Route::delete('/warga/{id}/foto', [WargaController::class, 'deletePhoto'])->name('warga.photo.delete');
     Route::resource('warga', WargaController::class);
 
-
-    // ================= POSYANDU =================
+    // POSYANDU
     Route::resource('posyandu', PosyanduController::class);
     Route::get('/posyandu/{id}', [PosyanduController::class, 'show'])->name('posyandu.show');
     Route::get('/posyandu/{id}/delete-file/{index}', [PosyanduController::class, 'deleteFile'])
         ->name('posyandu.deleteFile');
 
-    // ================= MEDIA =================
+    // MEDIA
     Route::post('/media/upload', [MediaController::class, 'upload'])->name('media.upload');
     Route::delete('/media/{id}', [MediaController::class, 'destroy'])->name('media.delete');
 });
@@ -100,3 +93,10 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
     Route::resource('kader', KaderController::class);
 });
+
+/*
+|--------------------------------------------------------------------------
+| JADWAL ROUTES
+|--------------------------------------------------------------------------
+*/
+Route::resource('jadwal', JadwalController::class);

@@ -1,5 +1,6 @@
 <!-- Footer Start -->
-<footer class="footer text-white" style="background-color:#294392;">
+<footer class="footer text-white" style="background:#0b1f3a;">
+
     <div class="container-fluid pt-5 pb-4">
         <div class="container">
 
@@ -9,8 +10,12 @@
                 <!-- BRAND -->
                 <div class="col-md-6 col-lg-4">
                     <div class="d-flex align-items-center mb-3">
-                        <img src="{{ asset('assets/img/logoverti.png') }}"
-                            alt="Logo Posyandu" style="height:70px" class="me-3">
+                        <div class="p-2 me-3"
+                            style="background:rgba(153,198,235,.62);border-radius:28px;backdrop-filter:blur(6px);box-shadow:0 6px 18px rgba(0,0,0,.25);">
+                            <img src="{{ asset('assets/img/logoverti.png') }}" alt="Logo Posyandu"
+                                style="height:70px;object-fit:contain;">
+                        </div>
+
 
                         <h4 class="mb-0 fw-bold text-white">Posyandu IBARA</h4>
                     </div>
@@ -32,8 +37,6 @@
                     </div>
                 </div>
 
-                <!-- MENU CEPAT -->
-                <!-- MENU CEPAT -->
                 <!-- MENU CEPAT -->
                 <div class="col-md-6 col-lg-4">
                     <h6 class="fw-bold mb-3 text-white">Menu Cepat</h6>
@@ -77,6 +80,13 @@
                                         <i class="fas fa-angle-right me-2 text-info"></i>
                                         <a href="{{ route('kader.index') }}" class="text-white text-decoration-none">
                                             Data Kader
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <li class="mb-1"></li>
+                                        <i class="fas fa-angle-right me-2 text-info"></i>
+                                        <a href="{{ route('jadwal.index') }}" class="text-white text-decoration-none">
+                                            Jadwal Posyandu
                                         </a>
                                     </li>
                                 </ul>

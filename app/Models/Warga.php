@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Storage;
 
 class Warga extends Model
 {
@@ -62,4 +63,21 @@ class Warga extends Model
 
         return $query;
     }
+
+    public function getFotoUrlAttribute()
+{
+    // Jika foto kosong / placeholder
+    if (!$this->foto || $this->foto === 'assets/img/placeholder.png') {
+        return asset('assets/img/placeholder.png');
+    }
+
+    // Jika file ada di storage
+    if (Storage::disk('public')->exists($this->foto)) {
+        return asset('storage/' . $this->foto);
+    }
+
+    // fallback
+    return asset('assets/img/placeholder.png');
+}
+
 }

@@ -16,7 +16,7 @@
     {{-- CARD WRAPPER --}}
     <div class="card border-0 shadow-lg overflow-hidden wow fadeInUp position-relative"
         data-wow-delay="0.1s"
-        style="width:880px; border-radius:28px; background: rgba(255,255,255,0.28); backdrop-filter: blur(10px); z-index:1;">
+        style="width:880px; border-radius:28px; background: rgba(43, 93, 255, 0.28); backdrop-filter: blur(10px); z-index:1;">
 
         <div class="row g-0">
 
@@ -92,11 +92,11 @@
 
             {{-- RIGHT : WELCOME (STYLE SAMA REGISTER + LOGO) --}}
             <div class="col-md-6 d-flex flex-column justify-content-center align-items-center text-center p-5 wow fadeInRight"
-                style="background:linear-gradient(160deg,#08072c,#0a58ca);color:#fff;">
+                style="background:linear-gradient(90deg,#08072c,#0a58ca);color:#fff;">
 
                 {{-- LOGO (SAMA REGISTER, SIZE TETAP) --}}
                 <div class="mb-3"
-                    style="background:rgba(0, 47, 255, 0.21);padding:14px 18px;border-radius:20px;">
+                    style="background:rgba(134, 182, 253, 0.46);padding:14px 18px;border-radius:20px;">
                     <img src="{{ asset('assets/img/logoverti.png') }}"
                         alt="Logo Posyandu"
                         style="height:120px;object-fit:contain;">

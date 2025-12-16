@@ -150,20 +150,19 @@
 
                         <!-- Tombol Kembali -->
                         <a href="{{ route('warga.index') }}"
-                            class="btn btn-outline-primary d-flex align-items-center justify-content-center gap-1"
+                            class="btn btn-outline-dark d-flex align-items-center justify-content-center gap-1"
                             style="min-width: 100px; height: 40px;">
                             <i class="fa fa-arrow-left"></i> Kembali
                         </a>
 
                         <!-- Tombol Hapus Foto (jika ada) -->
                         @if ($warga->foto)
-<button type="button"
-    class="btn btn-outline-danger d-flex align-items-center justify-content-center gap-1"
-    style="min-width: 100px; height: 40px;"
-    onclick="hapusFoto({{ $warga->warga_id }})">
-    <i class="fa fa-trash"></i> Hapus Foto
-</button>
-@endif
+                            <button type="button"
+                                class="btn btn-outline-danger d-flex align-items-center justify-content-center gap-1"
+                                style="min-width: 100px; height: 40px;" onclick="hapusFoto({{ $warga->warga_id }})">
+                                <i class="fa fa-trash"></i> Hapus Foto
+                            </button>
+                        @endif
 
 
                         <!-- Tombol Perbarui -->

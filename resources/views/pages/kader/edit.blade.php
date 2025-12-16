@@ -10,13 +10,23 @@
 
             <!-- Header -->
             <div class="text-center mb-2 wow fadeInDown" data-wow-delay="0.1s">
-                <div class="rounded-circle d-flex align-items-center justify-content-center mx-auto shadow-sm border border-2 border-primary"
-                     style="width:70px; height:70px; background-color:#e8f0ff; color:#0d6efd;">
-                    <i class="fas fa-user-nurse fa-lg"></i>
-                </div>
-                <h5 class="fw-bold mt-2 mb-1 text-primary">Edit Kader Posyandu</h5>
-                <p class="text-muted mb-1" style="font-size:0.8rem;">Perbarui informasi kader dengan benar dan lengkap</p>
-            </div>
+    <div class="mx-auto shadow-sm border border-2 border-primary rounded-circle overflow-hidden d-flex align-items-center justify-content-center"
+         style="width:70px;height:70px;background:#e8f0ff;">
+        
+        @if($kader->warga->foto && $kader->warga->foto != 'assets/img/placeholder.png')
+            <img src="{{ asset('storage/' . $kader->warga->foto) }}"
+                 alt="{{ $kader->warga->nama }}"
+                 style="width:100%;height:100%;object-fit:cover;">
+        @else
+            <i class="fas fa-user-nurse fa-lg text-primary"></i>
+        @endif
+    </div>
+
+    <h5 class="fw-bold mt-2 mb-1 text-primary">Edit Kader Posyandu</h5>
+    <p class="text-muted mb-1" style="font-size:0.8rem;">
+        Perbarui informasi kader dengan benar dan lengkap
+    </p>
+</div>
 
             <!-- Error Validation -->
             @if ($errors->any())
@@ -96,10 +106,10 @@
 
                 <!-- Tombol -->
                 <div class="d-flex justify-content-between mt-2">
-                    <a href="{{ route('kader.index') }}" class="btn btn-primary rounded-pill px-2 py-1">
+                    <a href="{{ route('kader.index') }}" class="btn btn-outline-dark px-2 py-1">
                         <i class="fa fa-arrow-left me-1"></i> Kembali
                     </a>
-                    <button type="submit" class="btn btn-primary rounded-pill px-2 py-1">
+                    <button type="submit" class="btn btn-outline-primary  px-2 py-1">
                         <i class="fa fa-save me-1"></i> Perbarui
                     </button>
                 </div>

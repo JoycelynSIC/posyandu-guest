@@ -41,21 +41,17 @@ class WargaController extends Controller
         'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
     ]);
 
-    // 🔥 LOGIC FOTO
+    // ✅ upload foto hanya kalau ada
     if ($request->hasFile('foto')) {
-        $validated['foto'] = $request->file('foto')
-            ->store('warga', 'public');
-    } else {
-        // ✅ default placeholder
-        $validated['foto'] = 'assets/img/placeholder.png';
+        $validated['foto'] = $request->file('foto')->store('warga', 'public');
     }
 
     Warga::create($validated);
 
     return redirect()->route('warga.index')
-    ->with('success', "Data warga {$validated['nama']} berhasil ditambahkan!");
-
+        ->with('success', "Data warga {$validated['nama']} berhasil ditambahkan!");
 }
+
 
 
     public function edit(string $id)

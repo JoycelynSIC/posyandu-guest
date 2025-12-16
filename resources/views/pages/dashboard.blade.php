@@ -100,11 +100,11 @@
                 <h5 class="text-primary fw-bold text-uppercase mb-3 opacity-0 translate-y-40" data-animate>Informasi
                     Posyandu</h5>
                 <h2 class="fw-bold mb-4 opacity-0 translate-y-40" data-animate>Layanan dan Edukasi Posyandu</h2>
-               <p class="mb-0 text-muted">
-    Posyandu IBARA berperan sebagai pusat pemantauan kesehatan ibu dan balita
-    dengan layanan terjadwal, pencatatan yang tertib, serta dukungan
-    untuk tumbuh kembang anak yang optimal.
-</p>
+                <p class="mb-0 text-muted">
+                    Posyandu IBARA berperan sebagai pusat pemantauan kesehatan ibu dan balita
+                    dengan layanan terjadwal, pencatatan yang tertib, serta dukungan
+                    untuk tumbuh kembang anak yang optimal.
+                </p>
 
             </div>
 
@@ -227,152 +227,183 @@
     </section>
 
     <!-- Jadwal Pelayanan -->
-    <section class="py-5 bg-light">
-        <div class="container text-center">
-            <h5 class="text-primary fw-bold text-uppercase mb-3 wow fadeInDown" data-wow-delay="0.2s">Jadwal Pelayanan</h5>
-            <h2 class="fw-bold mb-5 wow fadeInUp" data-wow-delay="0.4s">Datang dan Ikuti Kegiatan Posyandu</h2>
+    <div class="container py-4">
 
-            <div class="row justify-content-center g-4">
-                <!-- Senin -->
-                <div class="col-md-4 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="p-4 bg-white shadow-sm rounded-4 h-100 jadwal-item"
-                        style="border-radius: 20px; overflow: hidden;">
-                        <div class="mb-3 text-primary">
-                            <i class="fas fa-baby fa-2x"></i>
-                        </div>
-                        <h5 class="fw-semibold mb-2">Senin</h5>
-                        <p class="mb-1 text-muted">Pelayanan Balita & Imunisasi</p>
-                        <p class="fw-bold text-primary"><i class="far fa-clock me-1"></i> 08.00 - 11.00 WIB</p>
-                    </div>
-                </div>
+        <!-- Header dengan animasi -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h5 class="fw-bold text-primary mb-0 wow fadeInLeft" data-wow-delay="0.1s">
+                <i class="fa fa-calendar-alt me-2"></i> Jadwal Posyandu Terdekat
+            </h5>
+            @auth
+                @if(auth()->user()->role === 'admin')
+                    <a href="{{ route('jadwal.index') }}" class="btn btn-sm btn-outline-primary rounded-pill wow fadeInRight"
+                        data-wow-delay="0.2s">
+                        Lihat Semua
+                    </a>
+                @endif
+            @endauth
 
-                <!-- Rabu -->
-                <div class="col-md-4 wow fadeInUp" data-wow-delay="0.3s">
-                    <div class="p-4 bg-white shadow-sm rounded-4 h-100 jadwal-item"
-                        style="border-radius: 20px; overflow: hidden;">
-                        <div class="mb-3 text-primary">
-                            <i class="fas fa-female fa-2x"></i>
-                        </div>
-                        <h5 class="fw-semibold mb-2">Rabu</h5>
-                        <p class="mb-1 text-muted">Pemeriksaan Ibu Hamil</p>
-                        <p class="fw-bold text-primary"><i class="far fa-clock me-1"></i> 09.00 - 12.00 WIB</p>
-                    </div>
-                </div>
+        </div>
 
-                <!-- Jumat -->
-                <div class="col-md-4 wow fadeInUp" data-wow-delay="0.5s">
-                    <div class="p-4 bg-white shadow-sm rounded-4 h-100 jadwal-item"
-                        style="border-radius: 20px; overflow: hidden;">
-                        <div class="mb-3 text-primary">
-                            <i class="fas fa-user-md fa-2x"></i>
-                        </div>
-                        <h5 class="fw-semibold mb-2">Jumat</h5>
-                        <p class="mb-1 text-muted">Kesehatan Lansia & Penyuluhan</p>
-                        <p class="fw-bold text-primary"><i class="far fa-clock me-1"></i> 08.00 - 10.30 WIB</p>
-                    </div>
-                </div>
+        <div class="row g-4">
+            @if(isset($jadwal) && $jadwal->count())
+                @foreach($jadwal as $j)
+                    <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="{{ $loop->index * 0.2 }}s">
+                        <div class="card border-0 shadow-sm rounded-4 h-100">
 
-                <!-- Developer Profile Start -->
-                <div class="container-fluid team py-5">
-                    <div class="container">
+                            <!-- Poster / Placeholder -->
+                            @php
+                                $posterUrl = $j->poster() ? asset('storage/' . $j->poster()->file_url) : asset('assets/img/placeholderimg.png');
+                            @endphp
+                            <img src="{{ $posterUrl }}" class="card-img-top rounded-top-4" alt="{{ $j->tema }}"
+                                style="height:140px; object-fit:cover;">
 
-                        <!-- CARD UTAMA -->
-                        <div class="card border-0 shadow-sm rounded-4 p-4 p-lg-4 mx-auto wow fadeInUp" data-wow-delay="0.2s"
-                            style="max-width: 900px;">
+                            <div class="card-body p-3" style="min-height: 120px;">
+                                <!-- Tanggal -->
+                                <span class="badge bg-primary mb-2">
+                                    {{ \Carbon\Carbon::parse($j->tanggal)->translatedFormat('d F Y') }}
+                                </span>
 
-                            <div class="row align-items-center justify-content-center g-4">
-
-                                <!-- FOTO PROFIL -->
-                                <div class="col-md-4 col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
-                                    <div class="team-item mx-auto" style="max-width: 220px;">
-
-                                        <div class="team-img">
-                                            <img src="assets/img/pp1.jpg" class="img-fluid w-100" alt="Developer">
-
-                                            <div class="team-icon">
-                                                <a class="btn btn-primary btn-sm-square rounded-circle"
-                                                    href="https://www.instagram.com/jyc.lva" target="_blank">
-                                                    <i class="fab fa-instagram"></i>
-                                                </a>
-
-                                                <a class="btn btn-primary btn-sm-square rounded-circle"
-                                                    href="https://www.linkedin.com/in/joycelyn-d-172720316" target="_blank">
-                                                    <i class="fab fa-linkedin-in"></i>
-                                                </a>
-
-                                                <a class="btn btn-primary btn-sm-square rounded-circle"
-                                                    href="https://wa.me/62895386587183" target="_blank">
-                                                    <i class="fab fa-whatsapp"></i>
-                                                </a>
-
-                                                <!-- GitHub -->
-                                                <a class="btn btn-dark btn-sm-square rounded-circle"
-                                                    href="https://github.com/JoycelynSIC" target="_blank">
-                                                    <i class="fab fa-github"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-
-
-                                        <div class="team-title text-center mt-3">
-                                            <h6 class="mb-1 fw-bold text-dark">
-                                                <i class="fas fa-user me-1 text-primary"></i>
-                                                Joycelyn Dhealiva
-                                            </h6>
-
-                                            <p class="mb-0 small fw-bold text-dark">
-                                                <i class="fas fa-id-card me-1 text-primary"></i>
-                                                NIM : 2457301073
-                                            </p>
-
-                                            <p class="mb-0 small fw-bold text-dark">
-                                                <i class="fas fa-graduation-cap me-1 text-primary"></i>
-                                                Sistem Informasi
-                                            </p>
-                                        </div>
-
-
-                                    </div>
-                                </div>
-
-                                <!-- PROFIL DEVELOPER -->
-                                <div class="col-md-8 col-lg-7 wow fadeInUp" data-wow-delay="0.4s">
-
-                                    <!-- Badge -->
-                                    <div class="mb-2">
-                                        <span class="badge bg-primary bg-opacity-10 text-white px-3 py-2 rounded-pill">
-                                            Developer
-                                        </span>
-                                    </div>
-
-                                    <h3 class="fw-bold mb-2">
-                                        Profil Pengembang
-                                    </h3>
-
-                                    <!-- Judul Narasi -->
-                                    <div class="mb-3 profile-tagline">
-                                        <h6 class="fw-semibold text-dark mb-1">
-                                            Menghubungkan Teknologi dan Pelayanan Kesehatan
-                                        </h6>
-                                    </div>
-
-                                    <hr class="my-3">
-                                    <!-- Deskripsi -->
-                                    <p class="text-muted fst-italic mb-3">
-                                        “Saya memiliki ketertarikan dalam pengembangan sistem informasi yang dapat
-                                        membantu meningkatkan kualitas pelayanan masyarakat melalui solusi digital
-                                        yang informatif, responsif, dan mudah diakses.”
+                                <!-- Nama Posyandu -->
+                                @if($j->posyandu)
+                                    <p class="mb-1 small text-primary">
+                                        <i class="fa fa-hospital me-1 text-primary"></i> {{ $j->posyandu->nama }}
                                     </p>
+                                @endif
 
-                                    <hr class="my-3">
-                                </div>
+                                <!-- Tema -->
+                                <h6 class="fw-bold mb-2">{{ $j->tema }}</h6>
 
+                                <!-- Keterangan -->
+                                <p class="text-muted mb-3" style="font-size:0.85rem;">
+                                    {{ $j->keterangan ?? '-' }}
+                                </p>
+
+                                <!-- Tombol Detail -->
+                                <a href="{{ route('jadwal.show', $j->jadwal_id) }}"
+                                    class="btn btn-outline-dark btn-sm w-100 d-flex align-items-center justify-content-center gap-1">
+                                    <i class="fa fa-eye"></i> Detail
+                                </a>
                             </div>
                         </div>
-                        <!-- END CARD -->
+                    </div>
 
+                @endforeach
+            @else
+                <div class="col-12">
+                    <div class="text-center text-muted py-4">
+                        <i class="fa fa-calendar-times fa-2x mb-2"></i>
+                        <p class="mb-0">Belum ada jadwal posyandu</p>
                     </div>
                 </div>
+            @endif
+        </div>
+    </div>
+
+
+
+
+    <!-- Developer Profile Start -->
+    <div class="container-fluid team py-5">
+        <div class="container">
+
+            <!-- CARD UTAMA -->
+            <div class="card border-0 shadow-sm rounded-4 p-4 p-lg-4 mx-auto wow fadeInUp" data-wow-delay="0.2s"
+                style="max-width: 900px;">
+
+                <div class="row align-items-center justify-content-center g-4">
+
+                    <!-- FOTO PROFIL -->
+                    <div class="col-md-4 col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
+                        <div class="team-item mx-auto" style="max-width: 220px;">
+
+                            <div class="team-img">
+                                <img src="assets/img/pp1.jpg" class="img-fluid w-100" alt="Developer">
+
+                                <div class="team-icon">
+                                    <a class="btn btn-primary btn-sm-square rounded-circle"
+                                        href="https://www.instagram.com/jyc.lva" target="_blank">
+                                        <i class="fab fa-instagram"></i>
+                                    </a>
+
+                                    <a class="btn btn-primary btn-sm-square rounded-circle"
+                                        href="https://www.linkedin.com/in/joycelyn-d-172720316" target="_blank">
+                                        <i class="fab fa-linkedin-in"></i>
+                                    </a>
+
+                                    <a class="btn btn-primary btn-sm-square rounded-circle"
+                                        href="https://wa.me/62895386587183" target="_blank">
+                                        <i class="fab fa-whatsapp"></i>
+                                    </a>
+
+                                    <!-- GitHub -->
+                                    <a class="btn btn-dark btn-sm-square rounded-circle"
+                                        href="https://github.com/JoycelynSIC" target="_blank">
+                                        <i class="fab fa-github"></i>
+                                    </a>
+                                </div>
+                            </div>
+
+
+                            <div class="team-title text-center mt-3">
+                                <h6 class="mb-1 fw-bold text-dark">
+                                    <i class="fas fa-user me-1 text-primary"></i>
+                                    Joycelyn Dhealiva
+                                </h6>
+
+                                <p class="mb-0 small fw-bold text-dark">
+                                    <i class="fas fa-id-card me-1 text-primary"></i>
+                                    NIM : 2457301073
+                                </p>
+
+                                <p class="mb-0 small fw-bold text-dark">
+                                    <i class="fas fa-graduation-cap me-1 text-primary"></i>
+                                    Sistem Informasi
+                                </p>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                    <!-- PROFIL DEVELOPER -->
+                    <div class="col-md-8 col-lg-7 wow fadeInUp" data-wow-delay="0.4s">
+
+                        <!-- Badge -->
+                        <div class="mb-2">
+                            <span class="badge bg-primary bg-opacity-10 text-white px-3 py-2 rounded-pill">
+                                Developer
+                            </span>
+                        </div>
+
+                        <h3 class="fw-bold mb-2">
+                            Profil Pengembang
+                        </h3>
+
+                        <!-- Judul Narasi -->
+                        <div class="mb-3 profile-tagline">
+                            <h6 class="fw-semibold text-dark mb-1">
+                                Menghubungkan Teknologi dan Pelayanan Kesehatan
+                            </h6>
+                        </div>
+
+                        <hr class="my-3">
+                        <!-- Deskripsi -->
+                        <p class="text-muted fst-italic mb-3">
+                            “Saya memiliki ketertarikan dalam pengembangan sistem informasi yang dapat
+                            membantu meningkatkan kualitas pelayanan masyarakat melalui solusi digital
+                            yang informatif, responsif, dan mudah diakses.”
+                        </p>
+
+                        <hr class="my-3">
+                    </div>
+
+                </div>
+            </div>
+            <!-- END CARD -->
+
+        </div>
+    </div>
 
 
     </section>
