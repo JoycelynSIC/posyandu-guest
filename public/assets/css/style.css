@@ -751,6 +751,20 @@
 /*** Blog End ***/
 
 /*** Team Start ***/
+.team .team-item {
+    background: #ffffff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    transition: all 0.4s ease;
+}
+
+.team .team-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Gambar */
 .team .team-item .team-img {
     position: relative;
     overflow: hidden;
@@ -759,60 +773,87 @@
 }
 
 .team .team-item .team-img img {
-    transition: 0.5s;
+    width: 100%;
+    transition: transform 0.6s ease;
 }
 
 .team .team-item:hover .team-img img {
-    transform: scale(1.1);
+    transform: scale(1.08);
 }
 
+/* Overlay dibuat HALUS & AMAN */
 .team .team-item .team-img::after {
     content: "";
     position: absolute;
-    width: 100%;
-    height: 0;
-    top: 0;
-    left: 0;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    transition: 0.5s;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.15); /* gelap tipis */
+    opacity: 0;
+    transition: opacity 0.4s ease;
 }
 
 .team .team-item:hover .team-img::after {
-    height: 100%;
-    background: rgba(255, 255, 255, 0.3);
+    opacity: 1;
 }
 
+/* Icon Sosial */
 .team .team-item .team-img .team-icon {
     position: absolute;
-    bottom: 20px;
-    right: 20px;
-    margin-bottom: -100%;
-    transition: 0.5s;
+    bottom: 15px;
+    right: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    opacity: 0;
+    transform: translateY(15px);
+    transition: all 0.4s ease;
     z-index: 9;
 }
 
 .team .team-item:hover .team-img .team-icon {
-    margin-bottom: 0;
+    opacity: 1;
+    transform: translateY(0);
 }
 
-.team .team-item .team-title {
-    color: var(--bs-white);
+/* Button icon */
+.team .team-item .team-img .team-icon a {
+    background: #ffffff;
+    color: var(--bs-primary);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.team .team-item .team-img .team-icon a:hover {
     background: var(--bs-primary);
+    color: #ffffff;
+}
+
+/* Teks */
+.team .team-item .team-title {
+    background: #ffffff;
+    color: #212529;
+    text-align: center;
+    padding: 15px;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
-    transition: 0.5s;
 }
 
-.team .team-item .team-title h4 {
-    color: var(--bs-white);
+.team .team-item .team-title h5 {
+    font-weight: 700;
+    margin-bottom: 5px;
+    color: #212529;
 }
 
+.team .team-item .team-title p {
+    margin-bottom: 0;
+    font-size: 14px;
+    color: #6c757d;
+}
+
+/* STOP perubahan warna saat hover */
 .team .team-item:hover .team-title {
-    background: var(--bs-dark);
+    background: #ffffff;
 }
-
 /*** Team End ***/
+
 
 /*** Testimonial Start ***/
 .testimonial-carousel .owl-stage-outer {
@@ -1275,5 +1316,17 @@ main {
     max-height: 70px !important;
     object-fit: contain !important;
     display: block !important;
+}
+
+@media (max-width: 576px) {
+    .profile-tagline {
+        padding: 0 1rem;        /* jarak kiri kanan */
+        text-align: center;     /* biar rapi di HP */
+    }
+
+    .profile-tagline h6 {
+        line-height: 1.4;       /* biar nggak dempet atas bawah */
+        font-size: 0.95rem;     /* sedikit diperkecil */
+    }
 }
 

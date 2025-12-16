@@ -97,4 +97,27 @@ class UserController extends Controller
 
         return redirect()->route('login')->with('success', 'Akun berhasil dihapus.');
     }
+
+    // Hapus foto profil saja (tanpa hapus akun)
+    public function deletePhoto($id)
+    {
+    $user = User::findOrFail($id);
+
+    // pastikan yang hapus adalah user itu sendiri
+    if (Auth::id() !== $user->id) {
+        abort(403, 'Akses ditolak');
+    }
+
+    // hapus file di storage kalau ada
+    if ($user->profile_image && Storage::disk('public')->exists($user->profile_image)) {
+        Storage::disk('public')->delete($user->profile_image);
+    }
+
+    // set kolom jadi null (balik ke placeholder)
+    $user->profile_image = null;
+    $user->save();
+
+    return back()->with('success', 'Foto profil berhasil dihapus.');
+}
+
 }

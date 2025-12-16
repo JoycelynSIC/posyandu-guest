@@ -20,7 +20,8 @@ class Warga extends Model
         'agama',
         'pekerjaan',
         'telp',
-        'email'
+        'email',
+        'foto'
     ];
 
     /**

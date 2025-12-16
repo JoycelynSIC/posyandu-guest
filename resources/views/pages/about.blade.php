@@ -6,23 +6,24 @@
         <div class="container d-flex align-items-center justify-content-center flex-wrap">
             <!-- Gambar -->
             <div class="image-about text-center p-3 wow fadeInLeft" data-wow-delay="0.2s">
-                <img src="{{ asset('assets/img/about.png') }}" alt="Tentang Kami"
-                     style="max-width: 350px; height: auto;">
+                <img src="{{ asset('assets/img/about.png') }}" alt="Tentang Kami" style="max-width: 350px; height: auto;">
             </div>
 
             <!-- Teks -->
             <div class="text-about ms-md-5 mt-4 mt-md-0 wow fadeInRight" data-wow-delay="0.4s" style="max-width: 550px;">
                 <h6 class="text-primary fw-bold">TENTANG KAMI</h6>
-                <h2 class="fw-bold mb-3">Posyandu Bina Desa</h2>
+                <h2 class="fw-bold mb-3">Posyandu IBARA</h2>
                 <p>
-                    Posyandu Bina Desa adalah wadah pelayanan kesehatan masyarakat yang berfokus pada
-                    peningkatan gizi anak, kesehatan ibu hamil, serta kesejahteraan lansia. Kami berkomitmen untuk
-                    membangun keluarga yang sehat dan sejahtera melalui pelayanan yang ramah dan mudah diakses.
+                    Posyandu IBARA (Ibu Balita Sejahtera) merupakan layanan kesehatan berbasis masyarakat
+                    yang berfokus pada pemantauan kesehatan ibu dan balita secara berkala untuk mendukung
+                    tumbuh kembang anak yang optimal sejak dini.
                 </p>
                 <p>
-                    Dengan dukungan para kader dan masyarakat, Posyandu Bina Desa terus berinovasi memberikan
-                    layanan cepat dan terpercaya bagi seluruh warga desa.
+                    Melalui peran aktif kader dan partisipasi warga, Posyandu IBARA menghadirkan layanan
+                    kesehatan yang terarah, terdata, dan berkelanjutan demi mewujudkan keluarga yang lebih
+                    sehat dan sejahtera.
                 </p>
+
             </div>
         </div>
     </section>

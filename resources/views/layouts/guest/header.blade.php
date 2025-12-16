@@ -6,7 +6,7 @@
 
             <a href="dashboard" class="navbar-brand p-0">
                 <img src="https://1.bp.blogspot.com/-vNcUzj8YRPo/YNaCWN7kmLI/AAAAAAAAFaE/Q0YIFTjsM-kDUxl8VXWNHN86WZtELt8MwCLcBGAsYHQ/s1600/Logo%2BPosyandu.png"
-     alt="Logo Posyandu" class="navbar-logo"/>
+                     alt="Logo Posyandu" class="navbar-logo"/>
             </a>
 
             <button class="navbar-toggler" type="button"
@@ -23,13 +23,16 @@
                         <i class="fas fa-home text-primary me-1"></i> Home
                     </a>
 
-                    <!-- 🔵 MENU PROFIL (BARU) -->
+                    <!-- MENU PROFIL -->
+                    @auth
                     <a href="{{ route('profile') }}"
                        class="nav-item nav-link {{ request()->is('profile') ? 'active' : '' }}">
                         <i class="fas fa-user-circle text-primary me-1"></i> Profil
                     </a>
+                    @endauth
 
                     <!-- Dropdown Data -->
+                    @auth
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle
                             {{ request()->is('warga*') || request()->is('posyandu*') || request()->is('kader*') ? 'active' : '' }}"
@@ -49,6 +52,7 @@
                             </a>
                         </div>
                     </div>
+                    @endauth
 
                     <a href="{{ route('about') }}"
                         class="nav-item nav-link {{ request()->is('about') ? 'active' : '' }}">
@@ -60,8 +64,15 @@
                         <i class="fas fa-phone-alt text-primary me-1"></i> Kontak
                     </a>
 
+                    <!-- 🔵 TOMBOL MASUK (JIKA BELUM LOGIN) -->
+                    @guest
+                        <a href="{{ route('login') }}"
+                           class="nav-item nav-link fw-semibold text-primary">
+                            <i class="fas fa-sign-in-alt me-1"></i> Masuk
+                        </a>
+                    @endguest
 
-                    <!-- 🔴 MENU LOGOUT (BARU) -->
+                    <!-- 🔴 LOGOUT (JIKA SUDAH LOGIN) -->
                     @auth
                         <a href="#"
                            class="nav-item nav-link text-danger"
@@ -81,4 +92,3 @@
     </div>
 </div>
 <!-- Navbar End -->
-

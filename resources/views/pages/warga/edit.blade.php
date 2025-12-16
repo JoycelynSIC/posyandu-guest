@@ -3,28 +3,30 @@
 @section('title', 'Edit Warga')
 
 @section('content')
-    <div class="py-5 bg-light d-flex justify-content-center">
-        <div class="card shadow-sm border-0 rounded-4 wow fadeInUp" data-wow-delay="0.1s"
-            style="max-width: 700px; width: 100%; background-color: #f9fafb;">
-            <div class="card-body p-4">
+    <div class="py-3 bg-light d-flex justify-content-center">
+        <div class="card shadow-sm border-0 rounded-4 wow fadeInUp"
+            style="max-width:600px; width:100%; background-color:#f9fafb;">
+            <div class="card-body p-3">
 
                 <!-- Header -->
-                {{-- Header Card dengan Icon --}}
-                <div class="text-center mb-4 wow fadeInDown" data-wow-delay="0.2s">
-                    <div class="d-inline-flex align-items-center justify-content-center rounded-circle border border-3 border-primary shadow-sm mb-3"
-                        style="width: 100px; height: 100px; background-color: #e8f0ff; color: #0d6efd;">
-                        <i class="fas fa-id-card fa-3x"></i>
-                    </div>
-                    <h3 class="text-primary fw-bold mb-0">Edit Data Warga</h3>
-                    <p class="text-muted mt-1">Perbarui informasi data warga dengan benar dan lengkap.</p>
+                <div class="text-center mb-2 wow fadeInDown">
+                    <img id="fotoPreview"
+                        src="{{ old('foto_url', $warga->foto ? asset('storage/' . $warga->foto) : asset('assets/img/placeholder.png')) }}"
+                        class="rounded-circle mb-2 shadow-sm border border-2 border-primary"
+                        style="width:70px; height:70px; object-fit:cover;">
+
+                    <h5 class="fw-bold mt-2 mb-1 text-primary">Edit Data Warga</h5>
+                    <p class="text-muted mb-1" style="font-size:0.8rem;">
+                        Perbarui informasi data warga
+                    </p>
                 </div>
 
-                {{-- Error Validation --}}
+                <!-- Error Validation -->
                 @if ($errors->any())
                     <div class="alert alert-danger alert-dismissible fade show wow fadeInUp" data-wow-delay="0.2s">
-                        <ul class="mb-0">
+                        <ul class="mb-0" style="font-size:0.85rem;">
                             @foreach ($errors->all() as $error)
-                                <li class="wow fadeInLeft" data-wow-delay="0.25s">{{ $error }}</li>
+                                <li>{{ $error }}</li>
                             @endforeach
                         </ul>
                         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
@@ -32,38 +34,57 @@
                 @endif
 
                 <!-- Form -->
-                <form action="{{ route('warga.update', $warga->warga_id) }}" method="POST" class="wow fadeInUp"
-                    data-wow-delay="0.3s" novalidate>
+                <form action="{{ route('warga.update', $warga->warga_id) }}" method="POST" enctype="multipart/form-data"
+                    class="wow fadeInUp" novalidate>
                     @csrf
                     @method('PUT')
 
-                    <!-- Row 1 -->
-                    <div class="row mb-3">
-                        <div class="col-md-6 wow fadeInLeft" data-wow-delay="0.4s">
+                    <!-- Upload Foto Profil -->
+                    <div class="mb-2">
+                        <label class="fw-semibold">Foto Profil</label>
+                        <input type="file" name="foto"
+                            class="form-control form-control-sm @error('foto') is-invalid @enderror" accept="image/*"
+                            onchange="previewFoto(this)">
+
+                        <small class="text-muted d-block" style="font-size:0.75rem;">
+                            JPG / PNG • Opsional • Kosongkan jika tidak ingin mengganti foto
+                        </small>
+                        @error('foto')
+                            <div class="invalid-feedback d-block">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <!-- No KTP + Nama -->
+                    <div class="row g-2 mb-1">
+                        <div class="col-md-6">
                             <label class="fw-semibold">No KTP</label>
-                            <input type="text" name="no_ktp" class="form-control @error('no_ktp') is-invalid @enderror"
-                                value="{{ old('no_ktp', $warga->no_ktp) }}" required>
+                            <input type="text" name="no_ktp"
+                                class="form-control form-control-sm @error('no_ktp') is-invalid @enderror"
+                                value="{{ old('no_ktp', $warga->no_ktp) }}" maxlength="16"
+                                oninput="this.value=this.value.replace(/[^0-9]/g,'')" placeholder="16 digit No KTP"
+                                required>
                             @error('no_ktp')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
 
-                        <div class="col-md-6 wow fadeInRight" data-wow-delay="0.5s">
+                        <div class="col-md-6">
                             <label class="fw-semibold">Nama Lengkap</label>
-                            <input type="text" name="nama" class="form-control @error('nama') is-invalid @enderror"
-                                value="{{ old('nama', $warga->nama) }}" required>
+                            <input type="text" name="nama"
+                                class="form-control form-control-sm @error('nama') is-invalid @enderror"
+                                value="{{ old('nama', $warga->nama) }}" placeholder="Nama lengkap" required>
                             @error('nama')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                     </div>
 
-                    <!-- Row 2 -->
-                    <div class="row mb-3">
-                        <div class="col-md-6 wow fadeInLeft" data-wow-delay="0.6s">
+                    <!-- Jenis Kelamin + Agama -->
+                    <div class="row g-2 mb-1">
+                        <div class="col-md-6">
                             <label class="fw-semibold">Jenis Kelamin</label>
-                            <select name="jenis_kelamin" class="form-select @error('jenis_kelamin') is-invalid @enderror"
-                                required>
+                            <select name="jenis_kelamin"
+                                class="form-select form-select-sm @error('jenis_kelamin') is-invalid @enderror" required>
                                 <option value="">-- Pilih --</option>
                                 <option value="Laki-laki" {{ old('jenis_kelamin', $warga->jenis_kelamin) == 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
                                 <option value="Perempuan" {{ old('jenis_kelamin', $warga->jenis_kelamin) == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
@@ -73,21 +94,15 @@
                             @enderror
                         </div>
 
-                        <div class="col-md-6 wow fadeInRight" data-wow-delay="0.7s">
+                        <div class="col-md-6">
                             <label class="fw-semibold">Agama</label>
-                            <select name="agama" class="form-select @error('agama') is-invalid @enderror" required>
-                                <option value="">-- Pilih Agama --</option>
-                                <option value="Islam" {{ old('agama', $warga->agama) == 'Islam' ? 'selected' : '' }}>Islam
-                                </option>
-                                <option value="Kristen Protestan" {{ old('agama', $warga->agama) == 'Kristen Protestan' ? 'selected' : '' }}>Kristen Protestan</option>
-                                <option value="Katolik" {{ old('agama', $warga->agama) == 'Katolik' ? 'selected' : '' }}>
-                                    Katolik</option>
-                                <option value="Hindu" {{ old('agama', $warga->agama) == 'Hindu' ? 'selected' : '' }}>Hindu
-                                </option>
-                                <option value="Buddha" {{ old('agama', $warga->agama) == 'Buddha' ? 'selected' : '' }}>Buddha
-                                </option>
-                                <option value="Konghucu" {{ old('agama', $warga->agama) == 'Konghucu' ? 'selected' : '' }}>
-                                    Konghucu</option>
+                            <select name="agama" class="form-select form-select-sm @error('agama') is-invalid @enderror"
+                                required>
+                                <option value="">-- Pilih --</option>
+                                @foreach(['Islam', 'Kristen Protestan', 'Katolik', 'Hindu', 'Buddha', 'Konghucu'] as $a)
+                                    <option value="{{ $a }}" {{ old('agama', $warga->agama) == $a ? 'selected' : '' }}>{{ $a }}
+                                    </option>
+                                @endforeach
                             </select>
                             @error('agama')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -95,50 +110,71 @@
                         </div>
                     </div>
 
-                    <!-- Row 3 -->
-                    <div class="row mb-3">
-                        <div class="col-md-6 wow fadeInLeft" data-wow-delay="0.8s">
+                    <!-- Pekerjaan + Telepon -->
+                    <div class="row g-2 mb-1">
+                        <div class="col-md-6">
                             <label class="fw-semibold">Pekerjaan</label>
                             <input type="text" name="pekerjaan"
-                                class="form-control @error('pekerjaan') is-invalid @enderror"
-                                value="{{ old('pekerjaan', $warga->pekerjaan) }}" required>
+                                class="form-control form-control-sm @error('pekerjaan') is-invalid @enderror"
+                                value="{{ old('pekerjaan', $warga->pekerjaan) }}" placeholder="Pekerjaan">
                             @error('pekerjaan')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
 
-                        <div class="col-md-6 wow fadeInRight" data-wow-delay="0.9s">
+                        <div class="col-md-6">
                             <label class="fw-semibold">No. Telepon</label>
-                            <input type="text" name="telp" class="form-control @error('telp') is-invalid @enderror"
-                                value="{{ old('telp', $warga->telp) }}" required>
+                            <input type="text" name="telp"
+                                class="form-control form-control-sm @error('telp') is-invalid @enderror"
+                                value="{{ old('telp', $warga->telp) }}" maxlength="13" placeholder="Nomor HP"
+                                oninput="this.value=this.value.replace(/[^0-9]/g,'')">
                             @error('telp')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                     </div>
 
-                    <!-- Row 4 -->
-                    <div class="mb-3 wow fadeInUp" data-wow-delay="1s">
+                    <!-- Email -->
+                    <div class="mb-1">
                         <label class="fw-semibold">Email</label>
-                        <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
-                            value="{{ old('email', $warga->email) }}">
+                        <input type="email" name="email"
+                            class="form-control form-control-sm @error('email') is-invalid @enderror"
+                            value="{{ old('email', $warga->email) }}" placeholder="nama@email.com">
                         @error('email')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
 
-                    <!-- Tombol -->
-                    <div class="d-flex justify-content-between mt-4 wow fadeInUp" data-wow-delay="1.1s">
-                        <a href="{{ route('warga.index') }}" class="btn btn-primary rounded-pill px-4">
-                            <i class="fa fa-arrow-left me-1"></i> Kembali
+                    <!-- Tombol Aksi -->
+                    <div class="d-flex justify-content-center gap-2 mt-3">
+
+                        <!-- Tombol Kembali -->
+                        <a href="{{ route('warga.index') }}"
+                            class="btn btn-outline-primary d-flex align-items-center justify-content-center gap-1"
+                            style="min-width: 100px; height: 40px;">
+                            <i class="fa fa-arrow-left"></i> Kembali
                         </a>
-                        <button type="submit" class="btn btn-primary rounded-pill px-4">
-                            <i class="fa fa-save me-1"></i> Perbarui
+
+                        <!-- Tombol Hapus Foto (jika ada) -->
+                        @if ($warga->foto)
+<button type="button"
+    class="btn btn-outline-danger d-flex align-items-center justify-content-center gap-1"
+    style="min-width: 100px; height: 40px;"
+    onclick="hapusFoto({{ $warga->warga_id }})">
+    <i class="fa fa-trash"></i> Hapus Foto
+</button>
+@endif
+
+
+                        <!-- Tombol Perbarui -->
+                        <button type="submit"
+                            class="btn btn-outline-primary d-flex align-items-center justify-content-center gap-1"
+                            style="min-width: 100px; height: 40px;">
+                            <i class="fa fa-save"></i> Perbarui
                         </button>
                     </div>
-                </form>
-
             </div>
         </div>
     </div>
+
 @endsection

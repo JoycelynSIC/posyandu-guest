@@ -14,14 +14,17 @@ class PosyanduController extends Controller
         $posyandu = Posyandu::query()
             ->when($request->search, function ($q, $search) {
                 $q->where('nama', 'like', "%{$search}%")
-                    ->orWhere('alamat', 'like', "%{$search}%");
+                  ->orWhere('alamat', 'like', "%{$search}%");
             })
             ->filter($request, ['rt', 'rw'])
             ->orderBy('nama', 'ASC')
             ->paginate(10)
             ->onEachSide(2);
 
-        return view('pages.posyandu.index', compact('posyandu'));
+        // ✅ placeholder disediakan controller
+        $placeholderImage = 'assets/img/placeholderimg.jpg';
+
+        return view('pages.posyandu.index', compact('posyandu', 'placeholderImage'));
     }
 
     public function create()
@@ -44,7 +47,7 @@ class PosyanduController extends Controller
 
         if ($request->hasFile('fotos')) {
             foreach ($request->file('fotos') as $file) {
-                $originalName = $file->getClientOriginalName(); // nama asli
+                $originalName = $file->getClientOriginalName();
                 $filename = $file->storeAs('posyandu', $originalName, 'public');
 
                 DB::table('media')->insert([
@@ -90,7 +93,7 @@ class PosyanduController extends Controller
 
         if ($request->hasFile('fotos')) {
             foreach ($request->file('fotos') as $file) {
-                $originalName = $file->getClientOriginalName(); // nama asli
+                $originalName = $file->getClientOriginalName();
                 $filename = $file->storeAs('posyandu', $originalName, 'public');
 
                 DB::table('media')->insert([
@@ -128,7 +131,10 @@ class PosyanduController extends Controller
             ->orderBy('sort_order')
             ->get();
 
-        return view('pages.posyandu.detail', compact('posyandu', 'fotos'));
+        // ✅ placeholder disediakan controller
+        $placeholderimage = 'assets/img/placeholderimg.jpg';
+
+        return view('pages.posyandu.detail', compact('posyandu', 'fotos', 'placeholderimage'));
     }
 
     public function deleteFile($id, $index)
