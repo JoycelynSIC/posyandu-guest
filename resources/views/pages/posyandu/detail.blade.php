@@ -34,15 +34,15 @@
 
                     <div class="d-flex align-items-center justify-content-center mb-1"
                         style="height:100px;width:100%;overflow:hidden;">
-                        @if (\Illuminate\Support\Str::endsWith($foto->file_url, ['.jpg', '.jpeg', '.png']))
-                            <img src="{{ asset('storage/' . $foto->file_url) }}" class="img-fluid rounded"
+                        @if (\Illuminate\Support\Str::endsWith($foto->file_name, ['.jpg', '.jpeg', '.png']))
+                            <img src="{{ asset('storage/' . $foto->file_name) }}" class="img-fluid rounded"
                                 style="height:100%;object-fit:cover;">
                         @else
                             <i class="fa fa-file fa-2x text-danger"></i>
                         @endif
                     </div>
 
-                    <p class="small text-truncate mb-1">{{ basename($foto->file_url) }}</p>
+                    <p class="small text-truncate mb-1">{{ basename($foto->file_name) }}</p>
 
                     <!-- Tombol Lihat Preview -->
                     <button type="button" class="btn btn-outline-primary btn-sm w-100 py-1" data-bs-toggle="modal" data-bs-target="#previewModal{{ $index }}">
@@ -54,14 +54,14 @@
                       <div class="modal-dialog modal-dialog-centered modal-lg">
                         <div class="modal-content">
                           <div class="modal-header">
-                            <h5 class="modal-title" id="previewModalLabel{{ $index }}">{{ basename($foto->file_url) }}</h5>
+                            <h5 class="modal-title" id="previewModalLabel{{ $index }}">{{ basename($foto->file_name) }}</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                           </div>
                           <div class="modal-body text-center">
-                            @if (\Illuminate\Support\Str::endsWith($foto->file_url, ['.jpg', '.jpeg', '.png']))
-                                <img src="{{ asset('storage/' . $foto->file_url) }}" class="img-fluid" style="max-height:80vh; object-fit:contain;">
+                            @if (\Illuminate\Support\Str::endsWith($foto->file_name, ['.jpg', '.jpeg', '.png']))
+                                <img src="{{ asset('storage/' . $foto->file_name) }}" class="img-fluid" style="max-height:80vh; object-fit:contain;">
                             @else
-                                <iframe src="{{ asset('storage/' . $foto->file_url) }}" class="w-100" style="height:80vh;"></iframe>
+                                <iframe src="{{ asset('storage/' . $foto->file_name) }}" class="w-100" style="height:80vh;"></iframe>
                             @endif
                           </div>
                         </div>

@@ -14,7 +14,7 @@ class PosyanduController extends Controller
         $posyandu = Posyandu::query()
             ->when($request->search, function ($q, $search) {
                 $q->where('nama', 'like', "%{$search}%")
-                  ->orWhere('alamat', 'like', "%{$search}%");
+                    ->orWhere('alamat', 'like', "%{$search}%");
             })
             ->filter($request, ['rt', 'rw'])
             ->orderBy('nama', 'ASC')
@@ -53,13 +53,14 @@ class PosyanduController extends Controller
                 DB::table('media')->insert([
                     'ref_table' => 'posyandu',
                     'ref_id' => $posyandu->posyandu_id,
-                    'file_url' => $filename,
+                    'file_name' => $filename,
                     'caption' => null,
                     'mime_type' => $file->getClientMimeType(),
                     'sort_order' => 0,
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]);
+
             }
         }
 
@@ -99,13 +100,14 @@ class PosyanduController extends Controller
                 DB::table('media')->insert([
                     'ref_table' => 'posyandu',
                     'ref_id' => $posyandu->posyandu_id,
-                    'file_url' => $filename,
+                    'file_name' => $filename,
                     'caption' => null,
                     'mime_type' => $file->getClientMimeType(),
                     'sort_order' => 0,
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]);
+
             }
         }
 
@@ -152,8 +154,8 @@ class PosyanduController extends Controller
 
         $fileToDelete = $file[$index];
 
-        if (Storage::disk('public')->exists($fileToDelete->file_url)) {
-            Storage::disk('public')->delete($fileToDelete->file_url);
+        if (Storage::disk('public')->exists($fileToDelete->file_name)) {
+            Storage::disk('public')->delete($fileToDelete->file_name);
         }
 
         DB::table('media')->where('media_id', $fileToDelete->media_id)->delete();

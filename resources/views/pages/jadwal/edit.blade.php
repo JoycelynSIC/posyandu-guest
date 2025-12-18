@@ -42,7 +42,7 @@
                         @endphp
                         @if($poster)
                             <div class="mb-2">
-                                <img src="{{ asset('storage/' . $poster->file_url) }}" alt="Poster Saat Ini"
+                                <img src="{{ asset('storage/' . $poster->file_name) }}" alt="Poster Saat Ini"
                                     class="img-thumbnail" style="max-width:120px; max-height:120px;">
                             </div>
                         @endif

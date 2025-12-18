@@ -253,7 +253,7 @@
 
                             <!-- Poster / Placeholder -->
                             @php
-                                $posterUrl = $j->poster() ? asset('storage/' . $j->poster()->file_url) : asset('assets/img/placeholderimg.png');
+                                $posterUrl = $j->poster() ? asset('storage/' . $j->poster()->file_name) : asset('assets/img/placeholderimg.png');
                             @endphp
                             <img src="{{ $posterUrl }}" class="card-img-top rounded-top-4" alt="{{ $j->tema }}"
                                 style="height:140px; object-fit:cover;">

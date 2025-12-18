@@ -23,8 +23,8 @@ class MediaController extends Controller
         foreach ($request->file('files') as $file) {
 
             $name = Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME))
-                    . '-' . time() . '-' . Str::random(5)
-                    . '.' . $file->getClientOriginalExtension();
+                . '-' . time() . '-' . Str::random(5)
+                . '.' . $file->getClientOriginalExtension();
 
             $path = "media/{$request->ref_table}/{$request->ref_id}";
             $file->storeAs($path, $name, 'public');
@@ -35,6 +35,7 @@ class MediaController extends Controller
                 'file_name' => $name,
                 'mime_type' => $file->getClientMimeType(),
             ]);
+
         }
 
         return back()->with('success', 'File berhasil diupload!');
@@ -46,9 +47,13 @@ class MediaController extends Controller
         $media = Media::findOrFail($id);
 
         $path = "public/media/{$media->ref_table}/{$media->ref_id}/{$media->file_name}";
-        if (Storage::exists($path)) Storage::delete($path);
+
+        if (Storage::exists($path)) {
+            Storage::delete($path);
+        }
 
         $media->delete();
+
 
         return back()->with('success', 'File berhasil dihapus.');
     }

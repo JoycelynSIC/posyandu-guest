@@ -116,13 +116,13 @@
                             <div class="d-flex overflow-auto gap-2 py-1">
                                 @foreach ($fotos as $index => $foto)
                                     <div class="text-center flex-shrink-0" style="width:100px;">
-                                        @if (Str::endsWith($foto->file_url, ['.jpg', '.jpeg', '.png']))
-                                            <img src="{{ asset('storage/' . $foto->file_url) }}" class="img-fluid rounded mb-1"
+                                        @if (Str::endsWith($foto->file_name, ['.jpg', '.jpeg', '.png']))
+                                            <img src="{{ asset('storage/' . $foto->file_name) }}" class="img-fluid rounded mb-1"
                                                 style="height:80px; object-fit:cover;">
                                         @else
                                             <i class="fa fa-file-pdf fa-2x text-danger mb-1"></i>
                                         @endif
-                                        <p class="small text-truncate">{{ basename($foto->file_url) }}</p>
+                                        <p class="small text-truncate">{{ basename($foto->file_name) }}</p>
                                         <button type="button"
                                             class="btn btn-outline-primary btn-sm w-100 py-1 mb-1 d-flex align-items-center justify-content-center gap-2"
                                             data-bs-toggle="modal" data-bs-target="#previewModal{{ $index }}">
@@ -134,16 +134,16 @@
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <h5 class="modal-title" id="previewModalLabel{{ $index }}">
-                                                            {{ basename($foto->file_url) }}</h5>
+                                                            {{ basename($foto->file_name) }}</h5>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                             aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body text-center">
-                                                        @if (\Illuminate\Support\Str::endsWith($foto->file_url, ['.jpg', '.jpeg', '.png']))
-                                                            <img src="{{ asset('storage/' . $foto->file_url) }}" class="img-fluid"
+                                                        @if (\Illuminate\Support\Str::endsWith($foto->file_name, ['.jpg', '.jpeg', '.png']))
+                                                            <img src="{{ asset('storage/' . $foto->file_name) }}" class="img-fluid"
                                                                 style="max-height:80vh; object-fit:contain;">
                                                         @else
-                                                            <iframe src="{{ asset('storage/' . $foto->file_url) }}" class="w-100"
+                                                            <iframe src="{{ asset('storage/' . $foto->file_name) }}" class="w-100"
                                                                 style="height:80vh;"></iframe>
                                                         @endif
                                                     </div>

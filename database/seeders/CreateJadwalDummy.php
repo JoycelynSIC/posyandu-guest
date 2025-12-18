@@ -11,7 +11,9 @@ class CreateJadwalDummy extends Seeder
 {
     public function run(): void
     {
-        DB::table('jadwal')->truncate();
+        DB::table('jadwal')->delete();
+        DB::statement('ALTER TABLE jadwal AUTO_INCREMENT = 1');
+
         // Ambil semua posyandu_id yang ada
         $posyanduIds = DB::table('posyandu')->pluck('posyandu_id')->toArray();
 

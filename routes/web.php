@@ -12,6 +12,7 @@ use App\Http\Controllers\MediaController;
 use App\Http\Controllers\KaderController;
 use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LayananController;
 
 /*
 |--------------------------------------------------------------------------
@@ -100,3 +101,49 @@ Route::middleware(['auth', 'admin'])->group(function () {
 |--------------------------------------------------------------------------
 */
 Route::resource('jadwal', JadwalController::class);
+
+/*
+|--------------------------------------------------------------------------
+| LAYANAN ROUTES
+|-------------------------------------------------------------------------- 
+*/
+
+// USER & ADMIN → lihat layanan
+Route::middleware(['auth'])->group(function () {
+
+    // daftar layanan
+    Route::get('/layanan', [LayananController::class, 'index'])
+        ->name('layanan.index');
+
+    // detail layanan
+    Route::get('/layanan/{id}', [LayananController::class, 'show'])
+        ->name('layanan.show');
+});
+
+// ADMIN ONLY → input & edit layanan
+Route::middleware(['auth', 'admin'])->group(function () {
+
+    // form tambah layanan (berdasarkan jadwal)
+    Route::get('/layanan/create/{jadwal}', [LayananController::class, 'create'])
+        ->name('layanan.create');
+
+    // simpan layanan
+    Route::post('/layanan', [LayananController::class, 'store'])
+        ->name('layanan.store');
+
+    // form edit layanan
+    Route::get('/layanan/{id}/edit', [LayananController::class, 'edit'])
+        ->name('layanan.edit');
+
+    // update layanan
+    Route::put('/layanan/{id}', [LayananController::class, 'update'])
+        ->name('layanan.update');
+});
+
+Route::get('layanan/jadwal/{jadwal}', [LayananController::class, 'jadwalLayanan'])->name('layanan.jadwal');
+Route::get('/layanan/{id}/edit', [LayananController::class, 'edit'])->name('layanan.edit');
+Route::put('/layanan/{id}', [LayananController::class, 'update'])->name('layanan.update');
+Route::delete('/layanan/{id}', [LayananController::class, 'destroy'])->name('layanan.destroy');
+Route::delete('/layanan/{id}', [LayananController::class, 'destroy'])->name('layanan.destroy');
+
+

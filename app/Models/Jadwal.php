@@ -33,4 +33,6 @@ class Jadwal extends Model
     {
         return $this->media()->first();
     }
+
 }
+

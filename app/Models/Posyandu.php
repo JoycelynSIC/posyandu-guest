@@ -40,4 +40,17 @@ class Posyandu extends Model
         }
         return $query;
     }
+
+    public function layanan()
+{
+    return $this->hasManyThrough(
+        Layanan::class,
+        Jadwal::class,
+        'posyandu_id',  // FK di tabel jadwal
+        'jadwal_id',    // FK di tabel layanan
+        'posyandu_id',  // PK posyandu
+        'jadwal_id'     // PK jadwal
+    );
+}
+
 }

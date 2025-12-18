@@ -25,7 +25,7 @@
                     @php $poster = $jadwal->media->first(); @endphp
                     <div class="text-start flex-shrink-0 ms-md-3" style="max-width:200px;">
                         <p class="small fw-bold mb-2">Poster :</p>
-                        <img src="{{ asset('storage/' . $poster->file_url) }}" 
+                        <img src="{{ asset('storage/' . $poster->file_name) }}" 
                              alt="Poster"
                              class="img-fluid rounded shadow-sm" 
                              style="max-height:250px; width:100%; object-fit:cover;">
@@ -43,16 +43,16 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="previewModalPosterLabel">
-                                            {{ basename($poster->file_url) }}
+                                            {{ basename($poster->file_name) }}
                                         </h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body text-center">
-                                        @if (\Illuminate\Support\Str::endsWith($poster->file_url, ['.jpg', '.jpeg', '.png']))
-                                            <img src="{{ asset('storage/' . $poster->file_url) }}" class="img-fluid"
+                                        @if (\Illuminate\Support\Str::endsWith($poster->file_name, ['.jpg', '.jpeg', '.png']))
+                                            <img src="{{ asset('storage/' . $poster->file_name) }}" class="img-fluid"
                                                  style="max-height:80vh; object-fit:contain;">
                                         @else
-                                            <iframe src="{{ asset('storage/' . $poster->file_url) }}" class="w-100"
+                                            <iframe src="{{ asset('storage/' . $poster->file_name) }}" class="w-100"
                                                     style="height:80vh;"></iframe>
                                         @endif
                                     </div>

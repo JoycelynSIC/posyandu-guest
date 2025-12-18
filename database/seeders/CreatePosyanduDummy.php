@@ -10,7 +10,10 @@ class CreatePosyanduDummy extends Seeder
 {
     public function run()
     {
-        DB::table('posyandu')->truncate();
+       DB::table('posyandu')->delete();
+
+        // reset AI (opsional)
+        DB::statement('ALTER TABLE posyandu AUTO_INCREMENT = 1');
 
         $faker = Faker::create('id_ID');
         $posyanduData = [];

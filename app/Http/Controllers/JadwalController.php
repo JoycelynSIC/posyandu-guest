@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\Jadwal;
 use App\Models\Posyandu;
 use App\Models\Media;
+use App\Models\Layanan;
 
 class JadwalController extends Controller
 {
@@ -16,25 +17,32 @@ class JadwalController extends Controller
      * - search tema
      */
     public function index(Request $request)
-    {
-        $posyandu = Posyandu::orderBy('nama')->get();
+{
+    $posyandu = Posyandu::orderBy('nama')->get();
 
-        $jadwal = Jadwal::with(['posyandu', 'media'])
-            ->when(
-                $request->posyandu_id,
-                fn($q) =>
-                $q->where('posyandu_id', $request->posyandu_id)
-            )
-            ->when(
-                $request->search,
-                fn($q) =>
-                $q->where('tema', 'like', '%' . $request->search . '%')
-            )
-            ->orderBy('tanggal', 'DESC')
-            ->paginate(8);
+    // Ambil daftar jadwal
+    $jadwal = Jadwal::with(['posyandu', 'media'])
+        ->when($request->posyandu_id, fn($q) => $q->where('posyandu_id', $request->posyandu_id))
+        ->when($request->search, fn($q) => $q->where('tema', 'like', '%' . $request->search . '%'))
+        ->orderBy('tanggal', 'DESC')
+        ->paginate(8);
 
-        return view('pages.jadwal.index', compact('jadwal', 'posyandu'));
+    // Jika ada query jadwal_id → ambil layanan hanya untuk jadwal itu
+    $layanan = null;
+    $jadwalTerpilih = null;
+    if ($request->jadwal_id) {
+        $jadwalTerpilih = Jadwal::with('posyandu')->find($request->jadwal_id);
+        if ($jadwalTerpilih) {
+            $layanan = Layanan::with(['warga', 'jadwal'])
+                ->where('jadwal_id', $jadwalTerpilih->jadwal_id)
+                ->latest()
+                ->paginate(9);
+        }
     }
+
+    return view('pages.jadwal.index', compact('jadwal', 'posyandu', 'layanan', 'jadwalTerpilih'));
+}
+
 
     /**
      * ➕ FORM TAMBAH JADWAL
@@ -71,7 +79,7 @@ class JadwalController extends Controller
             Media::create([
                 'ref_table' => 'jadwal',
                 'ref_id' => $jadwal->jadwal_id,
-                'file_url' => $path,
+                'file_name' => $path,
                 'mime_type' => $file->getMimeType(),
                 'sort_order' => 1
             ]);
@@ -114,8 +122,8 @@ class JadwalController extends Controller
                 ->where('ref_id', $jadwal->jadwal_id)
                 ->first();
 
-            if ($oldPoster && Storage::disk('public')->exists($oldPoster->file_url)) {
-                Storage::disk('public')->delete($oldPoster->file_url);
+            if ($oldPoster && Storage::disk('public')->exists($oldPoster->file_name)) {
+                Storage::disk('public')->delete($oldPoster->file_name);
                 $oldPoster->delete();
             }
 
@@ -126,7 +134,7 @@ class JadwalController extends Controller
             Media::create([
                 'ref_table' => 'jadwal',
                 'ref_id' => $jadwal->jadwal_id,
-                'file_url' => $path,
+                'file_name' => $path,
                 'mime_type' => $file->getMimeType(),
                 'sort_order' => 1
             ]);
@@ -149,8 +157,8 @@ class JadwalController extends Controller
             ->get();
 
         foreach ($media as $m) {
-            if (Storage::disk('public')->exists($m->file_url)) {
-                Storage::disk('public')->delete($m->file_url);
+            if (Storage::disk('public')->exists($m->file_name)) {
+                Storage::disk('public')->delete($m->file_name);
             }
             $m->delete();
         }
