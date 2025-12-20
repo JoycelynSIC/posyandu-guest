@@ -79,7 +79,10 @@
             @forelse ($posyandu as $key => $data)
                 <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="{{ 0.4 + $key * 0.1 }}s">
 
-                    <div class="card border-0 shadow-sm rounded-4 h-100 overflow-hidden position-relative">
+                    <div class="card h-100 rounded-4 border-0 overflow-hidden shadow-sm"
+                        style="transition: transform 0.3s; cursor:pointer;"
+                        onmouseover="this.style.transform='translateY(-6px)'"
+                        onmouseout="this.style.transform='translateY(0)'">
 
                         {{-- Header Biru --}}
                         <div class="text-center bg-primary text-white p-3 rounded-top">

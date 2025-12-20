@@ -15,32 +15,39 @@
 <script src="{{ asset('assets/js/main.js') }}"></script>
 
 <script>
-function previewFoto(input) {
-    if (input.files && input.files[0]) {
-        const reader = new FileReader();
-        reader.onload = function (e) {
-            document.getElementById('fotoPreview').src = e.target.result;
+    function previewFoto(input) {
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                document.getElementById('fotoPreview').src = e.target.result;
+            }
+            reader.readAsDataURL(input.files[0]);
         }
-        reader.readAsDataURL(input.files[0]);
     }
-}
-</script>
 
-<script>
-function hapusFoto(id) {
-    if (!confirm('Apakah Anda yakin ingin menghapus foto ini?')) return;
+    function hapusFoto(id) {
+        if (!confirm('Apakah Anda yakin ingin menghapus foto ini?')) return;
 
-    fetch(`/warga/${id}/foto`, {
-        method: 'DELETE',
-        headers: {
-            'X-CSRF-TOKEN': '{{ csrf_token() }}',
-            'Accept': 'application/json'
+        fetch(`/warga/${id}/foto`, {
+            method: 'DELETE',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                'Accept': 'application/json'
+            }
+        })
+            .then(res => {
+                if (!res.ok) throw new Error('Gagal menghapus foto');
+                location.reload();
+            })
+            .catch(() => alert('Gagal menghapus foto'));
+    }
+    function previewPoster(input) {
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = e => {
+                document.getElementById('posterPreview').src = e.target.result;
+            };
+            reader.readAsDataURL(input.files[0]);
         }
-    })
-    .then(res => {
-        if (!res.ok) throw new Error('Gagal menghapus foto');
-        location.reload();
-    })
-    .catch(() => alert('Gagal menghapus foto'));
-}
+    }
 </script>

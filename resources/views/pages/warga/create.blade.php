@@ -45,7 +45,7 @@
 
                 <!-- Upload Foto Profil -->
                 <div class="mb-2">
-                    <label class="fw-semibold">Foto Profil</label>
+                    <label class="fw-semibold"><i class="fa fa-camera me-1 text-primary"></i> Foto Profil</label>
                     <input type="file"
                            name="profile_image"
                            class="form-control form-control-sm @error('profile_image') is-invalid @enderror"
@@ -62,7 +62,7 @@
                 <!-- No KTP + Nama -->
                 <div class="row g-2 mb-1">
                     <div class="col-md-6">
-                        <label class="fw-semibold">No KTP</label>
+                        <label class="fw-semibold"><i class="fa fa-id-card me-1 text-primary"></i> No KTP</label>
                         <input type="text"
                                name="no_ktp"
                                class="form-control form-control-sm @error('no_ktp') is-invalid @enderror"
@@ -77,7 +77,7 @@
                     </div>
 
                     <div class="col-md-6">
-                        <label class="fw-semibold">Nama Lengkap</label>
+                        <label class="fw-semibold"><i class="fa fa-user me-1 text-primary"></i> Nama Lengkap</label>
                         <input type="text"
                                name="nama"
                                class="form-control form-control-sm @error('nama') is-invalid @enderror"
@@ -93,7 +93,7 @@
                 <!-- Jenis Kelamin + Agama -->
                 <div class="row g-2 mb-1">
                     <div class="col-md-6">
-                        <label class="fw-semibold">Jenis Kelamin</label>
+                        <label class="fw-semibold"><i class="fa fa-venus-mars me-1 text-primary"></i> Jenis Kelamin</label>
                         <select name="jenis_kelamin"
                                 class="form-select form-select-sm @error('jenis_kelamin') is-invalid @enderror"
                                 required>
@@ -107,7 +107,7 @@
                     </div>
 
                     <div class="col-md-6">
-                        <label class="fw-semibold">Agama</label>
+                        <label class="fw-semibold"><i class="fa-solid fa-praying-hands text-primary"></i> Agama</label>
                         <select name="agama"
                                 class="form-select form-select-sm @error('agama') is-invalid @enderror"
                                 required>
@@ -128,7 +128,7 @@
                 <!-- Pekerjaan + Telepon -->
                 <div class="row g-2 mb-1">
                     <div class="col-md-6">
-                        <label class="fw-semibold">Pekerjaan</label>
+                        <label class="fw-semibold"><i class="fa fa-briefcase me-1 text-primary"></i> Pekerjaan</label>
                         <input type="text"
                                name="pekerjaan"
                                class="form-control form-control-sm @error('pekerjaan') is-invalid @enderror"
@@ -140,7 +140,7 @@
                     </div>
 
                     <div class="col-md-6">
-                        <label class="fw-semibold">No. Telepon</label>
+                        <label class="fw-semibold"><i class="fa fa-phone me-1 text-primary"></i> No. Telepon</label>
                         <input type="text"
                                name="telp"
                                class="form-control form-control-sm @error('telp') is-invalid @enderror"
@@ -156,7 +156,7 @@
 
                 <!-- Email -->
                 <div class="mb-1">
-                    <label class="fw-semibold">Email</label>
+                    <label class="fw-semibold"><i class="fa fa-envelope me-1 text-primary"></i> Email</label>
                     <input type="email"
                            name="email"
                            class="form-control form-control-sm @error('email') is-invalid @enderror"
@@ -168,12 +168,12 @@
                 </div>
 
                 <!-- Tombol -->
-                <div class="d-flex justify-content-between mt-2 wow fadeInUp" data-wow-delay="0.4s">
-                    <a href="{{ route('warga.index') }}" class="btn btn-primary rounded-pill px-2 py-1">
-                        <i class="fa fa-arrow-left me-1"></i> Kembali
+                <div class="d-flex justify-content-between mt-3 wow fadeInUp" data-wow-delay="0.4s">
+                    <a href="{{ route('warga.index') }}" class="btn btn-outline-dark d-flex align-items-center justify-content-center gap-1" style="min-width: 100px; height: 40px;">
+                        <i class="fa fa-arrow-left"></i> Kembali
                     </a>
-                    <button type="submit" class="btn btn-primary rounded-pill px-2 py-1">
-                        <i class="fa fa-save me-1"></i> Simpan
+                    <button type="submit" class="btn btn-outline-primary d-flex align-items-center justify-content-center gap-1" style="min-width: 100px; height: 40px;">
+                        <i class="fa fa-save"></i> Simpan
                     </button>
                 </div>
 

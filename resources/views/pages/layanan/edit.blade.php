@@ -14,7 +14,7 @@
                         style="width:70px; height:70px; background-color:#e3f2fd; color:#0d6efd;">
                         <i class="fas fa-notes-medical fa-lg"></i>
                     </div>
-                    <h5 class="fw-bold mt-2 mb-1 text-primary">Edit Layanan</h5>
+                    <h5 class="fw-bold mt-2 mb-1 text-primary">Edit Riwayat Layanan</h5>
                     <p class="text-muted mb-1" style="font-size:0.8rem;">
                         Ubah data layanan warga sesuai kebutuhan
                     </p>

@@ -16,32 +16,34 @@
 
 
             {{-- Search + Tombol Kembali --}}
-            <form method="GET" action="{{ route('layanan.jadwal', $jadwal->jadwal_id) }}" class="mb-4 wow fadeInUp"
-                data-wow-delay="0.15s">
-                <div class="row g-3 align-items-center">
-                    {{-- Search --}}
-                    <div class="col-md-6">
-                        <input type="text" name="search" class="form-control shadow-sm" placeholder="Cari nama warga..."
-                            value="{{ request('search') }}">
-                    </div>
+           <form method="GET" action="{{ route('layanan.jadwal', $jadwal->jadwal_id) }}" class="mb-4 wow fadeInUp"
+    data-wow-delay="0.15s">
+    <div class="row g-3 align-items-end">
+        {{-- Search --}}
+        <div class="col-md-6">
+            <label class="form-label fw-bold">Temukan</label>
+            <input type="text" name="search" class="form-control shadow-sm" placeholder="Cari nama warga..."
+                value="{{ request('search') }}">
+        </div>
 
-                    {{-- Tombol Go & Clear --}}
-                    <div class="col-md-3 d-flex gap-2">
-                        <button type="submit" class="btn btn-primary flex-fill">Go</button>
-                        @if(request('search'))
-                            <a href="{{ route('layanan.jadwal', $jadwal->jadwal_id) }}"
-                                class="btn btn-outline-primary flex-fill">Clear</a>
-                        @endif
-                    </div>
+        {{-- Tombol Go & Clear --}}
+        <div class="col-md-3 d-flex gap-2">
+            <button type="submit" class="btn btn-primary flex-fill">Go</button>
+            @if(request('search'))
+                <a href="{{ route('layanan.jadwal', $jadwal->jadwal_id) }}"
+                    class="btn btn-outline-primary flex-fill">Clear</a>
+            @endif
+        </div>
 
-                    {{-- Tombol Kembali --}}
-                    <div class="col-md-3">
-                        <a href="{{ route('jadwal.index') }}" class="btn btn-outline-primary w-100">
-                            <i class="fa fa-arrow-left me-1"></i> Kembali
-                        </a>
-                    </div>
-                </div>
-            </form>
+        {{-- Tombol Kembali --}}
+        <div class="col-md-3">
+            <a href="{{ route('jadwal.index') }}" class="btn btn-outline-primary w-100">
+                <i class="fa fa-arrow-left me-1"></i> Kembali
+            </a>
+        </div>
+    </div>
+</form>
+
 
             {{-- Tombol Tambah Layanan --}}
             @auth
@@ -121,12 +123,6 @@
 
                                 <div
                                     class="card-footer text-center bg-primary border-0 pt-2 pb-2 d-flex justify-content-center align-items-center gap-2">
-
-                                    {{-- Detail Jadwal --}}
-                                    <a href="{{ route('jadwal.show', $item->jadwal_id) }}"
-                                        class="btn btn-outline-light btn-sm shadow-sm">
-                                        <i class="fa fa-eye me-1"></i> Detail
-                                    </a>
 
                                     {{-- Hanya admin bisa Edit & Hapus --}}
                                     @auth

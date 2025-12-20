@@ -75,4 +75,89 @@
             </div>
         </div>
     </section>
+
+    <section class="feature py-5 bg-light">
+        <div class="container text-center mb-4">
+            <div class="wow fadeInUp" data-wow-delay="0.2s">
+                <h5 class="text-primary fw-bold text-uppercase mb-2">Layanan Kami</h5>
+                <h2 class="fw-bold mb-5">Mendukung Kesehatan Ibu & Balita</h2>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row g-4">
+
+                {{-- Card 1 --}}
+                <div class="col-md-6 wow fadeInLeft" data-wow-delay="0.2s">
+                    <div class="p-4 shadow-sm h-100 bg-white rounded-4 d-flex align-items-start gap-3"
+                        style="border-radius:20px; transition: transform 0.3s;"
+                        onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                        <div class="flex-shrink-0 text-primary" style="font-size:2rem;">
+                            <i class="fas fa-syringe"></i>
+                        </div>
+                        <div class="text-start">
+                            <h5 class="fw-semibold mb-1 text-dark">Imunisasi</h5>
+                            <p class="text-muted mb-0" style="font-size:0.9rem;">
+                                Memberikan imunisasi lengkap bagi bayi dan balita sesuai jadwal nasional.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- Card 2 --}}
+                <div class="col-md-6 wow fadeInRight" data-wow-delay="0.4s">
+                    <div class="p-4 shadow-sm h-100 bg-white rounded-4 d-flex align-items-start gap-3"
+                        style="border-radius:20px; transition: transform 0.3s;"
+                        onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                        <div class="flex-shrink-0 text-primary" style="font-size:2rem;">
+                            <i class="fas fa-weight"></i>
+                        </div>
+                        <div class="text-start">
+                            <h5 class="fw-semibold mb-1 text-dark">Penimbangan</h5>
+                            <p class="text-muted mb-0" style="font-size:0.9rem;">
+                                Menimbang berat badan bayi dan balita untuk memantau tumbuh kembang mereka.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- Card 3 --}}
+                <div class="col-md-6 wow fadeInLeft" data-wow-delay="0.6s">
+                    <div class="p-4 shadow-sm h-100 bg-white rounded-4 d-flex align-items-start gap-3"
+                        style="border-radius:20px; transition: transform 0.3s;"
+                        onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                        <div class="flex-shrink-0 text-primary" style="font-size:2rem;">
+                            <i class="fas fa-stethoscope"></i>
+                        </div>
+                        <div class="text-start">
+                            <h5 class="fw-semibold mb-1 text-dark">Pemeriksaan Kesehatan</h5>
+                            <p class="text-muted mb-0" style="font-size:0.9rem;">
+                                Pemeriksaan rutin kesehatan ibu dan balita untuk mendeteksi dini masalah kesehatan.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- Card 4 --}}
+                <div class="col-md-6 wow fadeInRight" data-wow-delay="0.8s">
+                    <div class="p-4 shadow-sm h-100 bg-white rounded-4 d-flex align-items-start gap-3"
+                        style="border-radius:20px; transition: transform 0.3s;"
+                        onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                        <div class="flex-shrink-0 text-primary" style="font-size:2rem;">
+                            <i class="fas fa-book-reader"></i>
+                        </div>
+                        <div class="text-start">
+                            <h5 class="fw-semibold mb-1 text-dark">Edukasi & Konseling</h5>
+                            <p class="text-muted mb-0" style="font-size:0.9rem;">
+                                Memberikan edukasi kesehatan, gizi, dan konseling bagi orang tua dan keluarga.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
 @endsection

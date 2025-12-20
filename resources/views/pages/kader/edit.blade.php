@@ -10,23 +10,22 @@
 
             <!-- Header -->
             <div class="text-center mb-2 wow fadeInDown" data-wow-delay="0.1s">
-    <div class="mx-auto shadow-sm border border-2 border-primary rounded-circle overflow-hidden d-flex align-items-center justify-content-center"
-         style="width:70px;height:70px;background:#e8f0ff;">
-        
-        @if($kader->warga->foto && $kader->warga->foto != 'assets/img/placeholder.png')
-            <img src="{{ asset('storage/' . $kader->warga->foto) }}"
-                 alt="{{ $kader->warga->nama }}"
-                 style="width:100%;height:100%;object-fit:cover;">
-        @else
-            <i class="fas fa-user-nurse fa-lg text-primary"></i>
-        @endif
-    </div>
+                <div class="mx-auto shadow-sm border border-2 border-primary rounded-circle overflow-hidden d-flex align-items-center justify-content-center"
+                     style="width:70px;height:70px;background:#e3f2fd;">
+                    @if($kader->warga->foto && $kader->warga->foto != 'assets/img/placeholder.png')
+                        <img src="{{ asset('storage/' . $kader->warga->foto) }}"
+                             alt="{{ $kader->warga->nama }}"
+                             style="width:100%;height:100%;object-fit:cover;">
+                    @else
+                        <i class="fas fa-user-nurse fa-lg text-primary"></i>
+                    @endif
+                </div>
 
-    <h5 class="fw-bold mt-2 mb-1 text-primary">Edit Kader Posyandu</h5>
-    <p class="text-muted mb-1" style="font-size:0.8rem;">
-        Perbarui informasi kader dengan benar dan lengkap
-    </p>
-</div>
+                <h5 class="fw-bold mt-2 mb-1 text-primary">Edit Kader Posyandu</h5>
+                <p class="text-muted mb-1" style="font-size:0.8rem;">
+                    Perbarui informasi kader dengan benar dan lengkap
+                </p>
+            </div>
 
             <!-- Error Validation -->
             @if ($errors->any())
@@ -47,7 +46,9 @@
 
                 <!-- Posyandu -->
                 <div class="mb-2">
-                    <label class="fw-semibold">Posyandu</label>
+                    <label class="fw-semibold">
+                        <i class="fa fa-clinic-medical me-1 text-primary"></i> Posyandu
+                    </label>
                     <select name="posyandu_id" class="form-select form-select-sm @error('posyandu_id') is-invalid @enderror" required>
                         <option value="">-- Pilih Posyandu --</option>
                         @foreach ($posyandu as $pos)
@@ -59,9 +60,11 @@
                     @error('posyandu_id')<div class="invalid-feedback">{{ $message }}</div>@enderror
                 </div>
 
-                <!-- Warga -->
+                <!-- Nama Warga -->
                 <div class="mb-2">
-                    <label class="fw-semibold">Nama Warga</label>
+                    <label class="fw-semibold">
+                        <i class="fa fa-user me-1 text-primary"></i> Nama Warga
+                    </label>
                     <select name="warga_id" class="form-select form-select-sm @error('warga_id') is-invalid @enderror" required>
                         <option value="">-- Pilih Warga --</option>
                         @foreach ($warga as $w)
@@ -75,7 +78,9 @@
 
                 <!-- Peran -->
                 <div class="mb-2">
-                    <label class="fw-semibold">Peran</label>
+                    <label class="fw-semibold">
+                        <i class="fa fa-user-tag me-1 text-primary"></i> Peran
+                    </label>
                     <select name="peran" class="form-select form-select-sm @error('peran') is-invalid @enderror" required>
                         <option value="">-- Pilih Peran --</option>
                         <option value="Ketua Kader" {{ old('peran', $kader->peran)=='Ketua Kader'?'selected':'' }}>Ketua Kader</option>
@@ -88,16 +93,20 @@
                     @error('peran')<div class="invalid-feedback">{{ $message }}</div>@enderror
                 </div>
 
-                <!-- Tanggal -->
+                <!-- Tanggal Mulai & Akhir Tugas -->
                 <div class="row g-2 mb-2">
                     <div class="col-md-6">
-                        <label class="fw-semibold">Mulai Tugas</label>
+                        <label class="fw-semibold">
+                            <i class="fa fa-calendar-alt me-1 text-primary"></i> Mulai Tugas
+                        </label>
                         <input type="date" name="mulai_tugas" class="form-control form-control-sm @error('mulai_tugas') is-invalid @enderror"
                                value="{{ old('mulai_tugas', $kader->mulai_tugas) }}" required>
                         @error('mulai_tugas')<div class="invalid-feedback">{{ $message }}</div>@enderror
                     </div>
                     <div class="col-md-6">
-                        <label class="fw-semibold">Akhir Tugas (Opsional)</label>
+                        <label class="fw-semibold">
+                            <i class="fa fa-calendar-check me-1 text-primary"></i> Akhir Tugas (Opsional)
+                        </label>
                         <input type="date" name="akhir_tugas" class="form-control form-control-sm @error('akhir_tugas') is-invalid @enderror"
                                value="{{ old('akhir_tugas', $kader->akhir_tugas) }}">
                         @error('akhir_tugas')<div class="invalid-feedback">{{ $message }}</div>@enderror
@@ -109,7 +118,7 @@
                     <a href="{{ route('kader.index') }}" class="btn btn-outline-dark px-2 py-1">
                         <i class="fa fa-arrow-left me-1"></i> Kembali
                     </a>
-                    <button type="submit" class="btn btn-outline-primary  px-2 py-1">
+                    <button type="submit" class="btn btn-outline-primary px-2 py-1">
                         <i class="fa fa-save me-1"></i> Perbarui
                     </button>
                 </div>

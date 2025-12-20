@@ -52,7 +52,9 @@
                                 <a href="{{ route('jadwal.index') }}" class="dropdown-item">
                                     <i class="fas fa-calendar-alt text-primary me-2"></i> Jadwal Posyandu
                                 </a>
-
+                                <a href="{{ route('imunisasi.index') }}" class="dropdown-item">
+                <i class="fas fa-syringe text-primary me-2"></i> Catatan Imunisasi
+            </a>
                             </div>
                         </div>
                     @endauth

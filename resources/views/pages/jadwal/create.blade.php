@@ -21,7 +21,6 @@
                     </p>
                 </div>
 
-
                 <!-- Error Validation -->
                 @if ($errors->any())
                     <div class="alert alert-danger alert-dismissible fade show wow fadeInUp" data-wow-delay="0.2s">
@@ -41,7 +40,7 @@
 
                     <!-- Poster Kegiatan -->
                     <div class="mb-2">
-                        <label class="fw-semibold">Poster Kegiatan</label>
+                        <label class="fw-semibold"><i class="fa fa-image me-1 text-primary"></i> Poster Kegiatan</label>
                         <input type="file" name="poster"
                             class="form-control form-control-sm @error('poster') is-invalid @enderror" accept="image/*"
                             onchange="previewPoster(this)">
@@ -55,7 +54,7 @@
 
                     <!-- Posyandu -->
                     <div class="mb-1">
-                        <label class="fw-semibold">Posyandu</label>
+                        <label class="fw-semibold"><i class="fa fa-clinic-medical me-1 text-primary"></i> Posyandu</label>
                         <select name="posyandu_id"
                             class="form-select form-select-sm @error('posyandu_id') is-invalid @enderror" required>
                             <option value="">-- Pilih Posyandu --</option>
@@ -72,7 +71,7 @@
 
                     <!-- Tanggal -->
                     <div class="mb-1">
-                        <label class="fw-semibold">Tanggal Kegiatan</label>
+                        <label class="fw-semibold"><i class="fa fa-calendar-alt me-1 text-primary"></i> Tanggal Kegiatan</label>
                         <input type="date" name="tanggal"
                             class="form-control form-control-sm @error('tanggal') is-invalid @enderror"
                             value="{{ old('tanggal') }}" required>
@@ -83,7 +82,7 @@
 
                     <!-- Tema -->
                     <div class="mb-1">
-                        <label class="fw-semibold">Tema Kegiatan</label>
+                        <label class="fw-semibold"><i class="fa fa-book-open me-1 text-primary"></i> Tema Kegiatan</label>
                         <input type="text" name="tema"
                             class="form-control form-control-sm @error('tema') is-invalid @enderror"
                             value="{{ old('tema') }}" placeholder="Contoh: Imunisasi & Penimbangan" required>
@@ -94,7 +93,7 @@
 
                     <!-- Keterangan -->
                     <div class="mb-1">
-                        <label class="fw-semibold">Keterangan</label>
+                        <label class="fw-semibold"><i class="fa fa-info-circle me-1 text-primary"></i> Keterangan</label>
                         <textarea name="keterangan" rows="2"
                             class="form-control form-control-sm @error('keterangan') is-invalid @enderror"
                             placeholder="Keterangan tambahan (opsional)">{{ old('keterangan') }}</textarea>
@@ -117,17 +116,4 @@
             </div>
         </div>
     </div>
-
-    <!-- Preview Poster -->
-    <script>
-        function previewPoster(input) {
-            if (input.files && input.files[0]) {
-                const reader = new FileReader();
-                reader.onload = e => {
-                    document.getElementById('posterPreview').src = e.target.result;
-                };
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-    </script>
 @endsection

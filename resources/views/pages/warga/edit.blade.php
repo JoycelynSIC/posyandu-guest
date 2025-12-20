@@ -41,11 +41,10 @@
 
                     <!-- Upload Foto Profil -->
                     <div class="mb-2">
-                        <label class="fw-semibold">Foto Profil</label>
+                        <label class="fw-semibold"><i class="fa fa-camera me-1 text-primary"></i> Foto Profil</label>
                         <input type="file" name="foto"
                             class="form-control form-control-sm @error('foto') is-invalid @enderror" accept="image/*"
                             onchange="previewFoto(this)">
-
                         <small class="text-muted d-block" style="font-size:0.75rem;">
                             JPG / PNG • Opsional • Kosongkan jika tidak ingin mengganti foto
                         </small>
@@ -56,8 +55,19 @@
 
                     <!-- No KTP + Nama -->
                     <div class="row g-2 mb-1">
+
+                    <div class="col-md-6">
+                            <label class="fw-semibold"><i class="fa fa-user me-1 text-primary"></i> Nama Lengkap</label>
+                            <input type="text" name="nama"
+                                class="form-control form-control-sm @error('nama') is-invalid @enderror"
+                                value="{{ old('nama', $warga->nama) }}" placeholder="Nama lengkap" required>
+                            @error('nama')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
                         <div class="col-md-6">
-                            <label class="fw-semibold">No KTP</label>
+                            <label class="fw-semibold"><i class="fa fa-id-card me-1 text-primary"></i> No KTP</label>
                             <input type="text" name="no_ktp"
                                 class="form-control form-control-sm @error('no_ktp') is-invalid @enderror"
                                 value="{{ old('no_ktp', $warga->no_ktp) }}" maxlength="16"
@@ -68,21 +78,14 @@
                             @enderror
                         </div>
 
-                        <div class="col-md-6">
-                            <label class="fw-semibold">Nama Lengkap</label>
-                            <input type="text" name="nama"
-                                class="form-control form-control-sm @error('nama') is-invalid @enderror"
-                                value="{{ old('nama', $warga->nama) }}" placeholder="Nama lengkap" required>
-                            @error('nama')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
+                        
                     </div>
 
                     <!-- Jenis Kelamin + Agama -->
                     <div class="row g-2 mb-1">
                         <div class="col-md-6">
-                            <label class="fw-semibold">Jenis Kelamin</label>
+                            <label class="fw-semibold"><i class="fa fa-venus-mars me-1 text-primary"></i> Jenis
+                                Kelamin</label>
                             <select name="jenis_kelamin"
                                 class="form-select form-select-sm @error('jenis_kelamin') is-invalid @enderror" required>
                                 <option value="">-- Pilih --</option>
@@ -95,13 +98,12 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label class="fw-semibold">Agama</label>
+                            <label class="fw-semibold"><i class="fa-solid fa-praying-hands text-primary"></i> Agama</label>
                             <select name="agama" class="form-select form-select-sm @error('agama') is-invalid @enderror"
                                 required>
                                 <option value="">-- Pilih --</option>
                                 @foreach(['Islam', 'Kristen Protestan', 'Katolik', 'Hindu', 'Buddha', 'Konghucu'] as $a)
-                                    <option value="{{ $a }}" {{ old('agama', $warga->agama) == $a ? 'selected' : '' }}>{{ $a }}
-                                    </option>
+                                    <option value="{{ $a }}" {{ old('agama', $warga->agama) == $a ? 'selected' : '' }}>{{ $a }}</option>
                                 @endforeach
                             </select>
                             @error('agama')
@@ -113,7 +115,7 @@
                     <!-- Pekerjaan + Telepon -->
                     <div class="row g-2 mb-1">
                         <div class="col-md-6">
-                            <label class="fw-semibold">Pekerjaan</label>
+                            <label class="fw-semibold"><i class="fa fa-briefcase me-1 text-primary"></i> Pekerjaan</label>
                             <input type="text" name="pekerjaan"
                                 class="form-control form-control-sm @error('pekerjaan') is-invalid @enderror"
                                 value="{{ old('pekerjaan', $warga->pekerjaan) }}" placeholder="Pekerjaan">
@@ -123,7 +125,7 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label class="fw-semibold">No. Telepon</label>
+                            <label class="fw-semibold"><i class="fa fa-phone me-1 text-primary"></i> No. Telepon</label>
                             <input type="text" name="telp"
                                 class="form-control form-control-sm @error('telp') is-invalid @enderror"
                                 value="{{ old('telp', $warga->telp) }}" maxlength="13" placeholder="Nomor HP"
@@ -136,7 +138,7 @@
 
                     <!-- Email -->
                     <div class="mb-1">
-                        <label class="fw-semibold">Email</label>
+                        <label class="fw-semibold"><i class="fa fa-envelope me-1 text-primary"></i> Email</label>
                         <input type="email" name="email"
                             class="form-control form-control-sm @error('email') is-invalid @enderror"
                             value="{{ old('email', $warga->email) }}" placeholder="nama@email.com">
@@ -163,7 +165,6 @@
                                 <i class="fa fa-trash"></i> Hapus Foto
                             </button>
                         @endif
-
 
                         <!-- Tombol Perbarui -->
                         <button type="submit"

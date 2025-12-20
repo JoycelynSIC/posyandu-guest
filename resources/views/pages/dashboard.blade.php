@@ -207,21 +207,11 @@
                         <div class="feature-icon mb-4 mx-auto">
                             <i class="fas fa-user-nurse fa-2x"></i>
                         </div>
-                        <h4 class="fw-bold mb-3">100</h4>
+                        <h4 class="fw-bold mb-3">30</h4>
                         <p class="mb-0">Kader Aktif</p>
                     </div>
                 </div>
 
-                <!-- Item 4 -->
-                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
-                    <div class="feature-item text-center p-4 shadow-sm">
-                        <div class="feature-icon mb-4 mx-auto">
-                            <i class="fas fa-heartbeat fa-2x"></i>
-                        </div>
-                        <h4 class="fw-bold mb-3">3</h4>
-                        <p class="mb-0">Program Layanan</p>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
@@ -236,10 +226,13 @@
             </h5>
             @auth
                 @if(auth()->user()->role === 'admin')
-                    <a href="{{ route('jadwal.index') }}" class="btn btn-sm btn-outline-primary rounded-pill wow fadeInRight"
-                        data-wow-delay="0.2s">
-                        Lihat Semua
-                    </a>
+                    <a href="{{ route('jadwal.index') }}"
+   class="btn btn-sm btn-outline-primary rounded-pill wow fadeInRight d-inline-flex align-items-center gap-1"
+   data-wow-delay="0.2s">
+    <i class="fa fa-list"></i>
+    Lihat Semua
+</a>
+
                 @endif
             @endauth
 
@@ -249,7 +242,10 @@
             @if(isset($jadwal) && $jadwal->count())
                 @foreach($jadwal as $j)
                     <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="{{ $loop->index * 0.2 }}s">
-                        <div class="card border-0 shadow-sm rounded-4 h-100">
+                        <div class="card border-0 shadow-sm rounded-4 h-100 overflow-hidden"
+                            style="transition: transform 0.3s; cursor:pointer;"
+                            onmouseover="this.style.transform='translateY(-6px)'" onmouseout="this.style.transform='translateY(0)'">
+
 
                             <!-- Poster / Placeholder -->
                             @php

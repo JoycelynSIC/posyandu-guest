@@ -76,22 +76,29 @@
                                             Data Posyandu
                                         </a>
                                     </li>
-                                    <li>
+                                    <li class="mb-1">
                                         <i class="fas fa-angle-right me-2 text-info"></i>
                                         <a href="{{ route('kader.index') }}" class="text-white text-decoration-none">
                                             Data Kader
                                         </a>
                                     </li>
-                                    <li>
-                                        <li class="mb-1"></li>
+                                    <li class="mb-1">
                                         <i class="fas fa-angle-right me-2 text-info"></i>
                                         <a href="{{ route('jadwal.index') }}" class="text-white text-decoration-none">
                                             Jadwal Posyandu
                                         </a>
                                     </li>
+                                    <li class="mb-1">
+                                        <i class="fas fa-angle-right me-2 text-info"></i>
+                                        <a href="{{ route('imunisasi.index') }}"
+                                            class="text-white text-decoration-none">
+                                            Catatan Imunisasi
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
                         </li>
+
                         <!-- TENTANG -->
                         <li class="mb-2">
                             <i class="fas fa-chevron-right me-2 text-info"></i>

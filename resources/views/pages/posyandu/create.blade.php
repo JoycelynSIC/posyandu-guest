@@ -11,17 +11,16 @@
             <!-- Header -->
             <div class="text-center mb-3 wow fadeInDown" data-wow-delay="0.1s">
                 <div class="rounded-circle d-flex align-items-center justify-content-center mx-auto shadow-sm border border-2 border-primary"
-     style="width:60px; height:60px; background-color:#e3f2fd; color:#0d6efd;">
-    <i class="fas fa-clinic-medical"></i>
-</div>
-
-                <h4 class="fw-bold mt-2 mb-1 text-primary">Tambah Posyandu</h4>
-                <p class="text-muted mb-0">Isi form berikut untuk menambahkan posyandu baru</p>
+                     style="width:70px; height:70px; background-color:#e3f2fd; color:#0d6efd;">
+                    <i class="fas fa-clinic-medical fa-lg"></i>
+                </div>
+                <h5 class="fw-bold mt-2 mb-1 text-primary">Tambah Posyandu</h5>
+                <p class="text-muted mb-1" style="font-size:0.8rem;">Isi form berikut untuk menambahkan posyandu baru</p>
             </div>
 
             <!-- Error Validasi -->
             @if ($errors->any())
-                <div class="alert alert-danger alert-dismissible fade show wow fadeInUp" data-wow-delay="0.2s">
+                <div class="alert alert-danger alert-dismissible fade show wow fadeInUp" data-wow-delay="0.2s" style="font-size:0.85rem;">
                     <ul class="mb-0">
                         @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>
@@ -32,112 +31,69 @@
             @endif
 
             <!-- Form -->
-            <form action="{{ route('posyandu.store') }}" method="POST"
-                  class="wow fadeInUp" data-wow-delay="0.3s"
+            <form action="{{ route('posyandu.store') }}" method="POST" class="wow fadeInUp" data-wow-delay="0.3s"
                   novalidate enctype="multipart/form-data">
                 @csrf
 
-                <!-- Row 1 -->
+                <!-- Nama & Alamat -->
                 <div class="row g-2 mb-2">
                     <div class="col-md-6">
-                        <label class="fw-semibold">Nama Posyandu</label>
-                        <input type="text"
-                               name="nama"
-                               class="form-control @error('nama') is-invalid @enderror"
-                               value="{{ old('nama') }}"
-                               placeholder="Masukkan nama posyandu"
-                               required>
-                        @error('nama')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
+                        <label class="fw-semibold"><i class="fa fa-clinic-medical me-1 text-primary"></i> Nama Posyandu</label>
+                        <input type="text" name="nama" class="form-control form-control-sm @error('nama') is-invalid @enderror"
+                               value="{{ old('nama') }}" placeholder="Nama Posyandu" required>
+                        @error('nama')<div class="invalid-feedback">{{ $message }}</div>@enderror
                     </div>
-
                     <div class="col-md-6">
-                        <label class="fw-semibold">Alamat</label>
-                        <input type="text"
-                               name="alamat"
-                               class="form-control @error('alamat') is-invalid @enderror"
-                               value="{{ old('alamat') }}"
-                               placeholder="Masukkan alamat posyandu"
-                               required>
-                        @error('alamat')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
+                        <label class="fw-semibold"><i class="fa fa-map-marker-alt me-1 text-primary"></i> Alamat</label>
+                        <input type="text" name="alamat" class="form-control form-control-sm @error('alamat') is-invalid @enderror"
+                               value="{{ old('alamat') }}" placeholder="Alamat Posyandu" required>
+                        @error('alamat')<div class="invalid-feedback">{{ $message }}</div>@enderror
                     </div>
                 </div>
 
-                <!-- Row 2 -->
+                <!-- RT & RW -->
                 <div class="row g-2 mb-2">
-                    <div class="col-md-4">
-                        <label class="fw-semibold">RT</label>
-                        <input type="text"
-                               name="rt"
-                               class="form-control @error('rt') is-invalid @enderror"
-                               value="{{ old('rt') }}"
-                               placeholder="Masukkan RT"
-                               required>
-                        @error('rt')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
+                    <div class="col-md-6">
+                        <label class="fw-semibold"><i class="fa fa-home me-1 text-primary"></i> RT</label>
+                        <input type="text" name="rt" class="form-control form-control-sm @error('rt') is-invalid @enderror"
+                               value="{{ old('rt') }}" placeholder="RT" required>
+                        @error('rt')<div class="invalid-feedback">{{ $message }}</div>@enderror
                     </div>
-
-                    <div class="col-md-4">
-                        <label class="fw-semibold">RW</label>
-                        <input type="text"
-                               name="rw"
-                               class="form-control @error('rw') is-invalid @enderror"
-                               value="{{ old('rw') }}"
-                               placeholder="Masukkan RW"
-                               required>
-                        @error('rw')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-
-                    <div class="col-md-4">
-                        <label class="fw-semibold">Kontak</label>
-                        <input type="text"
-                               name="kontak"
-                               class="form-control @error('kontak') is-invalid @enderror"
-                               value="{{ old('kontak') }}"
-                               placeholder="Masukkan nomor kontak"
-                               required>
-                        @error('kontak')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
+                    <div class="col-md-6">
+                        <label class="fw-semibold"><i class="fa fa-home me-1 text-primary"></i> RW</label>
+                        <input type="text" name="rw" class="form-control form-control-sm @error('rw') is-invalid @enderror"
+                               value="{{ old('rw') }}" placeholder="RW" required>
+                        @error('rw')<div class="invalid-feedback">{{ $message }}</div>@enderror
                     </div>
                 </div>
 
-                <!-- Upload -->
-                <div class="mb-3">
-                    <label class="fw-semibold d-block mb-1">
-                        Upload Foto / Dokumen Posyandu
-                    </label>
-                    <input type="file"
-                           name="fotos[]"
-                           multiple
-                           class="form-control @error('fotos') is-invalid @enderror">
-                    <small class="text-muted">
-                        Format: jpg, png, pdf | Maksimal 5MB
-                    </small>
-                    @error('fotos')
-                        <div class="invalid-feedback d-block">{{ $message }}</div>
-                    @enderror
+                <!-- Kontak & Upload Dokumen -->
+                <div class="row g-2 mb-2">
+                    <div class="col-md-6">
+                        <label class="fw-semibold"><i class="fa fa-phone me-1 text-primary"></i> Kontak</label>
+                        <input type="text" name="kontak" class="form-control form-control-sm @error('kontak') is-invalid @enderror"
+                               value="{{ old('kontak') }}" placeholder="Nomor Kontak" required>
+                        @error('kontak')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                    </div>
+                    <div class="col-md-6">
+                        <label class="fw-semibold"><i class="fa fa-upload me-1 text-primary"></i> Upload Dokumen / Foto</label>
+                        <input type="file" name="fotos[]" multiple class="form-control form-control-sm @error('fotos') is-invalid @enderror">
+                        <small class="text-muted d-block">jpg, png | Max 5MB</small>
+                        @error('fotos')<div class="invalid-feedback d-block">{{ $message }}</div>@enderror
+                    </div>
                 </div>
 
                 <!-- Tombol -->
                 <div class="d-flex justify-content-between mt-3 wow fadeInUp" data-wow-delay="0.4s">
-                    <a href="{{ route('posyandu.index') }}"
-                       class="btn btn-primary rounded-pill px-3 py-1">
+                    <a href="{{ route('posyandu.index') }}" class="btn btn-outline-dark px-3 py-1">
                         <i class="fa fa-arrow-left me-1"></i> Kembali
                     </a>
-                    <button type="submit"
-                            class="btn btn-primary rounded-pill px-3 py-1">
+                    <button type="submit" class="btn btn-outline-primary px-3 py-1">
                         <i class="fa fa-save me-1"></i> Simpan
                     </button>
                 </div>
-            </form>
 
+            </form>
         </div>
     </div>
 </div>
