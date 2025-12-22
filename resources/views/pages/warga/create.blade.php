@@ -47,7 +47,7 @@
                 <div class="mb-2">
                     <label class="fw-semibold"><i class="fa fa-camera me-1 text-primary"></i> Foto Profil</label>
                     <input type="file"
-                           name="profile_image"
+                           name="foto"
                            class="form-control form-control-sm @error('profile_image') is-invalid @enderror"
                            accept="image/*"
                            onchange="previewFoto(this)">
