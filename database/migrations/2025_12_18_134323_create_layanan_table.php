@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('layanan', function (Blueprint $table) {
 
             // PK
-            $table->increments('layanan_id');
+            $table->id('layanan_id');
 
             // FK
             $table->unsignedBigInteger('jadwal_id'); // ke jadwal.jadwal_id
-            $table->unsignedInteger('warga_id');     // ke warga.warga_id
+            $table->unsignedBigInteger('warga_id');     // ke warga.warga_id
 
             // Data layanan
             $table->decimal('berat', 5, 2)->nullable();

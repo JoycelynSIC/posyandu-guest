@@ -105,19 +105,18 @@
                                 <i class="fa fa-eye me-1"></i> Detail
                             </a>
 
-                            <a href="{{ route('layanan.index', ['jadwal_id' => $j->jadwal_id]) }}"
-                                class="btn btn-outline-dark d-flex align-items-center gap-1 shadow-sm"
-                                style="min-width:110px; height:36px;">
-                                <i class="fa fa-clock-rotate-left me-1"></i> Riwayat Layanan
-                            </a>
-
                             @auth
-                                @if (auth()->user()->role === 'admin')
-                                    <a href="{{ route('jadwal.edit', $j->jadwal_id) }}"
+                               @if(auth()->user()->role === 'admin')
+                           	 <a href="{{ route('layanan.index', ['jadwal_id' => $j->jadwal_id]) }}"
+                               	        class="btn btn-outline-dark d-flex align-items-center gap-1 shadow-sm"
+                                        style="min-width:110px; height:36px;">
+                                        <i class="fa fa-clock-rotate-left me-1"></i> Riwayat Layanan
+                                 </a>
+                                 <a href="{{ route('jadwal.edit', $j->jadwal_id) }}"
                                         class="btn btn-outline-primary d-flex align-items-center gap-1 shadow-sm"
                                         style="min-width:90px; height:36px;">
                                         <i class="fa fa-pen me-1"></i> Edit
-                                    </a>
+                                 </a>
 
                                     <form action="{{ route('jadwal.destroy', $j->jadwal_id) }}" method="POST" class="m-0">
                                         @csrf

@@ -10,7 +10,9 @@ class CreateWargaDummy extends Seeder
 {
     public function run()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         DB::table('warga')->truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
         $faker = Faker::create('id_ID');
         $wargaData = [];
