@@ -12,6 +12,27 @@
             <p class="text-muted mb-0 small">Informasi akun yang kamu gunakan</p>
         </div>
 
+        {{-- Alert --}}
+@if(session('success'))
+    <div class="alert alert-success alert-dismissible fade show wow fadeInUp" data-wow-delay="0.2s" role="alert">
+        {{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if($errors->any())
+    <div class="alert alert-danger alert-dismissible fade show wow fadeInUp" data-wow-delay="0.2s" role="alert">
+        <ul class="mb-0">
+            @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+
+        
         {{-- Card Profil Compact --}}
         <div class="card border-0 rounded-4 shadow-sm p-3 wow fadeInUp" data-wow-delay="0.2s" style="box-sizing: border-box; width: 100%;">
 

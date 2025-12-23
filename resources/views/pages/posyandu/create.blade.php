@@ -78,7 +78,7 @@
                     <div class="col-md-6">
                         <label class="fw-semibold"><i class="fa fa-upload me-1 text-primary"></i> Upload Dokumen / Foto</label>
                         <input type="file" name="fotos[]" multiple class="form-control form-control-sm @error('fotos') is-invalid @enderror">
-                        <small class="text-muted d-block">jpg, png | Max 5MB</small>
+                        <small class="text-muted d-block">jpg, png | Max 10 MB</small>
                         @error('fotos')<div class="invalid-feedback d-block">{{ $message }}</div>@enderror
                     </div>
                 </div>

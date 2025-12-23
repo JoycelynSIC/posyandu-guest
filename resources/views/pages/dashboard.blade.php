@@ -217,26 +217,25 @@
     </section>
 
     <!-- Jadwal Pelayanan -->
-    <div class="container py-4">
+    <div class="container py-4 px-3 px-md-2">
+
 
         <!-- Header dengan animasi -->
-        <div class="d-flex justify-content-between align-items-center mb-4">
+        <div class="d-flex flex-column flex-sm-row
+                justify-content-between align-items-start align-items-sm-center
+                gap-2 mb-4">
+
             <h5 class="fw-bold text-primary mb-0 wow fadeInLeft" data-wow-delay="0.1s">
                 <i class="fa fa-calendar-alt me-2"></i> Jadwal Posyandu Terdekat
             </h5>
-            @auth
-                @if(auth()->user()->role === 'admin')
-                    <a href="{{ route('jadwal.index') }}"
-   class="btn btn-sm btn-outline-primary rounded-pill wow fadeInRight d-inline-flex align-items-center gap-1"
-   data-wow-delay="0.2s">
-    <i class="fa fa-list"></i>
-    Lihat Semua
-</a>
 
-                @endif
-            @endauth
-
+            <a href="{{ route('jadwal.index') }}" class="btn btn-sm btn-outline-primary rounded-pill
+                  wow fadeInRight d-inline-flex align-items-center gap-1" data-wow-delay="0.2s">
+                <i class="fa fa-list"></i>
+                Lihat Semua
+            </a>
         </div>
+
 
         <div class="row g-4">
             @if(isset($jadwal) && $jadwal->count())

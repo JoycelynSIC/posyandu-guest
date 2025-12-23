@@ -21,7 +21,7 @@ class PosyanduController extends Controller
             ->paginate(10)
             ->onEachSide(2);
 
-        // ✅ placeholder disediakan controller
+        // placeholder disediakan controller
         $placeholderImage = 'assets/img/placeholderimg.jpg';
 
         return view('pages.posyandu.index', compact('posyandu', 'placeholderImage'));
@@ -133,7 +133,7 @@ class PosyanduController extends Controller
             ->orderBy('sort_order')
             ->get();
 
-        // ✅ placeholder disediakan controller
+        // placeholder disediakan controller
         $placeholderimage = 'assets/img/placeholderimg.jpg';
 
         return view('pages.posyandu.detail', compact('posyandu', 'fotos', 'placeholderimage'));

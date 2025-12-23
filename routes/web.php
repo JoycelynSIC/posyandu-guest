@@ -19,14 +19,14 @@ use App\Http\Controllers\CatatanImunisasiController;
 | PUBLIC ROUTES
 |--------------------------------------------------------------------------
 */
-Route::get('/', [DashboardController::class, 'index'])->name('home');
+Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 Route::view('/about', 'pages.about')->name('about');
 Route::view('/kontak', 'pages.kontak')->name('kontak');
 
 Route::get('/cek-db', function () {
-    return DB::connection()->getDatabaseName();
+	return DB::connection()->getDatabaseName();
 });
 
 /*
@@ -48,34 +48,22 @@ Route::post('/register', [AuthController::class, 'register'])->name('register.po
 */
 Route::middleware(['auth'])->group(function () {
 
-    // PROFILE
-    Route::get('/profile', [UserController::class, 'profile'])->name('profile');
-    Route::delete('/users/{id}/photo', [UserController::class, 'deletePhoto'])
-        ->name('users.photo.delete');
+	// PROFILE
+	Route::get('/profile', [UserController::class, 'profile'])->name('profile');
+	Route::delete('/users/{id}/photo', [UserController::class, 'deletePhoto'])
+		->name('users.photo.delete');
+	Route::resource('users', UserController::class);
 
-    // USERS
-    Route::resource('users', UserController::class);
+	// MEDIA
+	Route::post('/media/upload', [MediaController::class, 'upload'])->name('media.upload');
+	Route::delete('/media/{id}', [MediaController::class, 'destroy'])->name('media.delete');
 
-    // WARGA
-    Route::delete('/warga/{id}/foto', [WargaController::class, 'deletePhoto'])
-        ->name('warga.photo.delete');
-    Route::resource('warga', WargaController::class);
-
-    // POSYANDU
-    Route::resource('posyandu', PosyanduController::class);
-    Route::get('/posyandu/{id}/delete-file/{index}', [PosyanduController::class, 'deleteFile'])
-        ->name('posyandu.deleteFile');
-
-    // MEDIA
-    Route::post('/media/upload', [MediaController::class, 'upload'])->name('media.upload');
-    Route::delete('/media/{id}', [MediaController::class, 'destroy'])->name('media.delete');
-
-    /*
-    |--------------------------------------------------------------------------
-    | JADWAL (SEMUA USER BISA LIHAT)
-    |--------------------------------------------------------------------------
-    */
-    Route::get('/jadwal', [JadwalController::class, 'index'])->name('jadwal.index');
+	/*
+	|--------------------------------------------------------------------------
+	| JADWAL (SEMUA USER BISA LIHAT)
+	|--------------------------------------------------------------------------
+	*/
+	Route::get('/jadwal', [JadwalController::class, 'index'])->name('jadwal.index');
 });
 
 /*
@@ -85,52 +73,71 @@ Route::middleware(['auth'])->group(function () {
 */
 Route::middleware(['auth', 'admin'])->group(function () {
 
-    // KADER
-    Route::resource('kader', KaderController::class);
+	// KADER
+	Route::resource('kader', KaderController::class);
 
-    /*
-    |--------------------------------------------------------------------------
-    | JADWAL (ADMIN CRUD)
-    | ROUTE STATIS HARUS DI ATAS!
-    |--------------------------------------------------------------------------
-    */
-    Route::get('/jadwal/create', [JadwalController::class, 'create'])
-        ->name('jadwal.create');
+	// WARGA
+	Route::delete('/warga/{id}/foto', [WargaController::class, 'deletePhoto'])
+		->name('warga.photo.delete');
+	Route::resource('warga', WargaController::class);
 
-    Route::post('/jadwal', [JadwalController::class, 'store'])
-        ->name('jadwal.store');
+	// POSYANDU
+	Route::resource('posyandu', PosyanduController::class);
+	Route::get('/posyandu/{id}/delete-file/{index}', [PosyanduController::class, 'deleteFile'])
+		->name('posyandu.deleteFile');
 
-    Route::get('/jadwal/{jadwal}/edit', [JadwalController::class, 'edit'])
-        ->name('jadwal.edit');
+	/*
+	|--------------------------------------------------------------------------
+	| JADWAL (ADMIN CRUD)
+	| ROUTE STATIS HARUS DI ATAS!
+	|--------------------------------------------------------------------------
+	*/
+	Route::get('/jadwal/create', [JadwalController::class, 'create'])
+		->name('jadwal.create');
 
-    Route::put('/jadwal/{jadwal}', [JadwalController::class, 'update'])
-        ->name('jadwal.update');
+	Route::post('/jadwal', [JadwalController::class, 'store'])
+		->name('jadwal.store');
 
-    Route::delete('/jadwal/{jadwal}', [JadwalController::class, 'destroy'])
-        ->name('jadwal.destroy');
+	Route::get('/jadwal/{jadwal}/edit', [JadwalController::class, 'edit'])
+		->name('jadwal.edit');
 
-    /*
-    |--------------------------------------------------------------------------
-    | LAYANAN (ADMIN ONLY)
-    |--------------------------------------------------------------------------
-    */
-    Route::get('/layanan', [LayananController::class, 'index'])->name('layanan.index');
-    Route::get('/layanan/create/{jadwal}', [LayananController::class, 'create'])->name('layanan.create');
-    Route::post('/layanan', [LayananController::class, 'store'])->name('layanan.store');
-    Route::get('/layanan/{id}/edit', [LayananController::class, 'edit'])->name('layanan.edit');
-    Route::put('/layanan/{id}', [LayananController::class, 'update'])->name('layanan.update');
-    Route::delete('/layanan/{id}', [LayananController::class, 'destroy'])->name('layanan.destroy');
-    Route::get('/layanan/jadwal/{jadwal}', [LayananController::class, 'jadwalLayanan'])
-        ->name('layanan.jadwal');
+	Route::put('/jadwal/{jadwal}', [JadwalController::class, 'update'])
+		->name('jadwal.update');
 
-    /*
-    |--------------------------------------------------------------------------
-    | CATATAN IMUNISASI
-    |--------------------------------------------------------------------------
-    */
-    Route::resource('imunisasi', CatatanImunisasiController::class);
-    Route::get('/imunisasi/{id}/delete-file', [CatatanImunisasiController::class, 'deleteFile'])
-        ->name('imunisasi.deleteFile');
+	Route::delete('/jadwal/{jadwal}', [JadwalController::class, 'destroy'])
+		->name('jadwal.destroy');
+
+	/*
+	|--------------------------------------------------------------------------
+	| LAYANAN (ADMIN ONLY)
+	|--------------------------------------------------------------------------
+	*/
+	Route::get('/layanan', [LayananController::class, 'index'])->name('layanan.index');
+	Route::get('/layanan/create/{jadwal}', [LayananController::class, 'create'])
+		->name('layanan.create');
+	Route::post('/layanan', [LayananController::class, 'store'])->name('layanan.store');
+	Route::get('/layanan/{id}/edit', [LayananController::class, 'edit'])
+		->name('layanan.edit');
+	Route::put('/layanan/{id}', [LayananController::class, 'update'])->name('layanan.update');
+	Route::delete('/layanan/{id}', [LayananController::class, 'destroy'])
+		->name('layanan.destroy');
+	Route::get('/layanan/jadwal/{jadwal}', [LayananController::class, 'jadwalLayanan'])
+		->name('layanan.jadwal');
+
+	/*
+	|--------------------------------------------------------------------------
+	| CATATAN IMUNISASI
+	|--------------------------------------------------------------------------
+	*/
+	Route::resource('imunisasi', CatatanImunisasiController::class);
+	Route::get('/imunisasi/{id}/delete-file', [CatatanImunisasiController::class, 'deleteFile'])
+		->name('imunisasi.deleteFile');
+
+	Route::get('/admin/users', [UserController::class, 'index'])
+        ->name('users.admin.index');
+
+    Route::put('/admin/users/{user}/role', [UserController::class, 'updateRole'])
+        ->name('users.admin.updateRole');
 });
 
 /*
@@ -139,5 +146,5 @@ Route::middleware(['auth', 'admin'])->group(function () {
 |--------------------------------------------------------------------------
 */
 Route::get('/jadwal/{jadwal}', [JadwalController::class, 'show'])
-    ->whereNumber('jadwal')
-    ->name('jadwal.show');
+	->whereNumber('jadwal')
+	->name('jadwal.show');

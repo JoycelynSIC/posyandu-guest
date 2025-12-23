@@ -17,31 +17,31 @@ class JadwalController extends Controller
      * - search tema
      */
     public function index(Request $request)
-{
-    $posyandu = Posyandu::orderBy('nama')->get();
+    {
+        $posyandu = Posyandu::orderBy('nama')->get();
 
-    // Ambil daftar jadwal
-    $jadwal = Jadwal::with(['posyandu', 'media'])
-        ->when($request->posyandu_id, fn($q) => $q->where('posyandu_id', $request->posyandu_id))
-        ->when($request->search, fn($q) => $q->where('tema', 'like', '%' . $request->search . '%'))
-        ->orderBy('tanggal', 'DESC')
-        ->paginate(8);
+        // Ambil daftar jadwal
+        $jadwal = Jadwal::with(['posyandu', 'media'])
+            ->when($request->posyandu_id, fn($q) => $q->where('posyandu_id', $request->posyandu_id))
+            ->when($request->search, fn($q) => $q->where('tema', 'like', '%' . $request->search . '%'))
+            ->orderBy('tanggal', 'DESC')
+            ->paginate(8);
 
-    // Jika ada query jadwal_id → ambil layanan hanya untuk jadwal itu
-    $layanan = null;
-    $jadwalTerpilih = null;
-    if ($request->jadwal_id) {
-        $jadwalTerpilih = Jadwal::with('posyandu')->find($request->jadwal_id);
-        if ($jadwalTerpilih) {
-            $layanan = Layanan::with(['warga', 'jadwal'])
-                ->where('jadwal_id', $jadwalTerpilih->jadwal_id)
-                ->latest()
-                ->paginate(9);
+        // Jika ada query jadwal_id → ambil layanan hanya untuk jadwal itu
+        $layanan = null;
+        $jadwalTerpilih = null;
+        if ($request->jadwal_id) {
+            $jadwalTerpilih = Jadwal::with('posyandu')->find($request->jadwal_id);
+            if ($jadwalTerpilih) {
+                $layanan = Layanan::with(['warga', 'jadwal'])
+                    ->where('jadwal_id', $jadwalTerpilih->jadwal_id)
+                    ->latest()
+                    ->paginate(9);
+            }
         }
-    }
 
-    return view('pages.jadwal.index', compact('jadwal', 'posyandu', 'layanan', 'jadwalTerpilih'));
-}
+        return view('pages.jadwal.index', compact('jadwal', 'posyandu', 'layanan', 'jadwalTerpilih'));
+    }
 
 
     /**
@@ -63,12 +63,12 @@ class JadwalController extends Controller
             'tanggal' => 'required|date',
             'tema' => 'required|string|max:255',
             'keterangan' => 'nullable|string',
-            'poster' => 'nullable|image|mimes:jpg,jpeg,png|max:2048'
+            'poster' => 'nullable|image|mimes:jpg,jpeg,png|max:10240'
         ]);
 
         $jadwal = Jadwal::create($validated);
 
-        // 🔥 simpan poster ke tabel media
+        // simpan poster ke tabel media
         if ($request->hasFile('poster')) {
             $file = $request->file('poster');
             // Pakai nama asli
@@ -84,8 +84,9 @@ class JadwalController extends Controller
                 'sort_order' => 1
             ]);
         }
-        return redirect()->route('pages.jadwal.index')
+        return redirect()->route('jadwal.index')
             ->with('success', 'Jadwal Posyandu berhasil ditambahkan');
+
     }
 
     /**
@@ -116,7 +117,7 @@ class JadwalController extends Controller
 
         $jadwal->update($validated);
 
-        // 🔁 ganti poster lama
+        // Sganti poster lama
         if ($request->hasFile('poster')) {
             $oldPoster = Media::where('ref_table', 'jadwal')
                 ->where('ref_id', $jadwal->jadwal_id)

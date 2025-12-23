@@ -11,11 +11,17 @@ use Illuminate\Support\Facades\Storage;
 class UserController extends Controller
 {
     // Halaman login (optional)
-    public function index()
-    {
-        $users = User::all();
-        return view('pages.auth.login', compact('users'));
+   public function index()
+{
+    // khusus admin
+    if (auth()->user()->role !== 'admin') {
+        abort(403);
     }
+
+    $users = User::orderBy('created_at', 'desc')->paginate(9); 
+    return view('pages.users.index', compact('users'));
+}
+
 
     // Halaman profil user
     public function profile()
@@ -119,5 +125,32 @@ class UserController extends Controller
 
     return back()->with('success', 'Foto profil berhasil dihapus.');
 }
+public function updateRole(Request $request, User $user)
+{
+    $request->validate([
+        'role' => 'required|in:admin,user',
+    ]);
+
+    // hanya admin yang boleh
+    if (auth()->user()->role !== 'admin') {
+        abort(403);
+    }
+
+    $user->role = $request->role;
+    $user->save();
+
+    // kalau admin ngubah role dirinya sendiri → logout
+    if (auth()->id() === $user->id) {
+        Auth::logout();
+        request()->session()->invalidate();
+        request()->session()->regenerateToken();
+
+        return redirect()->route('login')
+            ->with('success', 'Role berhasil diubah. Silakan login ulang.');
+    }
+
+    return back()->with('success', 'Role user berhasil diperbarui.');
+}
+
 
 }

@@ -82,8 +82,9 @@ class LayananController extends Controller
         Layanan::create($validated);
 
         return redirect()
-            ->route('jadwal.show', $request->jadwal_id)
+            ->route('layanan.index', ['jadwal_id' => $request->jadwal_id])
             ->with('success', 'Data layanan berhasil ditambahkan');
+
     }
 
     /**
@@ -119,7 +120,6 @@ class LayananController extends Controller
         return redirect()
             ->route('layanan.index', ['jadwal_id' => $layanan->jadwal_id])
             ->with('success', 'Data layanan berhasil diperbarui');
-
     }
 
     /**
@@ -133,7 +133,8 @@ class LayananController extends Controller
             ->where('jadwal_id', $jadwal_id);
 
         if ($request->search) {
-            $query->whereHas('warga', fn($q) => $q->where('nama', 'like', "%{$request->search}%"));
+            $query->whereHas('warga', fn($q) => $q->where
+            ('nama', 'like', "%{$request->search}%"));
         }
 
         $layanan = $query->latest()->paginate(9);

@@ -29,7 +29,7 @@ class KaderController extends Controller
             })
             ->orderBy('kader_id', 'ASC')
             ->paginate(12)
-            ->withQueryString(); // penting agar filter tetap aktif saat pagination
+            ->withQueryString(); 
 
         // Ambil total jumlah kader
         $kaderAktif = Kader::count();

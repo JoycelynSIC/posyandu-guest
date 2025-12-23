@@ -15,6 +15,6 @@ class CheckAdmin
             return $next($request);
         }
 
-        abort(403, 'Akses ditolak. Hanya admin yang dapat mengakses halaman ini.');
+        abort(403);
     }
 }

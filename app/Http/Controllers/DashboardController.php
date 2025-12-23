@@ -9,7 +9,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        // Ambil 4 jadwal terdekat (hari ini & ke depan)
+        //Mengmbil 4 jadwal terdekat
         $jadwal = Jadwal::whereDate('tanggal', '>=', Carbon::today())
             ->orderBy('tanggal', 'asc')
             ->take(4)
